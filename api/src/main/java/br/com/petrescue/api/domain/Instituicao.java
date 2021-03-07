@@ -12,4 +12,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "instituicao")
 public class Instituicao extends Usuario{
+
+    private String cpfCnpj;
+    private String descricao;
 }

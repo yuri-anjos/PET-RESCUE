@@ -19,4 +19,9 @@ public class Conversa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private Usuario usuarioUm;
+
+    private Usuario usuarioDois;
+
 }

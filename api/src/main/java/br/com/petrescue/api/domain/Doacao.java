@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,4 +20,12 @@ public class Doacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private Usuario doador;
+
+    private Double quantia;
+
+    private LocalDate quando;
+
+    private Vaquinha vaquinha;
 }

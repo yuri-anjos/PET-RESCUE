@@ -1,5 +1,8 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.domain.enums.Sexo;
+import br.com.petrescue.api.domain.enums.TipoAnimal;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,4 +22,20 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private Usuario usuario;
+
+    private String foto;
+
+    private TipoAnimal tipoAnimal;
+
+    private String raca;
+
+    private Sexo sexo;
+
+    private LocalDate dataNascimento;
+
+    private String descricao;
+
+    private String vacinas;
 }
