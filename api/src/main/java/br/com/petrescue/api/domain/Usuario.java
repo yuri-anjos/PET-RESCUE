@@ -48,5 +48,4 @@ public class Usuario {
             @AttributeOverride( name = "longitude", column = @Column(name = "longitude"))
     })
     private Localizacao localizacao;
-
 }

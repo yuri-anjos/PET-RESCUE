@@ -17,11 +17,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-#      ddl-auto: validate
       dialect: org.hibernate.dialect.MySQL5Dialect
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
     hikari:
       maximum-pool-size: 3
     username: root

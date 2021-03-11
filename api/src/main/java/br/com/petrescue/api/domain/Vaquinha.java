@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "vaquinha")
 public class Vaquinha {
@@ -26,6 +28,9 @@ public class Vaquinha {
 
     @Column(columnDefinition="DECIMAL(8,2) UNSIGNED")
     private Double meta;
+
+    @Column(name = "valor_arrecadado", columnDefinition="DECIMAL(8,2) UNSIGNED")
+    private Double valorArrecadado;
 
     @Column(nullable = false)
     private LocalDate inicio;
