@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/privado/mensagem")
+@RequestMapping("/mensagem")
 public class MensagemController {
 }
