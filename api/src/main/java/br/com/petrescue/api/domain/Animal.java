@@ -31,9 +31,9 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JoinColumn(name = "id_usuario")
-    @ManyToOne
-    private Usuario usuario;
+    @Column(name = "situacao_adocao", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SituacaoAdocao situacaoAdocao;
 
     @Column
     private String foto;
@@ -41,10 +41,6 @@ public class Animal {
     @Column(name = "tipo_animal", nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoAnimal tipoAnimal;
-
-    @Column(name = "situacao_adocao", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private SituacaoAdocao situacaoAdocao;
 
     @Column
     private String raca;
@@ -61,4 +57,8 @@ public class Animal {
 
     @Column(nullable = false)
     private String vacinas;
+
+    @JoinColumn(name = "id_usuario")
+    @ManyToOne
+    private Usuario usuario;
 }

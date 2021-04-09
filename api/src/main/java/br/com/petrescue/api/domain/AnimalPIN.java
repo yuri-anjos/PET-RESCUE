@@ -50,9 +50,8 @@ public class AnimalPIN {
     @Enumerated(EnumType.STRING)
     private TipoPIN tipoPIN;
 
-    @JoinColumn(name = "id_usuario")
-    @ManyToOne
-    private Usuario usuario;
+    @Column(nullable = false)
+    private Boolean ativo;
 
     @Embedded
     @AttributeOverrides({
@@ -61,6 +60,7 @@ public class AnimalPIN {
     })
     private Localizacao localizacao;
 
-    @Column
-    private boolean ativo;
+    @JoinColumn(name = "id_usuario")
+    @ManyToOne
+    private Usuario usuario;
 }

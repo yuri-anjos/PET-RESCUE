@@ -29,14 +29,23 @@ public class Vaquinha {
     @Column(columnDefinition="DECIMAL(8,2) UNSIGNED")
     private Double meta;
 
-    @Column(name = "valor_arrecadado", columnDefinition="DECIMAL(8,2) UNSIGNED")
+    @Column(name = "valor_arrecadado", columnDefinition="DECIMAL(8,2) UNSIGNED", nullable = false)
     private Double valorArrecadado;
+
+    @Column
+    private String foto;
 
     @Column(nullable = false)
     private LocalDate inicio;
 
     @Column(nullable = false)
+    private String titulo;
+
+    @Column(nullable = false)
     private String descricao;
+
+    @Column(nullable = false)
+    private Boolean ativo;
 
     @JoinColumn(name = "id_usuario")
     @ManyToOne

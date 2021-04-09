@@ -26,15 +26,15 @@ public class Doacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JoinColumn(name = "id_doador")
-    @ManyToOne
-    private Usuario doador;
-
     @Column(nullable = false, columnDefinition="DECIMAL(7,2) UNSIGNED")
     private Double quantia;
 
     @Column(nullable = false)
     private LocalDate quando;
+
+    @JoinColumn(name = "id_doador")
+    @ManyToOne
+    private Usuario doador;
 
     @JoinColumn(name = "id_vaquinha")
     @ManyToOne

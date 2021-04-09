@@ -24,11 +24,11 @@ public class Conversa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JoinColumn(name = "id_usuario_um")
+    @JoinColumn(name = "usuario_um")
     @ManyToOne
     private Usuario usuarioUm;
 
-    @JoinColumn(name = "id_usuario_dois")
+    @JoinColumn(name = "usuario_dois")
     @ManyToOne
     private Usuario usuarioDois;
 

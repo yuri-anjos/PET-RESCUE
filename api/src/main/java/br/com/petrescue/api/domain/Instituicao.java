@@ -16,6 +16,9 @@ import lombok.Setter;
 @Table(name = "instituicao")
 public class Instituicao extends Usuario{
 
+    @Column(name = "nome_ong", nullable = false)
+    private String nomeOng;
+
     @Column(name = "cpf_cnpj", unique = true, nullable = false)
     private String cpfCnpj;
 

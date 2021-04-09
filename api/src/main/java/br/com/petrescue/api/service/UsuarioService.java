@@ -28,7 +28,7 @@ public class UsuarioService {
 
     @Transactional
     public Usuario cadastrarIndividuo(Individuo individuo) {
-        geralValidator.stringTamanho(individuo.getNome(), "Nome", 3);
+        geralValidator.string(individuo.getNome(), "Nome");
         geralValidator.string(individuo.getEmail(), "email");
 
         individuo.setSaldo(0.0);
@@ -40,11 +40,13 @@ public class UsuarioService {
 
     @Transactional
     public Usuario cadastrarInstituicao(Instituicao instituicao) {
-        geralValidator.stringTamanho(instituicao.getNome(), "Nome", 3);
+        geralValidator.string(instituicao.getNome(), "Nome");
         geralValidator.string(instituicao.getEmail(), "email");
-        geralValidator.stringTamanho(instituicao.getCpfCnpj(), "CPF/CNPJ", 11);
-        geralValidator.stringTamanho(instituicao.getDescricao(), "Descrição", 10);
+        geralValidator.string(instituicao.getCpfCnpj(), "CPF/CNPJ");
+        geralValidator.string(instituicao.getDescricao(), "Descrição");
+        geralValidator.string(instituicao.getNomeOng(), "Nome da ONG");
         geralValidator.localizacao(instituicao.getLocalizacao());
+
         instituicao.setSaldo(0.0);
         instituicao.setId(null);
 
