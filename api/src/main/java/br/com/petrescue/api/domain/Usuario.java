@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.domain.enums.TipoUsuario;
 import br.com.petrescue.api.domain.subClasses.Localizacao;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -48,4 +49,6 @@ public class Usuario {
             @AttributeOverride( name = "longitude", column = @Column(name = "longitude"))
     })
     private Localizacao localizacao;
+
+    private TipoUsuario tipoUsuario;
 }

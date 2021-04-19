@@ -7,6 +7,7 @@ import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.service.BuscarTodosUsuariosService;
 import br.com.petrescue.api.service.CriarTodosUsuariosService;
 import br.com.petrescue.api.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +47,8 @@ public class UsuarioController {
 
     @GetMapping("/buscar/todos")
     @ResponseStatus(HttpStatus.OK)
-    public void buscarTodosTiposUsuarios(){
-        buscarTodosUsuariosService.buscar();
+    public List<Usuario> buscarTodosTiposUsuarios(){
+        return this.buscarTodosUsuariosService.buscar();
     }
 
     @PostMapping("/cadastrar/individuo")

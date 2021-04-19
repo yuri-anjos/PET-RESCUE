@@ -24,10 +24,11 @@ public class BuscarTodosUsuariosService {
     private IndividuoRepository individuoRepository;
 
     @Transactional
-    public void buscar(){
-        List<Usuario> usuarios=usuarioRepository.findAll();
+    public List<Usuario> buscar(){
+
         List<Instituicao> instituicoes=instituicaoRepository.findAll();
         List<Individuo> individuos=individuoRepository.findAll();
-        return;
+        return usuarioRepository.findAll();
+
     }
 }
