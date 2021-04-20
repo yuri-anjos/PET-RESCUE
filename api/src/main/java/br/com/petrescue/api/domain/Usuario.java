@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
 import br.com.petrescue.api.domain.subClasses.Localizacao;
 import javax.persistence.AttributeOverride;
@@ -7,6 +8,8 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,5 +53,29 @@ public class Usuario {
     })
     private Localizacao localizacao;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
+
+    @Column(name = "nome_ong")
+    private String nomeOng;
+
+    @Column(name = "cpf_cnpj", unique = true)
+    private String cpfCnpj;
+
+    @Column
+    private String descricao;
+
+    public Usuario(UsuarioDTO usuarioDTO) {
+        this.id = usuarioDTO.getId();
+        this.saldo = usuarioDTO.getSaldo();
+        this.email = usuarioDTO.getEmail();
+        this.nome = usuarioDTO.getNome();
+        this.foto = usuarioDTO.getFoto();
+        this.localizacao = usuarioDTO.getLocalizacao();
+        this.tipoUsuario = usuarioDTO.getTipoUsuario();
+        this.nomeOng = usuarioDTO.getNomeOng();
+        this.cpfCnpj = usuarioDTO.getCpfCnpj();
+        this.descricao = usuarioDTO.getDescricao();
+    }
 }

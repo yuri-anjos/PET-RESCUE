@@ -1,11 +1,9 @@
 package br.com.petrescue.api.controller;
 
 
-import br.com.petrescue.api.domain.Individuo;
-import br.com.petrescue.api.domain.Instituicao;
+import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.service.BuscarTodosUsuariosService;
-import br.com.petrescue.api.service.CriarTodosUsuariosService;
 import br.com.petrescue.api.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,21 +43,16 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/buscar/todos")
+    @GetMapping("/buscar")
     @ResponseStatus(HttpStatus.OK)
     public List<Usuario> buscarTodosTiposUsuarios(){
         return this.buscarTodosUsuariosService.buscar();
     }
 
-    @PostMapping("/cadastrar/individuo")
+    @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario cadastrarIndividuo(@RequestBody Individuo individuo){
-        return usuarioService.cadastrarIndividuo(individuo);
+    public Usuario cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        return this.usuarioService.cadastrarUsuario(usuarioDTO);
     }
 
-    @PostMapping("/cadastrar/instituicao")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Usuario cadastrarInstituicao(@RequestBody Instituicao instituicao){
-        return usuarioService.cadastrarInstituicao(instituicao);
-    }
 }
