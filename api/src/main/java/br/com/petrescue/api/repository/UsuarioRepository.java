@@ -19,5 +19,5 @@ public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, I
 //
 //    List<Usuario> findByDataIngressoBetweenAndCargoNot(LocalDate dataAntes, LocalDate data, Cargo cargo);
 
-    Optional<Usuario> findByEmail(String email);
+    Optional<Usuario> findByEmailAndSenha(String email, String senha);
 }

@@ -41,6 +41,9 @@ public class Usuario {
     private String email;
 
     @Column(nullable = false)
+    private String senha;
+
+    @Column(nullable = false)
     private String nome;
 
     @Column
@@ -70,6 +73,7 @@ public class Usuario {
         this.id = usuarioDTO.getId();
         this.saldo = usuarioDTO.getSaldo();
         this.email = usuarioDTO.getEmail();
+        this.senha = usuarioDTO.getSenha();
         this.nome = usuarioDTO.getNome();
         this.foto = usuarioDTO.getFoto();
         this.localizacao = usuarioDTO.getLocalizacao();

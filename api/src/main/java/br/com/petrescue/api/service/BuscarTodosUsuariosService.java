@@ -15,6 +15,6 @@ public class BuscarTodosUsuariosService {
 
     @Transactional
     public List<Usuario> buscar(){
-        return usuarioRepository.findAll();
+        return (List<Usuario>) this.usuarioRepository.findAll();
     }
 }

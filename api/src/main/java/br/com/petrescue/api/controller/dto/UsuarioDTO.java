@@ -17,6 +17,7 @@ public class UsuarioDTO {
     private Integer id;
     private Double saldo;
     private String email;
+    private String senha;
     private String nome;
     private String foto;
     private Localizacao localizacao;
@@ -31,6 +32,7 @@ public class UsuarioDTO {
         this.id = usuario.getId();
         this.saldo = usuario.getSaldo();
         this.email = usuario.getEmail();
+        this.senha = usuario.getSenha();
         this.nome = usuario.getNome();
         this.foto = usuario.getFoto();
         this.localizacao = usuario.getLocalizacao();

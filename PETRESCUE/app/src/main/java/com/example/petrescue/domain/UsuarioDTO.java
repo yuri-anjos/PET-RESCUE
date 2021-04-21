@@ -1,13 +1,17 @@
 package com.example.petrescue.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
-public class UsuarioDTO {
+public class UsuarioDTO implements Parcelable {
 
     private Integer id;
     private Double saldo;
     private String email;
+    private String senha;
     private String nome;
     private String foto;
     private Localizacao localizacao;
@@ -18,10 +22,11 @@ public class UsuarioDTO {
     private String cpfCnpj;
     private String descricao;
 
-    public UsuarioDTO(Integer id, Double saldo, String email, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String nomeOng, String cpfCnpj, String descricao) {
+    public UsuarioDTO(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String nomeOng, String cpfCnpj, String descricao) {
         this.id = id;
         this.saldo = saldo;
         this.email = email;
+        this.senha=senha;
         this.nome = nome;
         this.foto = foto;
         this.localizacao = localizacao;
@@ -56,6 +61,14 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getNome() {
@@ -112,5 +125,15 @@ public class UsuarioDTO {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

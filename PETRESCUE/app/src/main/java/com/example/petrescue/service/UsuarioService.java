@@ -8,8 +8,11 @@ import retrofit2.http.POST;
 
 public interface UsuarioService {
 
-    @POST("usuario/cadastrar")
-    Call<UsuarioDTO> create(@Body UsuarioDTO usuarioDTO);
+    @POST("usuario/cadastro")
+    Call<UsuarioDTO> cadastrar(@Body UsuarioDTO usuarioDTO);
+
+    @POST("usuario/login")
+    Call<UsuarioDTO> logar(@Body UsuarioDTO usuarioDTO);
 
 //    @GET("product")
 //    Call<List<Product>> get();

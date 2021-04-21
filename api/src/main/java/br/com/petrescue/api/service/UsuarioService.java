@@ -33,7 +33,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTO loginUsuario(UsuarioDTO usuarioDTO) {
-        Optional<Usuario> opt = this.usuarioRepository.findByEmail(usuarioDTO.getEmail());
+        Optional<Usuario> opt = this.usuarioRepository.findByEmailAndSenha(usuarioDTO.getEmail(), usuarioDTO.getSenha());
         if (opt.isEmpty()){
             throw new NegocioException("Login Inválido!");
         }
