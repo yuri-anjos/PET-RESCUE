@@ -19,8 +19,4 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.petrescue.ui.SlideshowFragment"
         tools:layout="@layout/fragment_slideshow" />
-    <fragment
-        android:id="@+id/nav_cadastro"
-        android:name="com.example.petrescue.ui.CadastroFragment"
-        tools:layout="@layout/fragment_cadastro" />
 </navigation>

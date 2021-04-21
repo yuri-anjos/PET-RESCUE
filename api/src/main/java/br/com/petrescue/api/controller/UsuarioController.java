@@ -51,7 +51,7 @@ public class UsuarioController {
 
     @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public UsuarioDTO cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
         return this.usuarioService.cadastrarUsuario(usuarioDTO);
     }
 
