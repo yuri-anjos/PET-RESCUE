@@ -49,10 +49,16 @@ public class UsuarioController {
         return this.buscarTodosUsuariosService.buscar();
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastro")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioDTO cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
         return this.usuarioService.cadastrarUsuario(usuarioDTO);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioDTO loginUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        return this.usuarioService.loginUsuario(usuarioDTO);
     }
 
 }

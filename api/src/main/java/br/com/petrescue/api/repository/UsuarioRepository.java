@@ -2,7 +2,7 @@ package br.com.petrescue.api.repository;
 
 
 import br.com.petrescue.api.domain.Usuario;
-import java.util.List;
+import java.util.Optional;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Integer> {
@@ -19,5 +19,5 @@ public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, I
 //
 //    List<Usuario> findByDataIngressoBetweenAndCargoNot(LocalDate dataAntes, LocalDate data, Cargo cargo);
 
-    List<Usuario> findAll();
+    Optional<Usuario> findByEmail(String email);
 }
