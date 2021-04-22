@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.petrescue.domain.UsuarioDTO;
@@ -40,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void iniciarComponentes(){
-        this.etEmail = this.findViewById(R.id.et_email);
-        this.etSenha = this.findViewById(R.id.et_senha);
-        this.btLogar = this.findViewById(R.id.bt_logar);
+        this.etEmail = this.findViewById(R.id.et_email_cadastrousuario);
+        this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
+        this.btLogar = this.findViewById(R.id.bt_logar_login);
     }
 
     private void realizarLogin(){
@@ -58,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
                 if (response.isSuccessful()){
                     Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
-                    intent.putExtra("usuario", (Parcelable) response.body());
+                    intent.putExtra("usuario", response.body());
                     startActivity(intent);
                     finish();
                 }else{

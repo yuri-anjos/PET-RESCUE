@@ -23,7 +23,7 @@ public class GeralValidator {
     }
 
     public void localizacao(Localizacao localizacao){
-        if (localizacao.getLatitudee().equals(null) || localizacao.getLongitude().equals(0) || localizacao.getLatitudee().equals(0) || localizacao.getLongitude().equals(null)){
+        if (localizacao == null || localizacao.getLatitudee()==null || localizacao.getLongitude() == null || localizacao.getLongitude().equals(0.0) || localizacao.getLatitudee().equals(0.0)){
             throw new NegocioException("Localização não pode ser nullo!");
         }
     }

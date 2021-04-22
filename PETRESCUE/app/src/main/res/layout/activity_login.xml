@@ -14,7 +14,7 @@
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_email_cadastrousuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email" />
@@ -25,11 +25,10 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline"
-
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_senha"
+            android:id="@+id/et_senha_cadastrousuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
@@ -37,7 +36,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/bt_logar"
+        android:id="@+id/bt_logar_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logar" />

@@ -9,8 +9,7 @@ import android.widget.Button;
 public class InicioActivity extends AppCompatActivity {
 
     private Button btLogin;
-    private Button btInstituicao;
-    private Button btIndividuuo;
+    private Button btCadastro;
     private Intent intent;
 
     @Override
@@ -25,18 +24,14 @@ public class InicioActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        this.btInstituicao.setOnClickListener(v -> {
-
-        });
-
-        this.btIndividuuo.setOnClickListener(v -> {
-
+        this.btCadastro.setOnClickListener(v -> {
+            intent = new Intent(this, CadastroActivity.class);
+            startActivity(intent);
         });
     }
 
     private void iniciarComponentes(){
-        this.btLogin = this.findViewById(R.id.bt_login);
-        this.btInstituicao = this.findViewById(R.id.bt_instituicao);
-        this.btIndividuuo = this.findViewById(R.id.bt_individuo);
+        this.btLogin = this.findViewById(R.id.bt_login_inicio);
+        this.btCadastro = this.findViewById(R.id.bt_cadastro_inicio);
     }
 }

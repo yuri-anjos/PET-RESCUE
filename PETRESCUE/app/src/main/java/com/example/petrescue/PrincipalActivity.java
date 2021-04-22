@@ -1,7 +1,9 @@
 package com.example.petrescue;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.petrescue.domain.UsuarioDTO;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 public class PrincipalActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private UsuarioDTO usuarioDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class PrincipalActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        usuarioDTO = getIntent().getExtras().getParcelable("usuario");
     }
 
     @Override

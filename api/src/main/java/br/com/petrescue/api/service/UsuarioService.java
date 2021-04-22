@@ -25,6 +25,7 @@ public class UsuarioService {
             this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
             this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
             this.geralValidator.string(usuario.getNomeOng(), "Nome de ONG/instituição");
+            this.geralValidator.localizacao(usuario.getLocalizacao());
             usuario.setTipoUsuario(TipoUsuario.INSTITUCIONAL);
         }
         usuario.setTipoUsuario(TipoUsuario.INDIVIDUO);

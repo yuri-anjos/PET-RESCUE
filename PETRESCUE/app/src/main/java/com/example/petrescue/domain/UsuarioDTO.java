@@ -39,6 +39,38 @@ public class UsuarioDTO implements Parcelable {
     public UsuarioDTO() {
     }
 
+    protected UsuarioDTO(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            saldo = null;
+        } else {
+            saldo = in.readDouble();
+        }
+        email = in.readString();
+        senha = in.readString();
+        nome = in.readString();
+        foto = in.readString();
+        nomeOng = in.readString();
+        cpfCnpj = in.readString();
+        descricao = in.readString();
+    }
+
+    public static final Creator<UsuarioDTO> CREATOR = new Creator<UsuarioDTO>() {
+        @Override
+        public UsuarioDTO createFromParcel(Parcel in) {
+            return new UsuarioDTO(in);
+        }
+
+        @Override
+        public UsuarioDTO[] newArray(int size) {
+            return new UsuarioDTO[size];
+        }
+    };
+
     public Integer getId() {
         return id;
     }
@@ -134,6 +166,24 @@ public class UsuarioDTO implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        if (saldo == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(saldo);
+        }
+        dest.writeString(email);
+        dest.writeString(senha);
+        dest.writeString(nome);
+        dest.writeString(foto);
+        dest.writeString(nomeOng);
+        dest.writeString(cpfCnpj);
+        dest.writeString(descricao);
     }
 }
