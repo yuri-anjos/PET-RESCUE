@@ -1,8 +1,14 @@
 package com.example.petrescue;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +19,19 @@ import android.widget.Toast;
 
 import com.example.petrescue.domain.UsuarioDTO;
 import com.example.petrescue.domain.enums.TipoUsuario;
+import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +49,10 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputEditText etCpfCnpj;
     private TextInputEditText etDescricaoOng;
 
+    private TextInputLayout ilNomeOng;
+    private TextInputLayout ilCpfCnpj;
+    private TextInputLayout ilDescricaoOng;
+
     private RadioGroup rgTipoUsuario;
     private Button btCadastroUsuario;
 
@@ -40,6 +60,8 @@ public class CadastroActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private UsuarioService usuarioService;
     private Intent intent;
+
+    private FusedLocationProviderClient cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +71,18 @@ public class CadastroActivity extends AppCompatActivity {
         this.iniciarComponentes();
 
         this.rgTipoUsuario.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId){
+            switch (checkedId) {
                 case R.id.rb_individuo_cadastrousuario:
                     this.usuarioDTO.setTipoUsuario(TipoUsuario.INDIVIDUO);
+                    ilCpfCnpj.setVisibility(View.GONE);
+                    ilDescricaoOng.setVisibility(View.GONE);
+                    ilNomeOng.setVisibility(View.GONE);
                     break;
                 case R.id.rb_instituiucao_cadastrousuario:
                     this.usuarioDTO.setTipoUsuario(TipoUsuario.INSTITUCIONAL);
+                    ilCpfCnpj.setVisibility(View.VISIBLE);
+                    ilDescricaoOng.setVisibility(View.VISIBLE);
+                    ilNomeOng.setVisibility(View.VISIBLE);
                     break;
             }
         });
@@ -64,11 +92,11 @@ public class CadastroActivity extends AppCompatActivity {
             this.usuarioDTO.setEmail(this.etEmail.getText().toString());
             this.usuarioDTO.setSenha(this.etSenha.getText().toString());
             this.usuarioDTO.setFoto(this.etFoto.getText().toString());
-            if(this.usuarioDTO.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)){
+            if (this.usuarioDTO.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
                 this.usuarioDTO.setNomeOng(null);
                 this.usuarioDTO.setCpfCnpj(null);
                 this.usuarioDTO.setDescricao(null);
-            }else{
+            } else {
                 this.usuarioDTO.setNomeOng(this.etNomeOng.getText().toString());
                 this.usuarioDTO.setCpfCnpj(this.etCpfCnpj.getText().toString());
                 this.usuarioDTO.setDescricao(this.etDescricaoOng.getText().toString());
@@ -77,18 +105,59 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int errorCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        switch (errorCode) {
+            case ConnectionResult.SERVICE_MISSING:
+            case ConnectionResult.SERVICE_DISABLED:
+            case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
+                GoogleApiAvailability.getInstance().getErrorDialog(this, errorCode, 0, dialog -> {
+                    finish();
+                }).show();
+                break;
+            case ConnectionResult.SUCCESS:
+                Log.i("DEBUG", "Conectou na google service.");
+            break;
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        this.cliente.getLastLocation()
+                .addOnSuccessListener(location -> {
+                    if(location == null){
+                        Log.i("DEBUG", "Erro ao buscar posição atual.");
+                    }else{
+                        this.usuarioDTO.setLocalizacao(new Localizacao(location.getAltitude(), location.getLongitude()));
+                    }
+        })
+                .addOnFailureListener(e -> {
+                    Log.i("DEBUG", "Erro ao buscar posição atual.");
+        });
+    }
+
     private void iniciarComponentes(){
         this.etNome = this.findViewById(R.id.et_nome_cadastrousuario);
-        this.etEmail = this.findViewById(R.id.et_nome_cadastrousuario);
+        this.etEmail = this.findViewById(R.id.et_email_cadastrousuario);
         this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
         this.etFoto = this.findViewById(R.id.et_foto_cadastrousuario);
+
         this.etNomeOng = this.findViewById(R.id.et_nome_ong_cadastrousuario);
-        this.etCpfCnpj = this.findViewById(R.id.et_nome_cadastrousuario);
+        this.etCpfCnpj = this.findViewById(R.id.et_cpf_cnpj_cadastrousuario);
         this.etDescricaoOng = this.findViewById(R.id.et_descricao_cadastrousuario);
+        this.ilNomeOng = this.findViewById(R.id.il_nome_ong_cadastrousuario);
+        this.ilDescricaoOng = this.findViewById(R.id.il_descricao_cadastrousuario);
+        this.ilCpfCnpj = this.findViewById(R.id.il_cpf_cnpj_cadastrousuario);
+
         this.rgTipoUsuario = this.findViewById(R.id.rg_tipo_cadastrousuario);
         this.btCadastroUsuario = this.findViewById(R.id.bt_cadastrar_cadastrousuario);
         this.usuarioDTO = new UsuarioDTO();
         this.usuarioDTO.setTipoUsuario(TipoUsuario.INDIVIDUO);
+
+        this.cliente = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void cadastrarUsuario(UsuarioDTO usuarioDTO){

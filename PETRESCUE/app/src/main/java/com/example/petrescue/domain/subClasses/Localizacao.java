@@ -1,23 +1,23 @@
 package com.example.petrescue.domain.subClasses;
 
 public class Localizacao {
-    private Double latitudee;
+    private Double altitude;
     private Double longitude;
 
-    public Localizacao(Double latitudee, Double longitude) {
-        this.latitudee = latitudee;
+    public Localizacao(Double altitude, Double longitude) {
+        this.altitude = altitude;
         this.longitude = longitude;
     }
 
     public Localizacao() {
     }
 
-    public Double getLatitudee() {
-        return latitudee;
+    public Double getAltitude() {
+        return altitude;
     }
 
-    public void setLatitudee(Double latitudee) {
-        this.latitudee = latitudee;
+    public void setAltitude(Double altitude) {
+        this.altitude = altitude;
     }
 
     public Double getLongitude() {
