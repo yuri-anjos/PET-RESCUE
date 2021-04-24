@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.MensagemDTO;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,4 +41,6 @@ public class Mensagem {
     @ManyToOne
     private Conversa conversa;
 
+    public Mensagem(MensagemDTO mensagemDTO) {
+    }
 }

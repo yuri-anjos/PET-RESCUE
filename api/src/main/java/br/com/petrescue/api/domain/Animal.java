@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.AnimalDTO;
 import br.com.petrescue.api.domain.enums.Sexo;
 import br.com.petrescue.api.domain.enums.SituacaoAdocao;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
@@ -61,4 +62,16 @@ public class Animal {
     @JoinColumn(name = "id_usuario")
     @ManyToOne
     private Usuario usuario;
+
+    public Animal(AnimalDTO animalDTO) {
+        this.id = animalDTO.getId();
+        this.situacaoAdocao = animalDTO.getSituacaoAdocao();
+        this.foto = animalDTO.getFoto();
+        this.tipoAnimal = animalDTO.getTipoAnimal();
+        this.raca = animalDTO.getRaca();
+        this.sexo = animalDTO.getSexo();
+        this.dataNascimento = animalDTO.getDataNascimento();
+        this.descricao = animalDTO.getDescricao();
+        this.vacinas = animalDTO.getVacinas();
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.VaquinhaDTO;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,4 +51,15 @@ public class Vaquinha {
     @JoinColumn(name = "id_usuario")
     @ManyToOne
     private Usuario usuario;
+
+    public Vaquinha(VaquinhaDTO vaquinhaDTO) {
+        this.id = vaquinhaDTO.getId();
+        this.meta = vaquinhaDTO.getMeta();
+        this.valorArrecadado = vaquinhaDTO.getValorArrecadado();
+        this.foto = vaquinhaDTO.getFoto();
+        this.inicio = vaquinhaDTO.getInicio();
+        this.titulo = vaquinhaDTO.getTitulo();
+        this.descricao = vaquinhaDTO.getDescricao();
+        this.ativo = vaquinhaDTO.getAtivo();
+    }
 }

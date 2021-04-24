@@ -12,8 +12,8 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.petrescue.ui.GalleryFragment"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="com.example.petrescue.ui.ListaAdocoesFragment"
+        tools:layout="@layout/fragment_lista_adocoes" />
 
     <fragment
         android:id="@+id/nav_slideshow"

@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.ConversaDTO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,4 +33,6 @@ public class Conversa {
     @ManyToOne
     private Usuario usuarioDois;
 
+    public Conversa(ConversaDTO conversaDTO) {
+    }
 }

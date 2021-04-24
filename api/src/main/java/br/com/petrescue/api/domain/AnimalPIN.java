@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.AnimalPINDTO;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
 import br.com.petrescue.api.domain.enums.TipoPIN;
 import br.com.petrescue.api.domain.subClasses.Localizacao;
@@ -63,4 +64,7 @@ public class AnimalPIN {
     @JoinColumn(name = "id_usuario")
     @ManyToOne
     private Usuario usuario;
+
+    public AnimalPIN(AnimalPINDTO AnimalPIN) {
+    }
 }

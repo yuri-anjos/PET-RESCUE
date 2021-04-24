@@ -1,5 +1,6 @@
 package br.com.petrescue.api.domain;
 
+import br.com.petrescue.api.controller.dto.DoacaoDTO;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,4 +40,7 @@ public class Doacao {
     @JoinColumn(name = "id_vaquinha")
     @ManyToOne
     private Vaquinha vaquinha;
+
+    public Doacao(DoacaoDTO doacaoDTO) {
+    }
 }

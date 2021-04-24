@@ -6,7 +6,6 @@ import br.com.petrescue.api.domain.enums.TipoUsuario;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.validator.GeralValidator;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +31,10 @@ public class UsuarioService {
     }
 
     public UsuarioDTO loginUsuario(UsuarioDTO usuarioDTO) {
-        Optional<Usuario> opt = this.usuarioRepository.findByEmailAndSenha(usuarioDTO.getEmail(), usuarioDTO.getSenha());
-        if (opt.isEmpty()){
-            throw new NegocioException("Login Inválido!");
-        }
-        return new UsuarioDTO(opt.get());
+        return new UsuarioDTO(this.usuarioRepository.findByEmailAndSenha(usuarioDTO.getEmail(), usuarioDTO.getSenha()).orElseThrow(() -> new NegocioException("Login Inválido!")));
+    }
+
+    public UsuarioDTO buscarUsuarioId(Integer idusuario) {
+        return new UsuarioDTO(this.usuarioRepository.findById(idusuario).orElseThrow(() -> new NegocioException("Login Inválido!")));
     }
 }

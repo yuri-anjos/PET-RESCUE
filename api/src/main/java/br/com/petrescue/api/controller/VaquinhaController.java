@@ -1,9 +1,46 @@
 package br.com.petrescue.api.controller;
 
+import br.com.petrescue.api.controller.dto.VaquinhaDTO;
+import br.com.petrescue.api.service.VaquinhaService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/vaquinha")
 public class VaquinhaController {
+
+    @Autowired
+    private VaquinhaService vaquinhaService;
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<VaquinhaDTO> buscarVaquinhas(){
+        return this.vaquinhaService.buscarVaquinhas();
+    }
+
+    @GetMapping("/usuario/{idusuario}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusario") Integer idusuario){
+        return this.vaquinhaService.buscarVaquinhasUsuarioId(idusuario);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VaquinhaDTO salvarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO){
+        return this.vaquinhaService.salvarVaquinha(vaquinhaDTO);
+    }
+
+    @PostMapping("/{idvaquinha}")
+    @ResponseStatus(HttpStatus.OK)
+    public VaquinhaDTO buscarVaquinhaId(@PathVariable("idanimal") Integer idvaquinha){
+        return this.vaquinhaService.buscarVaquinhaId(idvaquinha);
+    }
 }
