@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".CadastroActivity">
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -21,9 +22,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -35,9 +36,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline"
         app:passwordToggleEnabled="true">
 
@@ -50,9 +51,9 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,50 +86,57 @@
 
     </RadioGroup>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/il_nome_ong_cadastrousuario"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
+        android:id="@+id/ll_instituiucao_cadastrousuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:boxBackgroundMode="outline">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_nome_ong_cadastrousuario"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome da ONG" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:visibility="visible"
+            app:boxBackgroundMode="outline">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/il_cpf_cnpj_cadastrousuario"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:boxBackgroundMode="outline">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nome_ong_cadastrousuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome da ONG" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_cpf_cnpj_cadastrousuario"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="CPF/CNPJ" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:visibility="visible"
+            app:boxBackgroundMode="outline">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/il_descricao_cadastrousuario"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:boxBackgroundMode="outline">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_descricao_cadastrousuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quem são vocês?" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_descricao_cadastrousuario"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Quem são vocês?" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:visibility="visible"
+            app:boxBackgroundMode="outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_cpf_cnpj_cadastrousuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CPF/CNPJ" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_cadastrar_cadastrousuario"
