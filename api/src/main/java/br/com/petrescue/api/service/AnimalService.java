@@ -3,6 +3,7 @@ package br.com.petrescue.api.service;
 import br.com.petrescue.api.controller.dto.AnimalDTO;
 import br.com.petrescue.api.domain.Animal;
 import br.com.petrescue.api.domain.Usuario;
+import br.com.petrescue.api.domain.enums.SituacaoAdocao;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.AnimalRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
@@ -22,8 +23,8 @@ public class AnimalService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<AnimalDTO> buscarAnimaisAdocao(){
-        Pageable pageable = PageRequest.of(1, 10);
+    public List<AnimalDTO> buscarAnimaisAdocao(Integer pg){
+        Pageable pageable = PageRequest.of(pg, 10);
         return this.animalRepository.findAll(pageable).stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
@@ -35,10 +36,11 @@ public class AnimalService {
         return this.animalRepository.findByUsuarioId(idusario).stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
-    public AnimalDTO salvarAnimalAdocao(AnimalDTO animalDTO){
+    public AnimalDTO cadastrarAnimalAdocao(AnimalDTO animalDTO){
         Animal animal = new Animal(animalDTO);
         Usuario usuario = this.usuarioRepository.findById(animalDTO.getUsuario()).orElseThrow(()->new NegocioException("Usuário inválido."));
         animal.setUsuario(usuario);
+        animal.setSituacaoAdocao(SituacaoAdocao.ESPERA);
         return new AnimalDTO(this.animalRepository.save(animal));
     }
 

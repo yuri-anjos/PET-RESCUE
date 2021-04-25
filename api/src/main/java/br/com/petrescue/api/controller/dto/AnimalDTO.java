@@ -22,7 +22,7 @@ public class AnimalDTO {
     private TipoAnimal tipoAnimal;
     private String raca;
     private Sexo sexo;
-    private LocalDate dataNascimento;
+    private Integer dataNascimento;
     private String descricao;
     private String vacinas;
     private Integer usuario;

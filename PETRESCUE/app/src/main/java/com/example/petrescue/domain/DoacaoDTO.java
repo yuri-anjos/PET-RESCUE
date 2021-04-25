@@ -1,16 +1,16 @@
 package com.example.petrescue.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DoacaoDTO {
 
     private Integer id;
     private Double quantia;
-    private LocalDate quando;
+    private LocalDateTime quando;
     private Integer doador;
     private Integer vaquinha;
 
-    public DoacaoDTO(Integer id, Double quantia, LocalDate quando, Integer doador, Integer vaquinha) {
+    public DoacaoDTO(Integer id, Double quantia, LocalDateTime quando, Integer doador, Integer vaquinha) {
         this.id = id;
         this.quantia = quantia;
         this.quando = quando;
@@ -37,11 +37,11 @@ public class DoacaoDTO {
         this.quantia = quantia;
     }
 
-    public LocalDate getQuando() {
+    public LocalDateTime getQuando() {
         return quando;
     }
 
-    public void setQuando(LocalDate quando) {
+    public void setQuando(LocalDateTime quando) {
         this.quando = quando;
     }
 

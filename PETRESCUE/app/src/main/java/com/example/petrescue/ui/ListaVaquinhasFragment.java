@@ -1,6 +1,10 @@
 package com.example.petrescue.ui;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalDTO;
+import com.example.petrescue.domain.VaquinhaDTO;
 import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
+import com.example.petrescue.service.VaquinhaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,25 +30,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ListaAdocoesFragment extends Fragment {
+public class ListaVaquinhasFragment extends Fragment {
 
-    private List<AnimalDTO> listaAnimalAdocao;
-    private ArrayAdapter<AnimalDTO> animalArrayAdapter;
+    private List<VaquinhaDTO> listaVaquinha;
+    private ArrayAdapter<VaquinhaDTO> vaquinhaArrayAdapter;
     private Integer pagina;
     private Retrofit retrofit;
-    private AnimalService animalService;
+    private VaquinhaService vaquinhaService;
 
-    private ListView lvAnimaisAdocao;
+    private ListView lvVaquinha;
     private Button btMinusPage;
     private Button btPlusPage;
     private TextView tvActualPage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_lista_adocoes, container, false);
+        View root = inflater.inflate(R.layout.fragment_lista_vaquinhas, container, false);
         this.inicializaComponentes(root);
 
-        this.lvAnimaisAdocao.setOnItemClickListener((parent, view, position, id) -> {
+        this.lvVaquinha.setOnItemClickListener((parent, view, position, id) -> {
 
         });
 
@@ -56,36 +59,36 @@ public class ListaAdocoesFragment extends Fragment {
     }
 
     private void inicializaComponentes(View v) {
-        this.lvAnimaisAdocao = v.findViewById(R.id.lv_animais_listaadocoes);
-        this.btMinusPage = v.findViewById(R.id.bt_minuspage_listaadocoes);
-        this.btPlusPage = v.findViewById(R.id.bt_pluspage_listaadocoes);
-        this.tvActualPage = v.findViewById(R.id.tv_actualpage_listaadocoes);
+        this.lvVaquinha = v.findViewById(R.id.lv_vaquinhas_listavaquinhas);
+        this.btMinusPage = v.findViewById(R.id.bt_minuspage_listavaquinhas);
+        this.btPlusPage = v.findViewById(R.id.bt_pluspage_listavaquinhas);
+        this.tvActualPage = v.findViewById(R.id.tv_actualpage_listavaquinhas);
         this.pagina = 0;
 
         this.retrofit = RetrofitConfig.generateRetrofit();
-        this.animalService = retrofit.create(AnimalService.class);
+        this.vaquinhaService = retrofit.create(VaquinhaService.class);
 
-        this.listaAnimalAdocao = new ArrayList<>();
-        this.animalArrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, this.listaAnimalAdocao);
-        this.lvAnimaisAdocao.setAdapter(this.animalArrayAdapter);
+        this.listaVaquinha = new ArrayList<>();
+        this.vaquinhaArrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, this.listaVaquinha);
+        this.lvVaquinha.setAdapter(this.vaquinhaArrayAdapter);
 
         this.buscarAnimaisAdocao(this.pagina);
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
-        this.animalService.buscarAnimaisAdocao(pagina).enqueue(new Callback<List<AnimalDTO>>() {
+        this.vaquinhaService.buscarVaquinhas(pagina).enqueue(new Callback<List<VaquinhaDTO>>() {
             @Override
-            public void onResponse(Call<List<AnimalDTO>> call, Response<List<AnimalDTO>> response) {
+            public void onResponse(Call<List<VaquinhaDTO>> call, Response<List<VaquinhaDTO>> response) {
                 if (response.isSuccessful()) {
-                    listaAnimalAdocao.clear();
-                    listaAnimalAdocao.addAll(response.body());
-                    if (listaAnimalAdocao.isEmpty()) {
-                        Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUM animal do servidor!", Toast.LENGTH_LONG).show();
+                    listaVaquinha.clear();
+                    listaVaquinha.addAll(response.body());
+                    if (listaVaquinha.isEmpty()) {
+                        Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUMA vaquinha do servidor!", Toast.LENGTH_LONG).show();
                     }
-                    animalArrayAdapter.notifyDataSetChanged();
+                    vaquinhaArrayAdapter.notifyDataSetChanged();
                     pagina = pg;
 
-                    if (listaAnimalAdocao.size() == 10) {
+                    if (listaVaquinha.size() == 10) {
                         btPlusPage.setEnabled(true);
                     } else {
                         btPlusPage.setEnabled(false);
@@ -106,7 +109,7 @@ public class ListaAdocoesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<AnimalDTO>> call, Throwable t) {
+                public void onFailure(Call<List<VaquinhaDTO>> call, Throwable t) {
                 Log.i("DEBUG", t.getMessage());
             }
         });

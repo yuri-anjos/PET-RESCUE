@@ -1,7 +1,7 @@
 package br.com.petrescue.api.controller.dto;
 
 import br.com.petrescue.api.domain.Doacao;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class DoacaoDTO {
 
     private Integer id;
     private Double quantia;
-    private LocalDate quando;
+    private LocalDateTime quando;
     private Integer doador;
     private Integer vaquinha;
 

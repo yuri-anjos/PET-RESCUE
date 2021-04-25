@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ListaAdocoesFragment">
+    tools:context=".ui.ListaVaquinhasFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:padding="10dp"
-        android:text="Lista Doações"
+        android:text="Lista Vaquinhas"
         android:textSize="30sp" />
 
     <ListView
-        android:id="@+id/lv_animais_listaadocoes"
+        android:id="@+id/lv_vaquinhas_listavaquinhas"
         android:layout_width="match_parent"
         android:layout_height="580dp" />
 
@@ -28,14 +28,14 @@
         android:padding="20dp">
 
         <Button
-            android:id="@+id/bt_minuspage_listaadocoes"
+            android:id="@+id/bt_minuspage_listavaquinhas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dip"
             android:text="Button" />
 
         <TextView
-            android:id="@+id/tv_actualpage_listaadocoes"
+            android:id="@+id/tv_actualpage_listavaquinhas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
@@ -43,7 +43,7 @@
             android:text="TextView" />
 
         <Button
-            android:id="@+id/bt_pluspage_listaadocoes"
+            android:id="@+id/bt_pluspage_listavaquinhas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dip"

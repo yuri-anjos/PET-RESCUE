@@ -20,7 +20,7 @@ public class UsuarioService {
 
     public UsuarioDTO cadastrarUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario=new Usuario(usuarioDTO);
-        if ("INSTITUCIONAL".equals(usuario.getTipoUsuario())){
+        if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())){
             this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
             this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
             this.geralValidator.string(usuario.getNomeOng(), "Nome de ONG/instituição");

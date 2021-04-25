@@ -1,7 +1,7 @@
 package br.com.petrescue.api.domain;
 
 import br.com.petrescue.api.controller.dto.DoacaoDTO;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +31,7 @@ public class Doacao {
     private Double quantia;
 
     @Column(nullable = false)
-    private LocalDate quando;
+    private LocalDateTime quando;
 
     @JoinColumn(name = "id_doador")
     @ManyToOne
@@ -42,5 +42,8 @@ public class Doacao {
     private Vaquinha vaquinha;
 
     public Doacao(DoacaoDTO doacaoDTO) {
+        this.id = doacaoDTO.getId();
+        this.quantia = doacaoDTO.getQuantia();
+        this.quando = doacaoDTO.getQuando();
     }
 }

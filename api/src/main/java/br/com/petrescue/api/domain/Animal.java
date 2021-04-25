@@ -5,6 +5,7 @@ import br.com.petrescue.api.domain.enums.Sexo;
 import br.com.petrescue.api.domain.enums.SituacaoAdocao;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
 import java.time.LocalDate;
+import java.time.Year;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -51,7 +52,7 @@ public class Animal {
     private Sexo sexo;
 
     @Column( name = "data_nascimento")
-    private LocalDate dataNascimento;
+    private Integer dataNascimento;
 
     @Column(nullable = false)
     private String descricao;

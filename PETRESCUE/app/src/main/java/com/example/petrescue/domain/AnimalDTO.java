@@ -14,12 +14,12 @@ public class AnimalDTO {
     private TipoAnimal tipoAnimal;
     private String raca;
     private Sexo sexo;
-    private LocalDate dataNascimento;
+    private Integer dataNascimento;
     private String descricao;
     private String vacinas;
     private Integer usuario;
 
-    public AnimalDTO(Integer id, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, LocalDate dataNascimento, String descricao, String vacinas, Integer usuario) {
+    public AnimalDTO(Integer id, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
         this.id = id;
         this.situacaoAdocao = situacaoAdocao;
         this.foto = foto;
@@ -83,11 +83,11 @@ public class AnimalDTO {
         this.sexo = sexo;
     }
 
-    public LocalDate getDataNascimento() {
+    public Integer getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(Integer dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,20 +23,20 @@ public class AnimalController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalDTO> buscarAnimaisAdocao(){
-        return this.animalService.buscarAnimaisAdocao();
+    public List<AnimalDTO> buscarAnimaisAdocao(@RequestParam("pg") Integer pg){
+        return this.animalService.buscarAnimaisAdocao(pg);
     }
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusario") Integer idusuario){
-        return this.animalService.buscarAnimaisAdocaoUsuarioId(idusuario);
+    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusario") Integer idusuario, @RequestParam("pg") Integer pg){
+        return this.animalService.buscarAnimaisAdocaoUsuarioId(idusuario, pg);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO salvarAnimalAdocao(@RequestBody AnimalDTO animalDTO){
-        return this.animalService.salvarAnimalAdocao(animalDTO);
+    @ResponseStatus(HttpStatus.CREATED)
+    public AnimalDTO cadastrarAnimalAdocao(@RequestBody AnimalDTO animalDTO){
+        return this.animalService.cadastrarAnimalAdocao(animalDTO);
     }
 
     @PostMapping("/{idanimal}")

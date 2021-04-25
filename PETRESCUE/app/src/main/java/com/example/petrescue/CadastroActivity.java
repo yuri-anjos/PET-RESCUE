@@ -61,7 +61,6 @@ public class CadastroActivity extends AppCompatActivity {
     private UsuarioDTO usuarioDTO;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
-    private Intent intent;
 
     private FusedLocationProviderClient cliente;
 
@@ -115,7 +114,7 @@ public class CadastroActivity extends AppCompatActivity {
                 break;
             case ConnectionResult.SUCCESS:
                 Log.i("DEBUG", "Conectou na google service.");
-            break;
+                break;
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -124,16 +123,16 @@ public class CadastroActivity extends AppCompatActivity {
 
         this.cliente.getLastLocation()
                 .addOnSuccessListener(location -> {
-                    if(location == null){
+                    if (location == null) {
                         Log.i("DEBUG", "Erro ao buscar posição atual. sucess");
-                    }else{
+                    } else {
                         Log.i("DEBUG", "Buscou ultima posicao.");
                         this.usuarioDTO.setLocalizacao(new Localizacao(location.getAltitude(), location.getLongitude()));
                     }
-        })
+                })
                 .addOnFailureListener(e -> {
                     Log.i("DEBUG", "Erro ao buscar posição atual. error");
-        });
+                });
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(20);
@@ -147,7 +146,7 @@ public class CadastroActivity extends AppCompatActivity {
                     Log.i("DEBUG", "Buscou configuracoes do cliente.");
                 })
                 .addOnFailureListener(e -> {
-                    if(e instanceof ResolvableApiException){
+                    if (e instanceof ResolvableApiException) {
                         try {
                             ResolvableApiException resolvable = (ResolvableApiException) e;
                             resolvable.startResolutionForResult(this, 10);
@@ -155,17 +154,17 @@ public class CadastroActivity extends AppCompatActivity {
                             sendIntentException.printStackTrace();
                         }
                     }
-        });
+                });
 
         LocationCallback locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-                if(locationResult == null){
+                if (locationResult == null) {
                     Log.i("DEBUG", "Localizacao vazia.");
                     return;
-                }else{
-                    for (Location location: locationResult.getLocations()){
+                } else {
+                    for (Location location : locationResult.getLocations()) {
                         Log.i("DEBUG", "Localizacao atual: " + location.getAltitude() + " " + location.getLongitude());
                     }
                 }
@@ -180,7 +179,7 @@ public class CadastroActivity extends AppCompatActivity {
         cliente.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         this.etNome = this.findViewById(R.id.et_nome_cadastrousuario);
         this.etEmail = this.findViewById(R.id.et_email_cadastrousuario);
         this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
@@ -196,21 +195,22 @@ public class CadastroActivity extends AppCompatActivity {
         this.usuarioDTO = new UsuarioDTO();
         this.usuarioDTO.setTipoUsuario(TipoUsuario.INDIVIDUO);
 
+        this.retrofit = RetrofitConfig.generateRetrofit();
+        this.usuarioService = retrofit.create(UsuarioService.class);
+
         this.cliente = LocationServices.getFusedLocationProviderClient(this);
     }
 
-    private void cadastrarUsuario(UsuarioDTO usuarioDTO){
-        this.retrofit = RetrofitConfig.generateRetrofit();
-        this.usuarioService = retrofit.create(UsuarioService.class);
+    private void cadastrarUsuario(UsuarioDTO usuarioDTO) {
         this.usuarioService.cadastrar(usuarioDTO).enqueue(new Callback<UsuarioDTO>() {
             @Override
             public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
-                if (response.isSuccessful()){
-                    intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                if (response.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                     intent.putExtra("usuario", response.body());
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     Log.i("DEBUG", response.message());
                 }
             }
