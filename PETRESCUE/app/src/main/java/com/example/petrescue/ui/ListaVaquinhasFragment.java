@@ -16,13 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.R;
-import com.example.petrescue.domain.AnimalDTO;
-import com.example.petrescue.domain.VaquinhaDTO;
+import com.example.petrescue.domain.Vaquinha;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
-import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.VaquinhaService;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +31,8 @@ import retrofit2.Retrofit;
 
 public class ListaVaquinhasFragment extends Fragment {
 
-    private List<VaquinhaDTO> listaVaquinha;
-    private ArrayAdapter<VaquinhaDTO> vaquinhaArrayAdapter;
+    private List<Vaquinha> listaVaquinha;
+    private ArrayAdapter<Vaquinha> vaquinhaArrayAdapter;
     private Integer pagina;
     private Retrofit retrofit;
     private VaquinhaService vaquinhaService;
@@ -78,9 +75,9 @@ public class ListaVaquinhasFragment extends Fragment {
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
-        this.vaquinhaService.buscarVaquinhas(pagina).enqueue(new Callback<List<VaquinhaDTO>>() {
+        this.vaquinhaService.buscarVaquinhas(pagina).enqueue(new Callback<List<Vaquinha>>() {
             @Override
-            public void onResponse(Call<List<VaquinhaDTO>> call, Response<List<VaquinhaDTO>> response) {
+            public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
                 if (response.isSuccessful()) {
                     listaVaquinha.clear();
                     listaVaquinha.addAll(response.body());
@@ -106,14 +103,13 @@ public class ListaVaquinhasFragment extends Fragment {
                     tvActualPage.setText(Integer.toString(pg+1));
 
                 } else {
-                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
-                    Toast.makeText(getActivity(), message.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
+                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
                 }
             }
 
             @Override
-                public void onFailure(Call<List<VaquinhaDTO>> call, Throwable t) {
+                public void onFailure(Call<List<Vaquinha>> call, Throwable t) {
                 Log.i("DEBUG", t.getMessage());
             }
         });

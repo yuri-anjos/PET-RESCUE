@@ -15,11 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.petrescue.R;
-import com.example.petrescue.domain.AnimalDTO;
+import com.example.petrescue.domain.Animal;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,8 @@ import retrofit2.Retrofit;
 
 public class ListaAdocoesFragment extends Fragment {
 
-    private List<AnimalDTO> listaAnimalAdocao;
-    private ArrayAdapter<AnimalDTO> animalArrayAdapter;
+    private List<Animal> listaAnimalAdocao;
+    private ArrayAdapter<Animal> animalArrayAdapter;
     private Integer pagina;
     private Retrofit retrofit;
     private AnimalService animalService;
@@ -75,9 +74,9 @@ public class ListaAdocoesFragment extends Fragment {
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
-        this.animalService.buscarAnimaisAdocao(pagina).enqueue(new Callback<List<AnimalDTO>>() {
+        this.animalService.buscarAnimaisAdocao(pagina).enqueue(new Callback<List<Animal>>() {
             @Override
-            public void onResponse(Call<List<AnimalDTO>> call, Response<List<AnimalDTO>> response) {
+            public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
                 if (response.isSuccessful()) {
                     listaAnimalAdocao.clear();
                     listaAnimalAdocao.addAll(response.body());
@@ -103,14 +102,13 @@ public class ListaAdocoesFragment extends Fragment {
                     tvActualPage.setText(Integer.toString(pg+1));
 
                 } else {
-                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
-                    Toast.makeText(getActivity(), message.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
+                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AnimalDTO>> call, Throwable t) {
+            public void onFailure(Call<List<Animal>> call, Throwable t) {
                 Log.i("DEBUG", t.getMessage());
             }
         });

@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.petrescue.domain.UsuarioDTO;
+import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.domain.subClasses.Localizacao;
@@ -33,13 +33,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +56,7 @@ public class CadastroActivity extends AppCompatActivity {
     private RadioGroup rgTipoUsuario;
     private Button btCadastroUsuario;
 
-    private UsuarioDTO usuarioDTO;
+    private Usuario usuario;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
 
@@ -77,31 +72,31 @@ public class CadastroActivity extends AppCompatActivity {
         this.rgTipoUsuario.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_individuo_cadastrousuario:
-                    this.usuarioDTO.setTipoUsuario(TipoUsuario.INDIVIDUO);
+                    this.usuario.setTipoUsuario(TipoUsuario.INDIVIDUO);
                     this.llInstituiucao.setVisibility(View.GONE);
                     break;
                 case R.id.rb_instituiucao_cadastrousuario:
-                    this.usuarioDTO.setTipoUsuario(TipoUsuario.INSTITUCIONAL);
+                    this.usuario.setTipoUsuario(TipoUsuario.INSTITUCIONAL);
                     this.llInstituiucao.setVisibility(View.VISIBLE);
                     break;
             }
         });
 
         this.btCadastroUsuario.setOnClickListener(v -> {
-            this.usuarioDTO.setNome(this.etNome.getText().toString());
-            this.usuarioDTO.setEmail(this.etEmail.getText().toString());
-            this.usuarioDTO.setSenha(this.etSenha.getText().toString());
-            this.usuarioDTO.setFoto(this.etFoto.getText().toString());
-            if (this.usuarioDTO.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
-                this.usuarioDTO.setNomeOng(null);
-                this.usuarioDTO.setCpfCnpj(null);
-                this.usuarioDTO.setDescricao(null);
+            this.usuario.setNome(this.etNome.getText().toString());
+            this.usuario.setEmail(this.etEmail.getText().toString());
+            this.usuario.setSenha(this.etSenha.getText().toString());
+            this.usuario.setFoto(this.etFoto.getText().toString());
+            if (this.usuario.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
+                this.usuario.setNomeOng(null);
+                this.usuario.setCpfCnpj(null);
+                this.usuario.setDescricao(null);
             } else {
-                this.usuarioDTO.setNomeOng(this.etNomeOng.getText().toString());
-                this.usuarioDTO.setCpfCnpj(this.etCpfCnpj.getText().toString());
-                this.usuarioDTO.setDescricao(this.etDescricaoOng.getText().toString());
+                this.usuario.setNomeOng(this.etNomeOng.getText().toString());
+                this.usuario.setCpfCnpj(this.etCpfCnpj.getText().toString());
+                this.usuario.setDescricao(this.etDescricaoOng.getText().toString());
             }
-            this.cadastrarUsuario(this.usuarioDTO);
+            this.cadastrarUsuario(this.usuario);
         });
     }
 
@@ -130,7 +125,7 @@ public class CadastroActivity extends AppCompatActivity {
                         Log.i("DEBUG", "Erro ao buscar posição atual. sucess");
                     } else {
                         Log.i("DEBUG", "Buscou ultima posicao.");
-                        this.usuarioDTO.setLocalizacao(new Localizacao(location.getAltitude(), location.getLongitude()));
+                        this.usuario.setLocalizacao(new Localizacao(location.getAltitude(), location.getLongitude()));
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -195,8 +190,8 @@ public class CadastroActivity extends AppCompatActivity {
 
         this.rgTipoUsuario = this.findViewById(R.id.rg_tipo_cadastrousuario);
         this.btCadastroUsuario = this.findViewById(R.id.bt_cadastrar_cadastrousuario);
-        this.usuarioDTO = new UsuarioDTO();
-        this.usuarioDTO.setTipoUsuario(TipoUsuario.INDIVIDUO);
+        this.usuario = new Usuario();
+        this.usuario.setTipoUsuario(TipoUsuario.INDIVIDUO);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
@@ -204,24 +199,23 @@ public class CadastroActivity extends AppCompatActivity {
         this.cliente = LocationServices.getFusedLocationProviderClient(this);
     }
 
-    private void cadastrarUsuario(UsuarioDTO usuarioDTO) {
-        this.usuarioService.cadastrar(usuarioDTO).enqueue(new Callback<UsuarioDTO>() {
+    private void cadastrarUsuario(Usuario usuario) {
+        this.usuarioService.cadastrar(usuario).enqueue(new Callback<Usuario>() {
             @Override
-            public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                     intent.putExtra("usuario", response.body());
                     startActivity(intent);
                     finish();
                 } else {
-                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
-                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
+                    Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
                 }
             }
 
             @Override
-            public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.i("DEBUG", t.getMessage());
             }
         });

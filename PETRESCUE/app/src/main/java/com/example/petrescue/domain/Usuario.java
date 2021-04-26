@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
-public class UsuarioDTO implements Parcelable {
+public class Usuario implements Parcelable {
 
     private Integer id;
     private Double saldo;
@@ -22,7 +22,7 @@ public class UsuarioDTO implements Parcelable {
     private String cpfCnpj;
     private String descricao;
 
-    public UsuarioDTO(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String nomeOng, String cpfCnpj, String descricao) {
+    public Usuario(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String nomeOng, String cpfCnpj, String descricao) {
         this.id = id;
         this.saldo = saldo;
         this.email = email;
@@ -36,10 +36,10 @@ public class UsuarioDTO implements Parcelable {
         this.descricao = descricao;
     }
 
-    public UsuarioDTO() {
+    public Usuario() {
     }
 
-    protected UsuarioDTO(Parcel in) {
+    protected Usuario(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
         } else {
@@ -59,15 +59,15 @@ public class UsuarioDTO implements Parcelable {
         descricao = in.readString();
     }
 
-    public static final Creator<UsuarioDTO> CREATOR = new Creator<UsuarioDTO>() {
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
         @Override
-        public UsuarioDTO createFromParcel(Parcel in) {
-            return new UsuarioDTO(in);
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
         }
 
         @Override
-        public UsuarioDTO[] newArray(int size) {
-            return new UsuarioDTO[size];
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
         }
     };
 

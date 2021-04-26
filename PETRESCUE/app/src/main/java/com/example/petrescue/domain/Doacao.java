@@ -2,7 +2,7 @@ package com.example.petrescue.domain;
 
 import java.time.LocalDateTime;
 
-public class DoacaoDTO {
+public class Doacao {
 
     private Integer id;
     private Double quantia;
@@ -10,7 +10,7 @@ public class DoacaoDTO {
     private Integer doador;
     private Integer vaquinha;
 
-    public DoacaoDTO(Integer id, Double quantia, LocalDateTime quando, Integer doador, Integer vaquinha) {
+    public Doacao(Integer id, Double quantia, LocalDateTime quando, Integer doador, Integer vaquinha) {
         this.id = id;
         this.quantia = quantia;
         this.quando = quando;
@@ -18,7 +18,7 @@ public class DoacaoDTO {
         this.vaquinha = vaquinha;
     }
 
-    public DoacaoDTO() {
+    public Doacao() {
     }
 
     public Integer getId() {

@@ -2,7 +2,7 @@ package com.example.petrescue.domain;
 
 import java.time.LocalDateTime;
 
-public class MensagemDTO {
+public class Mensagem {
 
     private Integer id;
     private LocalDateTime horario;
@@ -10,7 +10,7 @@ public class MensagemDTO {
     private Integer autor;
     private Integer conversa;
 
-    public MensagemDTO(Integer id, LocalDateTime horario, String texto, Integer autor, Integer conversa) {
+    public Mensagem(Integer id, LocalDateTime horario, String texto, Integer autor, Integer conversa) {
         this.id = id;
         this.horario = horario;
         this.texto = texto;
@@ -18,7 +18,7 @@ public class MensagemDTO {
         this.conversa = conversa;
     }
 
-    public MensagemDTO() {
+    public Mensagem() {
     }
 
     public Integer getId() {

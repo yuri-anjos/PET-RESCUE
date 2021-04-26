@@ -1,6 +1,10 @@
 package com.example.petrescue.domain.subClasses;
 
 
+import com.google.gson.Gson;
+
+import retrofit2.Response;
+
 public class ErrorResponse {
 
     private int status;
@@ -28,5 +32,10 @@ public class ErrorResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public static String formatErrorResponse (Response res){
+        ErrorResponse response=new Gson().fromJson(res.errorBody().charStream(),ErrorResponse.class);
+        return response.getStatus() + " - " + response.getMessage();
     }
 }

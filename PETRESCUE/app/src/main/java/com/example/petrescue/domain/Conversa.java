@@ -1,18 +1,18 @@
 package com.example.petrescue.domain;
 
-public class ConversaDTO {
+public class Conversa {
 
     private Integer id;
     private Integer usuarioUm;
     private Integer usuarioDois;
 
-    public ConversaDTO(Integer id, Integer usuarioUm, Integer usuarioDois) {
+    public Conversa(Integer id, Integer usuarioUm, Integer usuarioDois) {
         this.id = id;
         this.usuarioUm = usuarioUm;
         this.usuarioDois = usuarioDois;
     }
 
-    public ConversaDTO() {
+    public Conversa() {
     }
 
     public Integer getId() {

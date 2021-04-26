@@ -10,12 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.petrescue.domain.UsuarioDTO;
+import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogar;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
-    private UsuarioDTO usuarioDTO;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +54,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void realizarLogin() {
-        this.usuarioDTO = new UsuarioDTO();
-        this.usuarioDTO.setEmail(this.etEmail.getText().toString());
-        this.usuarioDTO.setSenha(this.etSenha.getText().toString());
+        this.usuario = new Usuario();
+        this.usuario.setEmail(this.etEmail.getText().toString());
+        this.usuario.setSenha(this.etSenha.getText().toString());
 
-        this.usuarioService.logar(usuarioDTO).enqueue(new Callback<UsuarioDTO>() {
+        this.usuarioService.logar(usuario).enqueue(new Callback<Usuario>() {
             @Override
-            public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                     intent.putExtra("usuario", response.body());
@@ -70,14 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     tvErroLogin.setVisibility(View.VISIBLE);
                     tvErroLogin.setText("Login inválido");
-                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
-                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
+                    Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
                 }
             }
 
             @Override
-            public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 tvErroLogin.setVisibility(View.VISIBLE);
                 tvErroLogin.setText("O servidor está fora, tente novamente mais tarde!");
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());

@@ -4,7 +4,6 @@ import br.com.petrescue.api.domain.Animal;
 import br.com.petrescue.api.domain.enums.Sexo;
 import br.com.petrescue.api.domain.enums.SituacaoAdocao;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

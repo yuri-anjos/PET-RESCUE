@@ -4,9 +4,7 @@ import com.example.petrescue.domain.enums.Sexo;
 import com.example.petrescue.domain.enums.SituacaoAdocao;
 import com.example.petrescue.domain.enums.TipoAnimal;
 
-import java.time.LocalDate;
-
-public class AnimalDTO {
+public class Animal {
 
     private Integer id;
     private SituacaoAdocao situacaoAdocao;
@@ -19,7 +17,7 @@ public class AnimalDTO {
     private String vacinas;
     private Integer usuario;
 
-    public AnimalDTO(Integer id, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
+    public Animal(Integer id, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
         this.id = id;
         this.situacaoAdocao = situacaoAdocao;
         this.foto = foto;
@@ -32,7 +30,7 @@ public class AnimalDTO {
         this.usuario = usuario;
     }
 
-    public AnimalDTO() {
+    public Animal() {
     }
 
     public Integer getId() {

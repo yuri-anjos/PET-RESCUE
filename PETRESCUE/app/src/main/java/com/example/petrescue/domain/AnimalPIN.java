@@ -4,7 +4,7 @@ import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
-public class AnimalPINDTO {
+public class AnimalPIN {
 
     private Integer id;
     private String foto;
@@ -16,7 +16,7 @@ public class AnimalPINDTO {
     private Localizacao localizacao;
     private Integer usuario;
 
-    public AnimalPINDTO(Integer id, String foto, String descricao, TipoAnimal tipoAnimal, String raca, TipoPIN tipoPIN, Boolean ativo, Localizacao localizacao, Integer usuario) {
+    public AnimalPIN(Integer id, String foto, String descricao, TipoAnimal tipoAnimal, String raca, TipoPIN tipoPIN, Boolean ativo, Localizacao localizacao, Integer usuario) {
         this.id = id;
         this.foto = foto;
         this.descricao = descricao;
@@ -28,7 +28,7 @@ public class AnimalPINDTO {
         this.usuario = usuario;
     }
 
-    public AnimalPINDTO() {
+    public AnimalPIN() {
     }
 
     public Integer getId() {

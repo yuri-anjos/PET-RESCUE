@@ -2,7 +2,7 @@ package com.example.petrescue.domain;
 
 import java.time.LocalDate;
 
-public class VaquinhaDTO {
+public class Vaquinha {
 
     private Integer id;
     private Double meta;
@@ -14,7 +14,7 @@ public class VaquinhaDTO {
     private Boolean ativo;
     private Integer usuario;
 
-    public VaquinhaDTO(Integer id, Double meta, Double valorArrecadado, String foto, LocalDate inicio, String titulo, String descricao, Boolean ativo, Integer usuario) {
+    public Vaquinha(Integer id, Double meta, Double valorArrecadado, String foto, LocalDate inicio, String titulo, String descricao, Boolean ativo, Integer usuario) {
         this.id = id;
         this.meta = meta;
         this.valorArrecadado = valorArrecadado;
@@ -26,7 +26,7 @@ public class VaquinhaDTO {
         this.usuario = usuario;
     }
 
-    public VaquinhaDTO() {
+    public Vaquinha() {
     }
 
     public Integer getId() {
