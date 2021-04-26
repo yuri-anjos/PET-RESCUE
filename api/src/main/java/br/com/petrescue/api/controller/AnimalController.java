@@ -29,8 +29,8 @@ public class AnimalController {
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusario") Integer idusuario, @RequestParam("pg") Integer pg){
-        return this.animalService.buscarAnimaisAdocaoUsuarioId(idusuario, pg);
+    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusario") Integer idusuario){
+        return this.animalService.buscarAnimaisAdocaoUsuarioId(idusuario);
     }
 
     @PostMapping

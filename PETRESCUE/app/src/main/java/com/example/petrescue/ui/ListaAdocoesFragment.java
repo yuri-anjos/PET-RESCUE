@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalDTO;
+import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +103,9 @@ public class ListaAdocoesFragment extends Fragment {
                     tvActualPage.setText(Integer.toString(pg+1));
 
                 } else {
-                    Log.i("DEBUG", response.message());
+                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
+                    Toast.makeText(getActivity(), message.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
                 }
             }
 

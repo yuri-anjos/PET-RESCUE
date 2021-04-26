@@ -7,12 +7,14 @@ import lombok.Getter;
 @Getter
 public abstract class ErroAbstratoException extends RuntimeException {
 
-    private final String mensagem;
+
+
+    private final String message;
     private final HttpStatus status;
 
-    public ErroAbstratoException(String mensagem, HttpStatus status) {
-        super(mensagem);
-        this.mensagem = mensagem;
+    public ErroAbstratoException(String message, HttpStatus status) {
+        super(message);
         this.status = status;
+        this.message = message;
     }
 }

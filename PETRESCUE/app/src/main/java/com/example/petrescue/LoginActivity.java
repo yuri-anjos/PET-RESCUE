@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.petrescue.domain.UsuarioDTO;
+import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     tvErroLogin.setVisibility(View.VISIBLE);
                     tvErroLogin.setText("Login inválido");
-                    Log.i("DEBUG", "RESPONSE ERROR: " + response.message());
+                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
+                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
                 }
             }
 

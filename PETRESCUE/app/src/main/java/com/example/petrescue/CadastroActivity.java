@@ -15,9 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.petrescue.domain.UsuarioDTO;
 import com.example.petrescue.domain.enums.TipoUsuario;
+import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
@@ -37,6 +39,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -211,7 +214,9 @@ public class CadastroActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.i("DEBUG", response.message());
+                    ErrorResponse message=new Gson().fromJson(response.errorBody().charStream(),ErrorResponse.class);
+                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + message);
                 }
             }
 

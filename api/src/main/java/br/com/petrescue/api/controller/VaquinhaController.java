@@ -29,8 +29,8 @@ public class VaquinhaController {
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusario") Integer idusuario, @RequestParam("pg") Integer pg){
-        return this.vaquinhaService.buscarVaquinhasUsuarioId(idusuario, pg);
+    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusario") Integer idusuario){
+        return this.vaquinhaService.buscarVaquinhasUsuarioId(idusuario);
     }
 
     @PostMapping
