@@ -4,6 +4,7 @@ import br.com.petrescue.api.controller.dto.DoacaoDTO;
 import br.com.petrescue.api.domain.Doacao;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.Vaquinha;
+import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.DoacaoRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
@@ -28,9 +29,9 @@ public class DoacaoService {
     @Transactional
     public void doarParaVaquinha(DoacaoDTO doacaoDTO){
         Doacao doacao = new Doacao(doacaoDTO);
-        Usuario doador = this.usuarioRepository.findById(doacaoDTO.getDoador()).orElseThrow(() -> new NegocioException("Usuario doador não encontrado!"));
-        Vaquinha vaquinha = this.vaquinhaRepository.findById(doacaoDTO.getVaquinha()).orElseThrow(() -> new NegocioException("Vaquinha não encontrada!"));
-        Usuario recebedor = this.usuarioRepository.findById(vaquinha.getUsuario().getId()).orElseThrow(() -> new NegocioException("Responsável pela vaqinha não encontrado!"));
+        Usuario doador = this.usuarioRepository.findById(doacaoDTO.getDoador()).orElseThrow(() -> new NaoEncontradoException("Usuario doador não encontrado!"));
+        Vaquinha vaquinha = this.vaquinhaRepository.findById(doacaoDTO.getVaquinha()).orElseThrow(() -> new NaoEncontradoException("Vaquinha não encontrada!"));
+        Usuario recebedor = this.usuarioRepository.findById(vaquinha.getUsuario().getId()).orElseThrow(() -> new NaoEncontradoException("Responsável pela vaqinha não encontrado!"));
 
         doador.setSaldo(doador.getSaldo() - doacao.getQuantia());
         if(doador.getSaldo()<0){

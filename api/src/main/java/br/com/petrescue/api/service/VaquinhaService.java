@@ -4,6 +4,7 @@ import br.com.petrescue.api.controller.dto.VaquinhaDTO;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.Vaquinha;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
+import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.repository.VaquinhaRepository;
@@ -26,11 +27,11 @@ public class VaquinhaService {
 
     public List<VaquinhaDTO> buscarVaquinhas(Integer pg){
         Pageable pageable = PageRequest.of(pg, 10);
-        return this.vaquinhaRepository.findAll(pageable).stream().map(VaquinhaDTO::new).collect(Collectors.toList());
+        return this.vaquinhaRepository.findByAtivo(true, pageable).stream().map(VaquinhaDTO::new).collect(Collectors.toList());
     }
 
     public VaquinhaDTO buscarVaquinhaId(Integer idvaquinha){
-        return new VaquinhaDTO(this.vaquinhaRepository.findById(idvaquinha).orElseThrow(() -> new NegocioException("Vaquinha inválida")));
+        return new VaquinhaDTO(this.vaquinhaRepository.findById(idvaquinha).orElseThrow(() -> new NaoEncontradoException("Vaquinha não encontrada!")));
     }
 
     public List<VaquinhaDTO> buscarVaquinhasUsuarioId(Integer idusario){
@@ -39,10 +40,10 @@ public class VaquinhaService {
 
     public VaquinhaDTO cadastrarVaquinha(VaquinhaDTO vaquinhaDTO){
         Vaquinha vaquinha = new Vaquinha(vaquinhaDTO);
-        Usuario usuario = this.usuarioRepository.findById(vaquinhaDTO.getUsuario()).orElseThrow(()->new NegocioException("Usuário inválido."));
+        Usuario usuario = this.usuarioRepository.findById(vaquinhaDTO.getUsuario()).orElseThrow(()->new NaoEncontradoException("Usuário não encontrado!"));
 
         if(vaquinha.getMeta() == -1 && TipoUsuario.INDIVIDUO.equals(usuario.getTipoUsuario())){
-            throw new NegocioException("Apenas instituições podem se utilizar de arregadações sem limite!");
+            throw new NegocioException("Apenas instituições podem utilizar de arregadações sem limite!");
         }
 
         vaquinha.setUsuario(usuario);
