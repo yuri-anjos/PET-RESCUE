@@ -25,7 +25,7 @@ public class AnimalService {
 
     public List<AnimalDTO> buscarAnimaisAdocao(Integer pg){
         Pageable pageable = PageRequest.of(pg, 10);
-        return this.animalRepository.findAll(pageable).stream().map(AnimalDTO::new).collect(Collectors.toList());
+        return this.animalRepository.findBySituacaoAdocao(SituacaoAdocao.ESPERA, pageable).stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
     public AnimalDTO buscarAnimalDoacaoId(Integer idanimal){
