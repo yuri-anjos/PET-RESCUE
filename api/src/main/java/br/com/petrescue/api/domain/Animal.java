@@ -33,6 +33,9 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
+    private String nome;
+
     @Column(name = "situacao_adocao", nullable = false)
     @Enumerated(EnumType.STRING)
     private SituacaoAdocao situacaoAdocao;
@@ -66,6 +69,7 @@ public class Animal {
 
     public Animal(AnimalDTO animalDTO) {
         this.id = animalDTO.getId();
+        this.nome = animalDTO.getNome();
         this.situacaoAdocao = animalDTO.getSituacaoAdocao();
         this.foto = animalDTO.getFoto();
         this.tipoAnimal = animalDTO.getTipoAnimal();

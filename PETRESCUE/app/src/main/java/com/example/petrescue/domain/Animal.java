@@ -7,6 +7,7 @@ import com.example.petrescue.domain.enums.TipoAnimal;
 public class Animal {
 
     private Integer id;
+    private String nome;
     private SituacaoAdocao situacaoAdocao;
     private String foto;
     private TipoAnimal tipoAnimal;
@@ -17,8 +18,9 @@ public class Animal {
     private String vacinas;
     private Integer usuario;
 
-    public Animal(Integer id, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
+    public Animal(Integer id, String nome, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
         this.id = id;
+        this.nome = nome;
         this.situacaoAdocao = situacaoAdocao;
         this.foto = foto;
         this.tipoAnimal = tipoAnimal;
@@ -39,6 +41,14 @@ public class Animal {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public SituacaoAdocao getSituacaoAdocao() {

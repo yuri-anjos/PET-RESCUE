@@ -36,13 +36,6 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tv_erro_loginusuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:visibility="gone" />
-
     <Button
         android:id="@+id/bt_logar_loginusuario"
         android:layout_width="match_parent"

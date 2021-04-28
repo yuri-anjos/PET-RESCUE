@@ -16,6 +16,7 @@ import lombok.Setter;
 public class AnimalDTO {
 
     private Integer id;
+    private String nome;
     private SituacaoAdocao situacaoAdocao;
     private String foto;
     private TipoAnimal tipoAnimal;
@@ -28,6 +29,7 @@ public class AnimalDTO {
 
     public AnimalDTO(Animal animal) {
         this.id = animal.getId();
+        this.nome = animal.getNome();
         this.situacaoAdocao = animal.getSituacaoAdocao();
         this.foto = animal.getFoto();
         this.tipoAnimal = animal.getTipoAnimal();

@@ -216,7 +216,7 @@ public class CadastroActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.i("DEBUG", t.getMessage());
+                Toast.makeText(getApplicationContext(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
             }
         });
     }

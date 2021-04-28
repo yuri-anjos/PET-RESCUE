@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText etEmail;
     private TextInputEditText etSenha;
-    private TextView tvErroLogin;
     private Button btLogar;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
@@ -47,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         this.etEmail = this.findViewById(R.id.et_email_loginusuario);
         this.etSenha = this.findViewById(R.id.et_senha_loginusuario);
         this.btLogar = this.findViewById(R.id.bt_logar_loginusuario);
-        this.tvErroLogin = this.findViewById(R.id.tv_erro_loginusuario);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
@@ -67,8 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    tvErroLogin.setVisibility(View.VISIBLE);
-                    tvErroLogin.setText("Login inválido");
                     Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
                 }
@@ -76,8 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                tvErroLogin.setVisibility(View.VISIBLE);
-                tvErroLogin.setText("O servidor está fora, tente novamente mais tarde!");
+                Toast.makeText(getApplicationContext(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
         });
