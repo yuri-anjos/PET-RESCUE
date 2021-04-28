@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.petrescue.R;
 
-public class SlideshowFragment extends Fragment {
+public class UsuarioFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View root = inflater.inflate(R.layout.fragment_usuario, container, false);
         return root;
     }
 }
