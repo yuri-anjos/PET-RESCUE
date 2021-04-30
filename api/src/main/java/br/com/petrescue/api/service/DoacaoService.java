@@ -10,6 +10,8 @@ import br.com.petrescue.api.repository.DoacaoRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.repository.VaquinhaRepository;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,5 +54,9 @@ public class DoacaoService {
         this.doacaoRepository.save(doacao);
         this.usuarioRepository.save(doador);
         this.usuarioRepository.save(recebedor);
+    }
+
+    public List<DoacaoDTO> buscarDoacoesVaquinha(Integer idvaquinha) {
+        return this.doacaoRepository.findByVaquinhaId(idvaquinha).stream().map(DoacaoDTO::new).collect(Collectors.toList());
     }
 }

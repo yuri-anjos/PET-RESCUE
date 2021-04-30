@@ -1,8 +1,10 @@
 package br.com.petrescue.api.service;
 
+import br.com.petrescue.api.controller.dto.CarteiraDTO;
 import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
+import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.validator.GeralValidator;
@@ -35,6 +37,12 @@ public class UsuarioService {
     }
 
     public UsuarioDTO buscarUsuarioId(Integer idusuario) {
-        return new UsuarioDTO(this.usuarioRepository.findById(idusuario).orElseThrow(() -> new NegocioException("Login Inválido!")));
+        return new UsuarioDTO(this.usuarioRepository.findById(idusuario).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!")));
+    }
+
+    public UsuarioDTO depositarSaldo(CarteiraDTO carteiraDTO) {
+        Usuario usuario = this.usuarioRepository.findById(carteiraDTO.getUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
+        usuario.setSaldo(usuario.getSaldo() + carteiraDTO.getSaldoAdicional());
+        return new UsuarioDTO(this.usuarioRepository.save(usuario));
     }
 }

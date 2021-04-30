@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
-                    intent.putExtra("usuario", response.body());
+                    intent.putExtra("idusuario", response.body().getId());
                     startActivity(intent);
                     finish();
                 } else {

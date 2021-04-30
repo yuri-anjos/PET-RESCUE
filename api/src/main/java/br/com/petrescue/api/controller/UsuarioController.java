@@ -1,6 +1,7 @@
 package br.com.petrescue.api.controller;
 
 
+import br.com.petrescue.api.controller.dto.CarteiraDTO;
 import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.service.BuscarTodosUsuariosService;
@@ -66,5 +67,11 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public UsuarioDTO buscarUsuarioId(@PathVariable("idsuario") Integer idusuario){
         return this.usuarioService.buscarUsuarioId(idusuario);
+    }
+
+    @GetMapping("/depositar")
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioDTO depositarSaldo(@RequestBody CarteiraDTO carteiraDTO){
+        return this.usuarioService.depositarSaldo(carteiraDTO);
     }
 }

@@ -1,8 +1,14 @@
 package com.example.petrescue;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.petrescue.domain.Usuario;
+import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.service.RetrofitConfig;
+import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -13,10 +19,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class PrincipalActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Usuario usuario;
+    private Integer idusuario;
+    private Retrofit retrofit;
+    private UsuarioService usuarioService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +49,10 @@ public class PrincipalActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        this.usuario = getIntent().getExtras().getParcelable("usuario");
+
+        this.idusuario = getIntent().getExtras().getInt("idusuario");
+        this.retrofit = RetrofitConfig.generateRetrofit();
+        this.usuarioService = retrofit.create(UsuarioService.class);
     }
 
     @Override
@@ -43,5 +60,27 @@ public class PrincipalActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.usuarioService.buscarUsuarioId(this.idusuario).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful()) {
+                    usuario = response.body();
+                } else {
+                    Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
+            }
+        });
     }
 }

@@ -44,4 +44,10 @@ public class AnimalController {
     public AnimalDTO buscarAnimaisAdocaoId(@PathVariable("idanimal") Integer idanimal){
         return this.animalService.buscarAnimalDoacaoId(idanimal);
     }
+
+    @GetMapping("/adotar/{idanimal}")
+    @ResponseStatus(HttpStatus.OK)
+    public AnimalDTO marcarAnimalAdotado(@PathVariable("idanimal") Integer idanimal){
+        return this.animalService.marcarAnimalAdotado(idanimal);
+    }
 }

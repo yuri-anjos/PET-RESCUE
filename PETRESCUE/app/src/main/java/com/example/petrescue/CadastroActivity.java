@@ -205,7 +205,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
-                    intent.putExtra("usuario", response.body());
+                    intent.putExtra("idusuario", response.body().getId());
                     startActivity(intent);
                     finish();
                 } else {
@@ -217,6 +217,7 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
         });
     }

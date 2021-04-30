@@ -4,6 +4,7 @@ import br.com.petrescue.api.controller.dto.AnimalDTO;
 import br.com.petrescue.api.domain.Animal;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.enums.SituacaoAdocao;
+import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.AnimalRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
@@ -29,7 +30,7 @@ public class AnimalService {
     }
 
     public AnimalDTO buscarAnimalDoacaoId(Integer idanimal){
-        return new AnimalDTO(this.animalRepository.findById(idanimal).orElseThrow(() -> new NegocioException("Animal para adoção inválido")));
+        return new AnimalDTO(this.animalRepository.findById(idanimal).orElseThrow(() -> new NaoEncontradoException("Animal não encontrado!")));
     }
 
     public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(Integer idusario){
@@ -38,10 +39,15 @@ public class AnimalService {
 
     public AnimalDTO cadastrarAnimalAdocao(AnimalDTO animalDTO){
         Animal animal = new Animal(animalDTO);
-        Usuario usuario = this.usuarioRepository.findById(animalDTO.getUsuario()).orElseThrow(()->new NegocioException("Usuário inválido."));
+        Usuario usuario = this.usuarioRepository.findById(animalDTO.getUsuario()).orElseThrow(()->new NaoEncontradoException("Usuário não encontrado!"));
         animal.setUsuario(usuario);
         animal.setSituacaoAdocao(SituacaoAdocao.ESPERA);
         return new AnimalDTO(this.animalRepository.save(animal));
     }
 
+    public AnimalDTO marcarAnimalAdotado(Integer idanimal) {
+        Animal animal = this.animalRepository.findById(idanimal).orElseThrow(()->new NaoEncontradoException("Animal não encontrado!"));
+        animal.setSituacaoAdocao(SituacaoAdocao.ADOTADO);
+        return new AnimalDTO(this.animalRepository.save(animal));
+    }
 }
