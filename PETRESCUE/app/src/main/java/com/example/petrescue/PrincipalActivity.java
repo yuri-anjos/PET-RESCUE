@@ -1,6 +1,5 @@
 package com.example.petrescue;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -50,7 +49,6 @@ public class PrincipalActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        this.idusuario = getIntent().getExtras().getInt("idusuario");
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
     }
@@ -65,6 +63,8 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        this.idusuario = getIntent().getExtras().getInt("idusuario");
+
         this.usuarioService.buscarUsuarioId(this.idusuario).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {

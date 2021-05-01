@@ -110,7 +110,7 @@ public class ListaVaquinhasFragment extends Fragment {
 
             @Override
                 public void onFailure(Call<List<Vaquinha>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
         });

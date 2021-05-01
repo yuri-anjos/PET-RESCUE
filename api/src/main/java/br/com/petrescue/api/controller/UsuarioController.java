@@ -65,7 +65,7 @@ public class UsuarioController {
 
     @GetMapping("/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO buscarUsuarioId(@PathVariable("idsuario") Integer idusuario){
+    public UsuarioDTO buscarUsuarioId(@PathVariable("idusuario") Integer idusuario){
         return this.usuarioService.buscarUsuarioId(idusuario);
     }
 

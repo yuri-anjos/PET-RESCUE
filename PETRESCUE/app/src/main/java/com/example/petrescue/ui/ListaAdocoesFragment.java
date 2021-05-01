@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
@@ -66,7 +66,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         this.listaAnimalAdocao = new ArrayList<>();
 
         this.animalAdapter = new AdapterAnimal(this.listaAnimalAdocao, this);
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         this.recyclerView.setAdapter(this.animalAdapter);
 
         this.buscarAnimaisAdocao(this.pagina);
@@ -111,7 +111,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
             @Override
             public void onFailure(Call<List<Animal>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                 Log.i("DEBUG", t.getMessage());
             }
         });
