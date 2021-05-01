@@ -64,7 +64,6 @@ public class PrincipalActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.idusuario = getIntent().getExtras().getInt("idusuario");
-
         this.usuarioService.buscarUsuarioId(this.idusuario).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {

@@ -53,6 +53,12 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.buscarAnimaisAdocao(this.pagina);
+    }
+
     private void inicializaComponentes(View v) {
         this.recyclerView = v.findViewById(R.id.rv_listaadocoes);
         this.btMinusPage = v.findViewById(R.id.bt_minuspage_listaadocoes);
@@ -68,8 +74,6 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         this.animalAdapter = new AdapterAnimal(this.listaAnimalAdocao, this);
         this.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         this.recyclerView.setAdapter(this.animalAdapter);
-
-        this.buscarAnimaisAdocao(this.pagina);
     }
 
     private void buscarAnimaisAdocao(Integer pg) {

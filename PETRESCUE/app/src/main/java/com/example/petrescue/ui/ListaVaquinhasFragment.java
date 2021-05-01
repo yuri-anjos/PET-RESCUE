@@ -57,6 +57,12 @@ public class ListaVaquinhasFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.buscarAnimaisAdocao(this.pagina);
+    }
+
     private void inicializaComponentes(View v) {
         this.lvVaquinha = v.findViewById(R.id.lv_vaquinhas_listavaquinhas);
         this.btMinusPage = v.findViewById(R.id.bt_minuspage_listavaquinhas);
@@ -70,8 +76,6 @@ public class ListaVaquinhasFragment extends Fragment {
         this.listaVaquinha = new ArrayList<>();
         this.vaquinhaArrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, this.listaVaquinha);
         this.lvVaquinha.setAdapter(this.vaquinhaArrayAdapter);
-
-        this.buscarAnimaisAdocao(this.pagina);
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
