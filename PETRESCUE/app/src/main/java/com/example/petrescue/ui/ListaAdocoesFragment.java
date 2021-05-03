@@ -123,7 +123,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
     @Override
     public void onAnimalClick(int position) {
-        listaAnimalAdocao.get(position);
+        this.listaAnimalAdocao.get(position);
         Toast.makeText(getActivity(), "clicou em animal", Toast.LENGTH_SHORT).show();
     }
 }

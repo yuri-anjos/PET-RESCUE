@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,10 +15,11 @@
         android:text="Lista Vaquinhas"
         android:textSize="30sp" />
 
-    <ListView
-        android:id="@+id/lv_vaquinhas_listavaquinhas"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_listavaquinhas"
         android:layout_width="match_parent"
-        android:layout_height="580dp" />
+        android:layout_height="565dp"
+        tools:listitem="@layout/item_lista_vaquinhas" />
 
     <LinearLayout
         android:layout_width="match_parent"

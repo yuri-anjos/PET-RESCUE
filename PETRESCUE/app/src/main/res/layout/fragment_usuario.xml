@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".ui.UsuarioFragment">
@@ -16,7 +17,7 @@
             android:id="@+id/iv_foto_usuario"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            tools:src="@drawable/perfil_icon" />
+            android:src="@drawable/perfil_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +52,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -58,7 +60,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    app:boxBackgroundMode="outline">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_saldo_adicional_usuario"
@@ -74,7 +77,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Depositar" />
+                    android:text="Depositar"
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>

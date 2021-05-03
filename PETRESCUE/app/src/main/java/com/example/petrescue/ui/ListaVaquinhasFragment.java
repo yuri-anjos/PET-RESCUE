@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.R;
+import com.example.petrescue.domain.Animal;
 import com.example.petrescue.domain.Vaquinha;
+import com.example.petrescue.domain.adapter.AdapterAnimal;
+import com.example.petrescue.domain.adapter.AdapterVaquinha;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.VaquinhaService;
@@ -29,15 +35,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ListaVaquinhasFragment extends Fragment {
+public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.OnVaquinhaListener{
 
+    private RecyclerView recyclerView;
+    private AdapterVaquinha vaquinhaAdapter;
     private List<Vaquinha> listaVaquinha;
-    private ArrayAdapter<Vaquinha> vaquinhaArrayAdapter;
     private Integer pagina;
     private Retrofit retrofit;
     private VaquinhaService vaquinhaService;
 
-    private ListView lvVaquinha;
     private Button btMinusPage;
     private Button btPlusPage;
     private TextView tvActualPage;
@@ -46,10 +52,6 @@ public class ListaVaquinhasFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_lista_vaquinhas, container, false);
         this.inicializaComponentes(root);
-
-        this.lvVaquinha.setOnItemClickListener((parent, view, position, id) -> {
-
-        });
 
         this.btMinusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina - 1));
         this.btPlusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina + 1));
@@ -64,7 +66,7 @@ public class ListaVaquinhasFragment extends Fragment {
     }
 
     private void inicializaComponentes(View v) {
-        this.lvVaquinha = v.findViewById(R.id.lv_vaquinhas_listavaquinhas);
+        this.recyclerView = v.findViewById(R.id.rv_listavaquinhas);
         this.btMinusPage = v.findViewById(R.id.bt_minuspage_listavaquinhas);
         this.btPlusPage = v.findViewById(R.id.bt_pluspage_listavaquinhas);
         this.tvActualPage = v.findViewById(R.id.tv_actualpage_listavaquinhas);
@@ -74,8 +76,10 @@ public class ListaVaquinhasFragment extends Fragment {
         this.vaquinhaService = retrofit.create(VaquinhaService.class);
 
         this.listaVaquinha = new ArrayList<>();
-        this.vaquinhaArrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, this.listaVaquinha);
-        this.lvVaquinha.setAdapter(this.vaquinhaArrayAdapter);
+
+        this.vaquinhaAdapter = new AdapterVaquinha(this.listaVaquinha, this);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.recyclerView.setAdapter(this.vaquinhaAdapter);
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
@@ -88,7 +92,7 @@ public class ListaVaquinhasFragment extends Fragment {
                     if (listaVaquinha.isEmpty()) {
                         Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUMA vaquinha do servidor!", Toast.LENGTH_LONG).show();
                     }
-                    vaquinhaArrayAdapter.notifyDataSetChanged();
+                    vaquinhaAdapter.notifyDataSetChanged();
                     pagina = pg;
 
                     if (listaVaquinha.size() == 10) {
@@ -118,5 +122,11 @@ public class ListaVaquinhasFragment extends Fragment {
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onVaquinhaClick(int position) {
+        this.listaVaquinha.get(position);
+        Toast.makeText(getActivity(), "clicou em vaqinha", Toast.LENGTH_SHORT).show();
     }
 }
