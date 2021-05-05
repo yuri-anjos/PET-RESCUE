@@ -13,15 +13,27 @@
     <fragment
         android:id="@+id/nav_adocao"
         android:name="com.example.petrescue.ui.ListaAdocoesFragment"
+        android:label="@string/menu_lista_adocao"
         tools:layout="@layout/fragment_lista_adocoes" />
 
     <fragment
         android:id="@+id/nav_vaquinhas"
         android:name="com.example.petrescue.ui.ListaVaquinhasFragment"
+        android:label="@string/menu_lista_vaquinha"
         tools:layout="@layout/fragment_lista_vaquinhas" />
 
     <fragment
         android:id="@+id/nav_usuario"
         android:name="com.example.petrescue.ui.UsuarioFragment"
-        tools:layout="@layout/fragment_usuario" />
+        android:label="@string/menu_usuario"
+        tools:layout="@layout/fragment_usuario">
+        <action
+            android:id="@+id/action_nav_usuario_to_nav_editar_usuario"
+            app:destination="@id/nav_editar_usuario" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_editar_usuario"
+        android:name="com.example.petrescue.ui.EditarUsuarioFragment"
+        android:label="@string/menu_usuario"
+        tools:layout="@layout/fragment_editar_usuario" />
 </navigation>

@@ -204,7 +204,7 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ControleActivity.class);
                     intent.putExtra("idusuario", response.body().getId());
                     startActivity(intent);
                     finish();

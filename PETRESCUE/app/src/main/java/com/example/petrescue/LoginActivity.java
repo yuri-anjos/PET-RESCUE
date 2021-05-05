@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.domain.Usuario;
@@ -60,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ControleActivity.class);
                     intent.putExtra("idusuario", response.body().getId());
                     startActivity(intent);
                     finish();

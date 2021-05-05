@@ -23,13 +23,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class ControleActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private Usuario usuario;
-    private Integer idusuario;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
+    public static Usuario USUARIO;
+    private Integer idusuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
-                    usuario = response.body();
+                    ControleActivity.USUARIO = response.body();
                 } else {
                     Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());

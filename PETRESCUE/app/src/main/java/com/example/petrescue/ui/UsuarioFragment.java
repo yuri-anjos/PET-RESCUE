@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.service.UsuarioService;
@@ -31,7 +33,6 @@ public class UsuarioFragment extends Fragment {
     private Retrofit retrofit;
     private UsuarioService usuarioService;
     private Usuario usuario;
-    private Integer idusuario;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,16 +45,13 @@ public class UsuarioFragment extends Fragment {
         });
 
         this.btEditar.setOnClickListener(v -> {
-            //troca de tela
+//            Bundle info = new Bundle();
+//            info.putParcelable("usuario", this.usuario);
+//            Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_editar_usuario, info);
+            Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_editar_usuario);
         });
 
         return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//            this.usuarioService.buscarUsuarioId(this.idusuario)
     }
 
     private void inicializaComponentes(View v){
@@ -64,5 +62,11 @@ public class UsuarioFragment extends Fragment {
         this.saldoAdicional = v.findViewById(R.id.et_saldo_adicional_usuario);
         this.btAdicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.btEditar = v.findViewById(R.id.bt_editar_usuario);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.usuario = ControleActivity.USUARIO;
     }
 }
