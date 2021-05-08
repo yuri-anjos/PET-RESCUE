@@ -25,7 +25,8 @@ public class AnimalDTO {
     private Integer dataNascimento;
     private String descricao;
     private String vacinas;
-    private Integer usuario;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
     public AnimalDTO(Animal animal) {
         this.id = animal.getId();
@@ -38,6 +39,7 @@ public class AnimalDTO {
         this.dataNascimento = animal.getDataNascimento();
         this.descricao = animal.getDescricao();
         this.vacinas = animal.getVacinas();
-        this.usuario = animal.getUsuario().getId();
+        this.idUsuario = animal.getUsuario().getId();
+        this.nomeUsuario = animal.getUsuario().getNome();
     }
 }

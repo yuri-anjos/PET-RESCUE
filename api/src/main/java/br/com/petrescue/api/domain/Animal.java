@@ -4,8 +4,6 @@ import br.com.petrescue.api.controller.dto.AnimalDTO;
 import br.com.petrescue.api.domain.enums.Sexo;
 import br.com.petrescue.api.domain.enums.SituacaoAdocao;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
-import java.time.LocalDate;
-import java.time.Year;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

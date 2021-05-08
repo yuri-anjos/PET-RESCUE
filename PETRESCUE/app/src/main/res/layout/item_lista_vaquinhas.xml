@@ -24,21 +24,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Dudu foi atropelado" />
+                android:text=":titulo:" />
 
             <TextView
                 android:id="@+id/tv_inicio_itemlistavaquinha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="20/04/2021" />
+                android:text=":criacao:" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Meu cachorro foi atropelado e nao tenho dinheiro para sirurgia" />
+            android:text=":descricao:" />
 
     </LinearLayout>
 

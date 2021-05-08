@@ -45,16 +45,13 @@ public class UsuarioFragment extends Fragment {
         });
 
         this.btEditar.setOnClickListener(v -> {
-//            Bundle info = new Bundle();
-//            info.putParcelable("usuario", this.usuario);
-//            Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_editar_usuario, info);
             Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_editar_usuario);
         });
 
         return root;
     }
 
-    private void inicializaComponentes(View v){
+    private void inicializaComponentes(View v) {
         this.foto = v.findViewById(R.id.iv_foto_usuario);
         this.nome = v.findViewById(R.id.tv_nome_usuario);
         this.email = v.findViewById(R.id.tv_email_usuario);

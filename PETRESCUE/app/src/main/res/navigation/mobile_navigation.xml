@@ -11,10 +11,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_adocao"
+        android:id="@+id/nav_lista_adocao"
         android:name="com.example.petrescue.ui.ListaAdocoesFragment"
         android:label="@string/menu_lista_adocao"
-        tools:layout="@layout/fragment_lista_adocoes" />
+        tools:layout="@layout/fragment_lista_adocoes" >
+        <action
+            android:id="@+id/action_nav_lista_adocao_to_nav_animal_adocao"
+            app:destination="@id/nav_animal_adocao" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_vaquinhas"
@@ -36,4 +40,23 @@
         android:name="com.example.petrescue.ui.EditarUsuarioFragment"
         android:label="@string/menu_usuario"
         tools:layout="@layout/fragment_editar_usuario" />
+    <fragment
+        android:id="@+id/nav_animal_adocao"
+        android:name="com.example.petrescue.ui.AnimalAdocaoFragment"
+        android:label="@string/menu_lista_adocao"
+        tools:layout="@layout/fragment_animal_adocao" >
+        <action
+            android:id="@+id/action_nav_animal_adocao_to_nav_form_animal_adocao"
+            app:destination="@id/nav_form_animal_adocao" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_form_animal_adocao"
+        android:name="com.example.petrescue.ui.FormAnimalAdocaoFragment"
+        android:label="@string/menu_lista_adocao"
+        tools:layout="@layout/fragment_form_adocao" >
+        <action
+            android:id="@+id/action_nav_form_animal_adocao_to_nav_animal_adocao"
+            app:destination="@id/nav_animal_adocao" />
+    </fragment>
 </navigation>

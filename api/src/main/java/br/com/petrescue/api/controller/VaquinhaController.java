@@ -39,7 +39,7 @@ public class VaquinhaController {
         return this.vaquinhaService.cadastrarVaquinha(vaquinhaDTO);
     }
 
-    @PostMapping("/{idvaquinha}")
+    @GetMapping("/{idvaquinha}")
     @ResponseStatus(HttpStatus.OK)
     public VaquinhaDTO buscarVaquinhaId(@PathVariable("idanimal") Integer idvaquinha){
         return this.vaquinhaService.buscarVaquinhaId(idvaquinha);

@@ -69,7 +69,7 @@ public class UsuarioController {
         return this.usuarioService.buscarUsuarioId(idusuario);
     }
 
-    @GetMapping("/depositar")
+    @PostMapping("/depositar")
     @ResponseStatus(HttpStatus.OK)
     public UsuarioDTO depositarSaldo(@RequestBody CarteiraDTO carteiraDTO){
         return this.usuarioService.depositarSaldo(carteiraDTO);

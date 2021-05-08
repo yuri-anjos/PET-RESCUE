@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dip"
-            android:text="Button" />
+            android:text="0" />
 
         <TextView
             android:id="@+id/tv_actualpage_listaadocoes"
@@ -43,13 +43,13 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="TextView" />
+            android:text="1" />
 
         <Button
             android:id="@+id/bt_pluspage_listaadocoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dip"
-            android:text="Button" />
+            android:text="2" />
     </LinearLayout>
 </LinearLayout>

@@ -4,7 +4,9 @@ import com.example.petrescue.domain.enums.Sexo;
 import com.example.petrescue.domain.enums.SituacaoAdocao;
 import com.example.petrescue.domain.enums.TipoAnimal;
 
-public class Animal {
+import java.io.Serializable;
+
+public class Animal implements Serializable {
 
     private Integer id;
     private String nome;
@@ -16,9 +18,13 @@ public class Animal {
     private Integer dataNascimento;
     private String descricao;
     private String vacinas;
-    private Integer usuario;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
-    public Animal(Integer id, String nome, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer usuario) {
+    public Animal() {
+    }
+
+    public Animal(Integer id, String nome, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer idUsuario, String nomeUsuario) {
         this.id = id;
         this.nome = nome;
         this.situacaoAdocao = situacaoAdocao;
@@ -29,10 +35,8 @@ public class Animal {
         this.dataNascimento = dataNascimento;
         this.descricao = descricao;
         this.vacinas = vacinas;
-        this.usuario = usuario;
-    }
-
-    public Animal() {
+        this.idUsuario = idUsuario;
+        this.nomeUsuario = nomeUsuario;
     }
 
     public Integer getId() {
@@ -115,11 +119,37 @@ public class Animal {
         this.vacinas = vacinas;
     }
 
-    public Integer getUsuario() {
-        return usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", situacaoAdocao=" + situacaoAdocao +
+                ", foto='" + foto + '\'' +
+                ", tipoAnimal=" + tipoAnimal +
+                ", raca='" + raca + '\'' +
+                ", sexo=" + sexo +
+                ", dataNascimento=" + dataNascimento +
+                ", descricao='" + descricao + '\'' +
+                ", vacinas='" + vacinas + '\'' +
+                ", idUsuario=" + idUsuario +
+                ", nomeUsuario='" + nomeUsuario + '\'' +
+                '}';
     }
 }

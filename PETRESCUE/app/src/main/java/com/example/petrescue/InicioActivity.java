@@ -20,17 +20,17 @@ public class InicioActivity extends AppCompatActivity {
         this.iniciarComponentes();
 
         this.btLogin.setOnClickListener(v -> {
-            intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            this.intent = new Intent(this, LoginActivity.class);
+            startActivity(this.intent);
         });
 
         this.btCadastro.setOnClickListener(v -> {
-            intent = new Intent(this, CadastroActivity.class);
-            startActivity(intent);
+            this.intent = new Intent(this, CadastroActivity.class);
+            startActivity(this.intent);
         });
     }
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         this.btLogin = this.findViewById(R.id.bt_login_inicio);
         this.btCadastro = this.findViewById(R.id.bt_cadastro_inicio);
     }

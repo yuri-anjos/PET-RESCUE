@@ -1,12 +1,11 @@
 package com.example.petrescue.domain;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
-public class Usuario implements Parcelable {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
     private Integer id;
     private Double saldo;
@@ -38,38 +37,6 @@ public class Usuario implements Parcelable {
 
     public Usuario() {
     }
-
-    protected Usuario(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            saldo = null;
-        } else {
-            saldo = in.readDouble();
-        }
-        email = in.readString();
-        senha = in.readString();
-        nome = in.readString();
-        foto = in.readString();
-        nomeOng = in.readString();
-        cpfCnpj = in.readString();
-        descricao = in.readString();
-    }
-
-    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
-        @Override
-        public Usuario createFromParcel(Parcel in) {
-            return new Usuario(in);
-        }
-
-        @Override
-        public Usuario[] newArray(int size) {
-            return new Usuario[size];
-        }
-    };
 
     public Integer getId() {
         return id;
@@ -159,31 +126,4 @@ public class Usuario implements Parcelable {
         this.descricao = descricao;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(id);
-        }
-        if (saldo == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(saldo);
-        }
-        dest.writeString(email);
-        dest.writeString(senha);
-        dest.writeString(nome);
-        dest.writeString(foto);
-        dest.writeString(nomeOng);
-        dest.writeString(cpfCnpj);
-        dest.writeString(descricao);
-    }
 }

@@ -39,15 +39,21 @@ public class AnimalController {
         return this.animalService.cadastrarAnimalAdocao(animalDTO);
     }
 
-    @PostMapping("/{idanimal}")
+    @PostMapping("/editar")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO buscarAnimaisAdocaoId(@PathVariable("idanimal") Integer idanimal){
-        return this.animalService.buscarAnimalDoacaoId(idanimal);
+    public AnimalDTO editarAnimalAdocao(@RequestBody AnimalDTO animalDTO){
+        return this.animalService.editarAnimalAdocao(animalDTO);
+    }
+
+    @GetMapping("/{idanimal}")
+    @ResponseStatus(HttpStatus.OK)
+    public AnimalDTO buscarAnimalAdocaoId(@PathVariable("idanimal") Integer idanimal){
+        return this.animalService.buscarAnimalAdocaoId(idanimal);
     }
 
     @GetMapping("/adotar/{idanimal}")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO marcarAnimalAdotado(@PathVariable("idanimal") Integer idanimal){
-        return this.animalService.marcarAnimalAdotado(idanimal);
+    public AnimalDTO adotarAnimal(@PathVariable("idanimal") Integer idanimal){
+        return this.animalService.adotarAnimal(idanimal);
     }
 }

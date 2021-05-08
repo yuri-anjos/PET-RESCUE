@@ -13,7 +13,7 @@
             android:icon="@drawable/perfil_icon"
             android:title="@string/menu_usuario" />
         <item
-            android:id="@+id/nav_adocao"
+            android:id="@+id/nav_lista_adocao"
             android:icon="@drawable/pets_icon"
             android:title="@string/menu_lista_adocao" />
         <item

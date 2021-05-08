@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="TOBY" />
+                android:text=":nome:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,21 +44,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="CACHORRRO/GATO" />
+                    android:text=":tipoanimal:" />
 
                 <TextView
                     android:id="@+id/tv_sexo_animal_itemlistaadocao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="M/F" />
+                    android:text=":sexo:" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_situacao_adocao_animal_itemlistaadocao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ESPERA/ADOTADO" />
+                android:text=":situacaoadocao:" />
 
         </LinearLayout>
 

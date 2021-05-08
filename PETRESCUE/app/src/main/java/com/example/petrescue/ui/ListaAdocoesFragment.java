@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
     private Integer pagina;
     private Retrofit retrofit;
     private AnimalService animalService;
+    private View view;
 
     private Button btMinusPage;
     private Button btPlusPage;
@@ -44,13 +46,13 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_lista_adocoes, container, false);
-        this.inicializaComponentes(root);
+        this.view = inflater.inflate(R.layout.fragment_lista_adocoes, container, false);
+        this.inicializaComponentes(this.view);
 
         this.btMinusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina - 1));
         this.btPlusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina + 1));
 
-        return root;
+        return this.view;
     }
 
     @Override
@@ -105,8 +107,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
                     btPlusPage.setText(Integer.toString(pg + 2));
                     btMinusPage.setText(Integer.toString(pg));
-                    tvActualPage.setText(Integer.toString(pg+1));
-
+                    tvActualPage.setText(Integer.toString(pg + 1));
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
@@ -123,7 +124,8 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
     @Override
     public void onAnimalClick(int position) {
-        this.listaAnimalAdocao.get(position);
-        Toast.makeText(getActivity(), "clicou em animal", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("idanimal", this.listaAnimalAdocao.get(position).getId());
+        Navigation.findNavController(this.view).navigate(R.id.action_nav_lista_adocao_to_nav_animal_adocao, bundle);
     }
 }

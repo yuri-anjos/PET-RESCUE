@@ -24,10 +24,27 @@
             android:hint="Raça" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/sp_raca_formadocao"
+    <RadioGroup
+        android:id="@+id/rg_sexo_formadocao"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/rb_macho_formadocao"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_macho_formadocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Macho" />
+
+        <RadioButton
+            android:id="@+id/rb_femea_formadocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fêmea" />
+    </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -49,10 +66,11 @@
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_data_formadocao"
+            android:id="@+id/et_nascimento_formadocao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ano de nascimento" />
+            android:hint="Ano de nascimento"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
