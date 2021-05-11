@@ -1,7 +1,8 @@
 package br.com.petrescue.api.controller.dto;
 
 import br.com.petrescue.api.domain.Vaquinha;
-import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,21 +18,23 @@ public class VaquinhaDTO {
     private Double meta;
     private Double valorArrecadado;
     private String foto;
-    private LocalDate inicio;
+    private Date inicio;
     private String titulo;
     private String descricao;
     private Boolean ativo;
-    private Integer usuario;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
     public VaquinhaDTO(Vaquinha vaquinha) {
         this.id = vaquinha.getId();
         this.meta = vaquinha.getMeta();
         this.valorArrecadado = vaquinha.getValorArrecadado();
         this.foto = vaquinha.getFoto();
-        this.inicio = vaquinha.getInicio();
+        this.inicio = Date.from(vaquinha.getInicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.titulo = vaquinha.getTitulo();
         this.descricao = vaquinha.getDescricao();
         this.ativo = vaquinha.getAtivo();
-        this.usuario = vaquinha.getUsuario().getId();
+        this.idUsuario = vaquinha.getUsuario().getId();
+        this.nomeUsuario = vaquinha.getUsuario().getNome();
     }
 }

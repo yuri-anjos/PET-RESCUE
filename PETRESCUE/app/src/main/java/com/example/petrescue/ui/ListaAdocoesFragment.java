@@ -72,7 +72,6 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         this.animalService = retrofit.create(AnimalService.class);
 
         this.listaAnimalAdocao = new ArrayList<>();
-
         this.animalAdapter = new AdapterAnimal(this.listaAnimalAdocao, this);
         this.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         this.recyclerView.setAdapter(this.animalAdapter);

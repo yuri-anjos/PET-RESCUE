@@ -42,13 +42,14 @@ public class ControleActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_usuario, R.id.nav_lista_adocao, R.id.nav_vaquinhas)
+                R.id.nav_home, R.id.nav_usuario, R.id.nav_lista_adocao, R.id.nav_lista_vaquinhas)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        this.idusuario = getIntent().getExtras().getInt("idusuario");
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
     }
@@ -63,7 +64,6 @@ public class ControleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.idusuario = getIntent().getExtras().getInt("idusuario");
         this.usuarioService.buscarUsuarioId(this.idusuario).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {

@@ -29,7 +29,7 @@
             android:id="@+id/et_descricao_formvaquinha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="descricao" />
+            android:hint="Descricao" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +42,8 @@
             android:id="@+id/et_meta_formvaquinha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Meta" />
+            android:hint="Meta"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

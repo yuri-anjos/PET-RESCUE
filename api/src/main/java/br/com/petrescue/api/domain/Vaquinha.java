@@ -2,6 +2,7 @@ package br.com.petrescue.api.domain;
 
 import br.com.petrescue.api.controller.dto.VaquinhaDTO;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,7 +58,7 @@ public class Vaquinha {
         this.meta = vaquinhaDTO.getMeta();
         this.valorArrecadado = vaquinhaDTO.getValorArrecadado();
         this.foto = vaquinhaDTO.getFoto();
-        this.inicio = vaquinhaDTO.getInicio();
+        this.inicio = vaquinhaDTO.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         this.titulo = vaquinhaDTO.getTitulo();
         this.descricao = vaquinhaDTO.getDescricao();
         this.ativo = vaquinhaDTO.getAtivo();

@@ -21,10 +21,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_vaquinhas"
+        android:id="@+id/nav_lista_vaquinhas"
         android:name="com.example.petrescue.ui.ListaVaquinhasFragment"
         android:label="@string/menu_lista_vaquinha"
-        tools:layout="@layout/fragment_lista_vaquinhas" />
+        tools:layout="@layout/fragment_lista_vaquinhas" >
+        <action
+            android:id="@+id/action_nav_lista_vaquinhas_to_nav_vaquinha"
+            app:destination="@id/nav_vaquinha" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_usuario"
@@ -48,6 +52,9 @@
         <action
             android:id="@+id/action_nav_animal_adocao_to_nav_form_animal_adocao"
             app:destination="@id/nav_form_animal_adocao" />
+        <action
+            android:id="@+id/action_nav_animal_adocao_to_nav_usuario"
+            app:destination="@id/nav_usuario" />
     </fragment>
 
     <fragment
@@ -58,5 +65,26 @@
         <action
             android:id="@+id/action_nav_form_animal_adocao_to_nav_animal_adocao"
             app:destination="@id/nav_animal_adocao" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_form_vaquinha"
+        android:name="com.example.petrescue.ui.FormVaquinhaFragment"
+        tools:layout="@layout/fragment_form_vaquinha" >
+        <action
+            android:id="@+id/action_nav_form_vaquinha_to_nav_vaquinha"
+            app:destination="@id/nav_vaquinha" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_vaquinha"
+        android:name="com.example.petrescue.ui.VaquinhaFragment"
+        tools:layout="@layout/fragment_vaquinha" >
+        <action
+            android:id="@+id/action_nav_vaquinha_to_nav_form_vaquinha"
+            app:destination="@id/nav_form_vaquinha" />
+        <action
+            android:id="@+id/action_nav_vaquinha_to_nav_usuario"
+            app:destination="@id/nav_usuario" />
     </fragment>
 </navigation>

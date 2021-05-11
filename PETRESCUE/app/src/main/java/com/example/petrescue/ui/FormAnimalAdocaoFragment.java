@@ -51,7 +51,6 @@ public class FormAnimalAdocaoFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_form_adocao, container, false);
         this.animal = (Animal) getArguments().getSerializable("animal");
-        System.out.println(this.animal.toString());
 
         this.inicializaComponentes(root);
 
@@ -70,7 +69,6 @@ public class FormAnimalAdocaoFragment extends Fragment {
             this.animal.setDataNascimento(Integer.parseInt(this.nascimento.getText().toString()));
             this.animal.setDescricao(this.descricao.getText().toString());
             this.animal.setVacinas(this.vacinas.getText().toString());
-            System.out.println(this.animal.toString());
             if (this.animal.getId() != null) {
                 this.editarAnimal();
             } else {
@@ -103,7 +101,6 @@ public class FormAnimalAdocaoFragment extends Fragment {
         this.salvar = v.findViewById(R.id.bt_salvar_formadocao);
 
         this.tipoAnimal.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, TipoAnimal.ANIMAIS));
-
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.animalService = this.retrofit.create(AnimalService.class);
 

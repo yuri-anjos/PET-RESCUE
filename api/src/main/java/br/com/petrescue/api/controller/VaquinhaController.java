@@ -39,9 +39,15 @@ public class VaquinhaController {
         return this.vaquinhaService.cadastrarVaquinha(vaquinhaDTO);
     }
 
+    @PostMapping("/editar")
+    @ResponseStatus(HttpStatus.OK)
+    public VaquinhaDTO editarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO){
+        return this.vaquinhaService.editarVaquinha(vaquinhaDTO);
+    }
+
     @GetMapping("/{idvaquinha}")
     @ResponseStatus(HttpStatus.OK)
-    public VaquinhaDTO buscarVaquinhaId(@PathVariable("idanimal") Integer idvaquinha){
+    public VaquinhaDTO buscarVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha){
         return this.vaquinhaService.buscarVaquinhaId(idvaquinha);
     }
 }

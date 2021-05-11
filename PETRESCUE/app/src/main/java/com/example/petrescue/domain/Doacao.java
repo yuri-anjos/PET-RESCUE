@@ -1,21 +1,21 @@
 package com.example.petrescue.domain;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Doacao {
 
     private Integer id;
     private Double quantia;
-    private LocalDateTime quando;
-    private Integer doador;
-    private Integer vaquinha;
+    private Date quando;
+    private Integer idDoador;
+    private Integer idVaquinha;
 
-    public Doacao(Integer id, Double quantia, LocalDateTime quando, Integer doador, Integer vaquinha) {
+    public Doacao(Integer id, Double quantia, Date quando, Integer idDoador, Integer idVaquinha) {
         this.id = id;
         this.quantia = quantia;
         this.quando = quando;
-        this.doador = doador;
-        this.vaquinha = vaquinha;
+        this.idDoador = idDoador;
+        this.idVaquinha = idVaquinha;
     }
 
     public Doacao() {
@@ -37,27 +37,27 @@ public class Doacao {
         this.quantia = quantia;
     }
 
-    public LocalDateTime getQuando() {
+    public Date getQuando() {
         return quando;
     }
 
-    public void setQuando(LocalDateTime quando) {
+    public void setQuando(Date quando) {
         this.quando = quando;
     }
 
-    public Integer getDoador() {
-        return doador;
+    public Integer getIdDoador() {
+        return idDoador;
     }
 
-    public void setDoador(Integer doador) {
-        this.doador = doador;
+    public void setIdDoador(Integer idDoador) {
+        this.idDoador = idDoador;
     }
 
-    public Integer getVaquinha() {
-        return vaquinha;
+    public Integer getIdVaquinha() {
+        return idVaquinha;
     }
 
-    public void setVaquinha(Integer vaquinha) {
-        this.vaquinha = vaquinha;
+    public void setIdVaquinha(Integer idVaquinha) {
+        this.idVaquinha = idVaquinha;
     }
 }

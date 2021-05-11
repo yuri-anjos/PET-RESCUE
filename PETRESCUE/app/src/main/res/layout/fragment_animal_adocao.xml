@@ -57,7 +57,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/ly_dono_animaladocao"
+        android:id="@+id/ll_dono_animaladocao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ly_visitante_animaladocao"
+        android:id="@+id/ll_visitante_animaladocao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

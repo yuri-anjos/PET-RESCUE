@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarteiraDTO {
-    private Integer usuario;
+    private Integer idUsuario;
     private Double saldoAdicional;
 }

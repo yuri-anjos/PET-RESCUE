@@ -47,11 +47,13 @@ public class AnimalService {
     }
 
     public AnimalDTO editarAnimalAdocao(AnimalDTO animalDTO) {
-        if(SituacaoAdocao.ADOTADO.equals(animalDTO.getSituacaoAdocao())){
-            throw new NegocioException("Animal ADOTADO não pode ser alterado!");
-        }
         Animal animal = new Animal(animalDTO);
         Usuario usuario = this.usuarioRepository.findById(animalDTO.getIdUsuario()).orElseThrow(()->new NaoEncontradoException("Usuário não encontrado!"));
+
+        if(SituacaoAdocao.ADOTADO.equals(animal.getSituacaoAdocao())){
+            throw new NegocioException("Animal ADOTADO não pode ser alterado!");
+        }
+
         animal.setUsuario(usuario);
         return new AnimalDTO(this.animalRepository.save(animal));
     }

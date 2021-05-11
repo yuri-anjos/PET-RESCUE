@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,16 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.R;
-import com.example.petrescue.domain.Animal;
 import com.example.petrescue.domain.Vaquinha;
-import com.example.petrescue.domain.adapter.AdapterAnimal;
 import com.example.petrescue.domain.adapter.AdapterVaquinha;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.RetrofitConfig;
@@ -35,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.OnVaquinhaListener{
+public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.OnVaquinhaListener {
 
     private RecyclerView recyclerView;
     private AdapterVaquinha vaquinhaAdapter;
@@ -47,16 +43,17 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
     private Button btMinusPage;
     private Button btPlusPage;
     private TextView tvActualPage;
+    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_lista_vaquinhas, container, false);
-        this.inicializaComponentes(root);
+        this.view = inflater.inflate(R.layout.fragment_lista_vaquinhas, container, false);
+        this.inicializaComponentes(this.view);
 
         this.btMinusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina - 1));
         this.btPlusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina + 1));
 
-        return root;
+        return this.view;
     }
 
     @Override
@@ -76,7 +73,6 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
         this.vaquinhaService = retrofit.create(VaquinhaService.class);
 
         this.listaVaquinha = new ArrayList<>();
-
         this.vaquinhaAdapter = new AdapterVaquinha(this.listaVaquinha, this);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.setAdapter(this.vaquinhaAdapter);
@@ -87,6 +83,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
             @Override
             public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
                 if (response.isSuccessful()) {
+                    Log.i("DEBUG", response.raw().toString());
                     listaVaquinha.clear();
                     listaVaquinha.addAll(response.body());
                     if (listaVaquinha.isEmpty()) {
@@ -100,6 +97,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
                     } else {
                         btPlusPage.setEnabled(false);
                     }
+
                     if (pg == 0) {
                         btMinusPage.setEnabled(false);
                     } else {
@@ -108,8 +106,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
 
                     btPlusPage.setText(Integer.toString(pg + 2));
                     btMinusPage.setText(Integer.toString(pg));
-                    tvActualPage.setText(Integer.toString(pg+1));
-
+                    tvActualPage.setText(Integer.toString(pg + 1));
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
@@ -117,7 +114,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
             }
 
             @Override
-                public void onFailure(Call<List<Vaquinha>> call, Throwable t) {
+            public void onFailure(Call<List<Vaquinha>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
@@ -126,7 +123,8 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
 
     @Override
     public void onVaquinhaClick(int position) {
-        this.listaVaquinha.get(position);
-        Toast.makeText(getActivity(), "clicou em vaqinha", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("idvaquinha", this.listaVaquinha.get(position).getId());
+        Navigation.findNavController(this.view).navigate(R.id.action_nav_lista_vaquinhas_to_nav_vaquinha, bundle);
     }
 }

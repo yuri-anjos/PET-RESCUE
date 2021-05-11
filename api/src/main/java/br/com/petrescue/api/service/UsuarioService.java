@@ -41,7 +41,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTO depositarSaldo(CarteiraDTO carteiraDTO) {
-        Usuario usuario = this.usuarioRepository.findById(carteiraDTO.getUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
+        Usuario usuario = this.usuarioRepository.findById(carteiraDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
         usuario.setSaldo(usuario.getSaldo() + carteiraDTO.getSaldoAdicional());
         return new UsuarioDTO(this.usuarioRepository.save(usuario));
     }

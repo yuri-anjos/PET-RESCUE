@@ -1,20 +1,22 @@
 package com.example.petrescue.domain;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Vaquinha {
+public class Vaquinha implements Serializable {
 
     private Integer id;
     private Double meta;
     private Double valorArrecadado;
     private String foto;
-    private LocalDate inicio;
+    private Date inicio;
     private String titulo;
     private String descricao;
     private Boolean ativo;
-    private Integer usuario;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
-    public Vaquinha(Integer id, Double meta, Double valorArrecadado, String foto, LocalDate inicio, String titulo, String descricao, Boolean ativo, Integer usuario) {
+    public Vaquinha(Integer id, Double meta, Double valorArrecadado, String foto, Date inicio, String titulo, String descricao, Boolean ativo, Integer idUsuario, String nomeUsuario) {
         this.id = id;
         this.meta = meta;
         this.valorArrecadado = valorArrecadado;
@@ -23,7 +25,8 @@ public class Vaquinha {
         this.titulo = titulo;
         this.descricao = descricao;
         this.ativo = ativo;
-        this.usuario = usuario;
+        this.idUsuario = idUsuario;
+        this.nomeUsuario = nomeUsuario;
     }
 
     public Vaquinha() {
@@ -61,11 +64,11 @@ public class Vaquinha {
         this.foto = foto;
     }
 
-    public LocalDate getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(LocalDate inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
@@ -93,11 +96,35 @@ public class Vaquinha {
         this.ativo = ativo;
     }
 
-    public Integer getUsuario() {
-        return usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaquinha{" +
+                "id=" + id +
+                ", meta=" + meta +
+                ", valorArrecadado=" + valorArrecadado +
+                ", foto='" + foto + '\'' +
+                ", inicio=" + inicio +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", ativo=" + ativo +
+                ", idUsuario=" + idUsuario +
+                ", nomeUsuario='" + nomeUsuario + '\'' +
+                '}';
     }
 }

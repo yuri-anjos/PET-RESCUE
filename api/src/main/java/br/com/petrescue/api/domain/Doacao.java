@@ -2,6 +2,7 @@ package br.com.petrescue.api.domain;
 
 import br.com.petrescue.api.controller.dto.DoacaoDTO;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,6 @@ public class Doacao {
     public Doacao(DoacaoDTO doacaoDTO) {
         this.id = doacaoDTO.getId();
         this.quantia = doacaoDTO.getQuantia();
-        this.quando = doacaoDTO.getQuando();
+        this.quando = doacaoDTO.getQuando() == null ? null : doacaoDTO.getQuando().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 }

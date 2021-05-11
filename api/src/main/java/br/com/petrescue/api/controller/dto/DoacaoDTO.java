@@ -1,7 +1,8 @@
 package br.com.petrescue.api.controller.dto;
 
 import br.com.petrescue.api.domain.Doacao;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +16,15 @@ public class DoacaoDTO {
 
     private Integer id;
     private Double quantia;
-    private LocalDateTime quando;
-    private Integer doador;
-    private Integer vaquinha;
+    private Date quando;
+    private Integer idDoador;
+    private Integer idVaquinha;
 
     public DoacaoDTO(Doacao doacao) {
         this.id = doacao.getId();
         this.quantia = doacao.getQuantia();
-        this.quando = doacao.getQuando();
-        this.doador = doacao.getDoador().getId();
-        this.vaquinha = doacao.getVaquinha().getId();
+        this.quando = Date.from(doacao.getQuando().atZone(ZoneId.systemDefault()).toInstant());
+        this.idDoador = doacao.getDoador().getId();
+        this.idVaquinha = doacao.getVaquinha().getId();
     }
 }

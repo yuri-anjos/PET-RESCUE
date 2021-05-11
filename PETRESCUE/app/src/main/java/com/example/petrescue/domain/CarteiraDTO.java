@@ -1,23 +1,23 @@
 package com.example.petrescue.domain;
 
 public class CarteiraDTO {
-    private Integer usuario;
+    private Integer idUsuario;
     private Double saldoAdicional;
 
-    public CarteiraDTO(Integer usuario, Double saldoAdicional) {
-        this.usuario = usuario;
+    public CarteiraDTO(Integer idUsuario, Double saldoAdicional) {
+        this.idUsuario = idUsuario;
         this.saldoAdicional = saldoAdicional;
     }
 
     public CarteiraDTO() {
     }
 
-    public Integer getUsuario() {
-        return usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public Double getSaldoAdicional() {

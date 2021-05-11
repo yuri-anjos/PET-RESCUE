@@ -1,5 +1,6 @@
 package com.example.petrescue.service;
 
+import com.example.petrescue.domain.CarteiraDTO;
 import com.example.petrescue.domain.Usuario;
 
 import retrofit2.Call;
@@ -19,6 +20,9 @@ public interface UsuarioService {
 
     @GET("usuario/{idusuario}")
     Call<Usuario> buscarUsuarioId(@Path("idusuario") Integer idusuario);
+
+    @POST("usuario/depositar")
+    Call<Usuario> depositarSaldo(@Body CarteiraDTO carteiraDTO);
 
 //    @GET("product")
 //    Call<List<Product>> get();

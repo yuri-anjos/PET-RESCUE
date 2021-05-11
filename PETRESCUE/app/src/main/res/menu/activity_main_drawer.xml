@@ -17,7 +17,7 @@
             android:icon="@drawable/pets_icon"
             android:title="@string/menu_lista_adocao" />
         <item
-            android:id="@+id/nav_vaquinhas"
+            android:id="@+id/nav_lista_vaquinhas"
             android:icon="@drawable/vaquinha_icon"
             android:title="@string/menu_lista_vaquinha" />
     </group>

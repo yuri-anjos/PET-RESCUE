@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +23,6 @@ import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,13 +75,15 @@ public class AnimalAdocaoFragment extends Fragment {
                 @Override
                 public void onFailure(Call<Animal> call, Throwable t) {
                     Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
+                    Log.i("DEBUG", "THROW ERROR: " + t.toString());
                 }
             });
         });
 
         this.btAccessarUsuario.setOnClickListener(v1 -> {
-
+            Bundle bundle = new Bundle();
+            bundle.putInt("idusuario", this.animal.getIdUsuario());
+            Navigation.findNavController(v).navigate(R.id.action_nav_animal_adocao_to_nav_usuario, bundle);
         });
 
         return v;
@@ -98,11 +97,11 @@ public class AnimalAdocaoFragment extends Fragment {
         this.vacinas = v.findViewById(R.id.tv_vacinas_animaladocao);
         this.foto = v.findViewById(R.id.iv_foto_animaladocao);
         this.nome = v.findViewById(R.id.tv_nome_animaladocao);
-        this.dono = v.findViewById(R.id.ly_dono_animaladocao);
-        this.visitante = v.findViewById(R.id.ly_visitante_animaladocao);
+        this.dono = v.findViewById(R.id.ll_dono_animaladocao);
+        this.visitante = v.findViewById(R.id.ll_visitante_animaladocao);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
-        this.animalService = retrofit.create(AnimalService.class);
+        this.animalService = this.retrofit.create(AnimalService.class);
     }
 
     @Override
@@ -113,7 +112,6 @@ public class AnimalAdocaoFragment extends Fragment {
             public void onResponse(Call<Animal> call, Response<Animal> response) {
                 if (response.isSuccessful()) {
                     animal = response.body();
-                    System.out.println(animal.toString());
                     atualizaCampos();
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
@@ -124,7 +122,7 @@ public class AnimalAdocaoFragment extends Fragment {
             @Override
             public void onFailure(Call<Animal> call, Throwable t) {
                 Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-                Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
+                Log.i("DEBUG", "THROW ERROR: " + t.toString());
             }
         });
     }

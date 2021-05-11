@@ -3,7 +3,6 @@ package com.example.petrescue.domain.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Vaquinha;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AdapterVaquinha extends RecyclerView.Adapter<AdapterVaquinha.ViewHolderVaquinha> {
@@ -36,7 +36,7 @@ public class AdapterVaquinha extends RecyclerView.Adapter<AdapterVaquinha.ViewHo
         Vaquinha vaquinha = this.data.get(position);
         holder.titulo.setText(vaquinha.getTitulo());
         holder.descricao.setText(vaquinha.getDescricao());
-        holder.inicio.setText(vaquinha.getInicio().toString());
+        holder.inicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(vaquinha.getInicio()));
     }
 
     @Override

@@ -31,13 +31,13 @@ public class DoacaoService {
     @Transactional
     public void doarParaVaquinha(DoacaoDTO doacaoDTO){
         Doacao doacao = new Doacao(doacaoDTO);
-        Usuario doador = this.usuarioRepository.findById(doacaoDTO.getDoador()).orElseThrow(() -> new NaoEncontradoException("Usuario doador não encontrado!"));
-        Vaquinha vaquinha = this.vaquinhaRepository.findById(doacaoDTO.getVaquinha()).orElseThrow(() -> new NaoEncontradoException("Vaquinha não encontrada!"));
-        Usuario recebedor = this.usuarioRepository.findById(vaquinha.getUsuario().getId()).orElseThrow(() -> new NaoEncontradoException("Responsável pela vaqinha não encontrado!"));
+        Usuario doador = this.usuarioRepository.findById(doacaoDTO.getIdDoador()).orElseThrow(() -> new NaoEncontradoException("Usuario doador não encontrado!"));
+        Vaquinha vaquinha = this.vaquinhaRepository.findById(doacaoDTO.getIdVaquinha()).orElseThrow(() -> new NaoEncontradoException("Vaquinha não encontrada!"));
+        Usuario recebedor = this.usuarioRepository.findById(vaquinha.getUsuario().getId()).orElseThrow(() -> new NaoEncontradoException("Responsável pela vaquinha não encontrado!"));
 
         doador.setSaldo(doador.getSaldo() - doacao.getQuantia());
         if(doador.getSaldo()<0){
-            throw new NegocioException("Doador não possui o saldo suficiente!");
+            throw new NegocioException("Doador não possui saldo suficiente!");
         }
 
         vaquinha.setValorArrecadado(vaquinha.getValorArrecadado() + doacao.getQuantia());
