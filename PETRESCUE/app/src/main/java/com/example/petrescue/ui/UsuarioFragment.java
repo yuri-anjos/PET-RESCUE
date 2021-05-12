@@ -109,6 +109,7 @@ public class UsuarioFragment extends Fragment {
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     if (response.isSuccessful()) {
                         usuario = response.body();
+                        atualizaCampos();
                     } else {
                         Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                         Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
@@ -123,14 +124,18 @@ public class UsuarioFragment extends Fragment {
             });
         } else {
             this.usuario = ControleActivity.USUARIO;
+            this.atualizaCampos();
         }
-        this.atualizaCampos();
     }
 
     private void atualizaCampos() {
-        if (this.usuario.getId().equals(ControleActivity.USUARIO.getId())) {
+        this.nome .setText(this.usuario.getNome());
+        this.email.setText(this.usuario.getEmail());
+//        this.foto.setImageBitmap();
+        if (ControleActivity.USUARIO.getId().equals(this.usuario.getId())) {
             this.linearLayoutSaldo.setVisibility(View.VISIBLE);
             this.editar.setVisibility(View.VISIBLE);
+            this.saldo.setText(Double.toString(this.usuario.getSaldo()));
         } else {
             this.linearLayoutSaldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);

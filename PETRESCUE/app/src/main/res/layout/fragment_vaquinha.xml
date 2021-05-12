@@ -87,14 +87,16 @@
         android:id="@+id/bt_editar_vaquinha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar" />
+        android:text="Editar"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/ll_doador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
