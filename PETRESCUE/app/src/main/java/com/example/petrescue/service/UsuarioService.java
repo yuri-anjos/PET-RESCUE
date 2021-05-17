@@ -8,7 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface UsuarioService {
 
@@ -23,13 +22,4 @@ public interface UsuarioService {
 
     @POST("usuario/depositar")
     Call<Usuario> depositarSaldo(@Body CarteiraDTO carteiraDTO);
-
-//    @GET("product")
-//    Call<List<Product>> get();
-//
-//    @PUT("product/{id}")
-//    Call<Product> edit(@Path("id") Integer id, @Body Product product);
-//
-//    @DELETE("product/{id}")
-//    Call<Void> delete(@Path("id") Integer id);
 }

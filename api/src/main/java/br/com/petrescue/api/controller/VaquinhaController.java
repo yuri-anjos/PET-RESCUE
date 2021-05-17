@@ -30,7 +30,7 @@ public class VaquinhaController {
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusario") Integer idusuario){
+    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusuario") Integer idusuario){
         return this.vaquinhaService.buscarVaquinhasUsuarioId(idusuario);
     }
 

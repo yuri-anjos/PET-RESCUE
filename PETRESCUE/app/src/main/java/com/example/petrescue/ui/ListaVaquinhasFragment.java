@@ -83,7 +83,6 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
             @Override
             public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
                 if (response.isSuccessful()) {
-                    Log.i("DEBUG", response.raw().toString());
                     listaVaquinha.clear();
                     listaVaquinha.addAll(response.body());
                     if (listaVaquinha.isEmpty()) {

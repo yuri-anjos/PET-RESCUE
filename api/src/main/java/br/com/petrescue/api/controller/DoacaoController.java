@@ -26,7 +26,7 @@ public class DoacaoController {
         this.doacaoService.doarParaVaquinha(doacaoDTO);
     }
 
-    @GetMapping("/vaquinha/{idvaqinha}")
+    @GetMapping("/vaquinha/{idvaquinha}")
     @ResponseStatus(HttpStatus.OK)
     public List<DoacaoDTO> buscarDoacoesVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha){
         return this.doacaoService.buscarDoacoesVaquinha(idvaquinha);

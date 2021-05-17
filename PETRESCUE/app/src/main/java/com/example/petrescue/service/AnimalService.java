@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -19,12 +20,15 @@ public interface AnimalService {
     @GET("animal/{idanimal}")
     Call<Animal> buscarAnimalAdocaoId(@Path("idanimal") Integer idanimal);
 
+    @GET("animal/usuario/{idusuario}")
+    Call<List<Animal>> buscarAnimaisAdocaoUsuarioId(@Path("idusuario") Integer idusuario);
+
     @GET("animal/adotar/{idanimal}")
     Call<Animal> adotarAnimal(@Path("idanimal") Integer idanimal);
 
     @POST("animal")
     Call<Animal> cadastrarAnimal(@Body Animal animal);
 
-    @POST("animal/editar")
+    @PUT("animal/editar")
     Call<Animal> editarAnimal(@Body Animal animal);
 }

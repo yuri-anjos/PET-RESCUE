@@ -1,6 +1,5 @@
 package br.com.petrescue.api.service;
 
-import br.com.petrescue.api.controller.dto.AnimalDTO;
 import br.com.petrescue.api.controller.dto.AnimalPINDTO;
 import br.com.petrescue.api.domain.AnimalPIN;
 import br.com.petrescue.api.domain.Usuario;

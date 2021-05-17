@@ -30,7 +30,7 @@ public class AnimalPinController {
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalPINDTO> buscarAnimaisPinUsuarioId(@PathVariable("idusario") Integer idusuario){
+    public List<AnimalPINDTO> buscarAnimaisPinUsuarioId(@PathVariable("idusuario") Integer idusuario){
         return this.animalPinService.buscarAnimaisPinUsuarioId(idusuario);
     }
 
