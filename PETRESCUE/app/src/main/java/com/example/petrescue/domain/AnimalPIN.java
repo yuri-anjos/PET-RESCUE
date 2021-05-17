@@ -4,6 +4,8 @@ import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
+import java.util.Date;
+
 public class AnimalPIN {
 
     private Integer id;
@@ -14,9 +16,11 @@ public class AnimalPIN {
     private TipoPIN tipoPIN;
     private Boolean ativo;
     private Localizacao localizacao;
-    private Integer usuario;
+    private Date dataCadastro;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
-    public AnimalPIN(Integer id, String foto, String descricao, TipoAnimal tipoAnimal, String raca, TipoPIN tipoPIN, Boolean ativo, Localizacao localizacao, Integer usuario) {
+    public AnimalPIN(Integer id, String foto, String descricao, TipoAnimal tipoAnimal, String raca, TipoPIN tipoPIN, Boolean ativo, Localizacao localizacao, Date dataCadastro, Integer idUsuario, String nomeUsuario) {
         this.id = id;
         this.foto = foto;
         this.descricao = descricao;
@@ -25,7 +29,9 @@ public class AnimalPIN {
         this.tipoPIN = tipoPIN;
         this.ativo = ativo;
         this.localizacao = localizacao;
-        this.usuario = usuario;
+        this.dataCadastro = dataCadastro;
+        this.idUsuario = idUsuario;
+        this.nomeUsuario = nomeUsuario;
     }
 
     public AnimalPIN() {
@@ -95,11 +101,27 @@ public class AnimalPIN {
         this.localizacao = localizacao;
     }
 
-    public Integer getUsuario() {
-        return usuario;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 }

@@ -25,22 +25,22 @@ public class AnimalService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<AnimalDTO> buscarAnimaisAdocao(Integer pg){
+    public List<AnimalDTO> buscarAnimaisAdocao(Integer pg) {
         Pageable pageable = PageRequest.of(pg, 10, Sort.by("situacaoAdocao").descending());
         return this.animalRepository.findAll(pageable).stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
-    public AnimalDTO buscarAnimalAdocaoId(Integer idanimal){
+    public AnimalDTO buscarAnimalAdocaoId(Integer idanimal) {
         return new AnimalDTO(this.animalRepository.findById(idanimal).orElseThrow(() -> new NaoEncontradoException("Animal não encontrado!")));
     }
 
-    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(Integer idusario){
-        return this.animalRepository.findByUsuarioId(idusario).stream().map(AnimalDTO::new).collect(Collectors.toList());
+    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(Integer idusuario) {
+        return this.animalRepository.findByUsuarioId(idusuario).stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
-    public AnimalDTO cadastrarAnimalAdocao(AnimalDTO animalDTO){
+    public AnimalDTO cadastrarAnimalAdocao(AnimalDTO animalDTO) {
         Animal animal = new Animal(animalDTO);
-        Usuario usuario = this.usuarioRepository.findById(animalDTO.getIdUsuario()).orElseThrow(()->new NaoEncontradoException("Usuário não encontrado!"));
+        Usuario usuario = this.usuarioRepository.findById(animalDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
         animal.setUsuario(usuario);
         animal.setSituacaoAdocao(SituacaoAdocao.ESPERA);
         return new AnimalDTO(this.animalRepository.save(animal));
@@ -48,9 +48,9 @@ public class AnimalService {
 
     public AnimalDTO editarAnimalAdocao(AnimalDTO animalDTO) {
         Animal animal = new Animal(animalDTO);
-        Usuario usuario = this.usuarioRepository.findById(animalDTO.getIdUsuario()).orElseThrow(()->new NaoEncontradoException("Usuário não encontrado!"));
+        Usuario usuario = this.usuarioRepository.findById(animalDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
 
-        if(SituacaoAdocao.ADOTADO.equals(animal.getSituacaoAdocao())){
+        if (SituacaoAdocao.ADOTADO.equals(animal.getSituacaoAdocao())) {
             throw new NegocioException("Animal ADOTADO não pode ser alterado!");
         }
 
@@ -59,7 +59,7 @@ public class AnimalService {
     }
 
     public AnimalDTO adotarAnimal(Integer idanimal) {
-        Animal animal = this.animalRepository.findById(idanimal).orElseThrow(()->new NaoEncontradoException("Animal não encontrado!"));
+        Animal animal = this.animalRepository.findById(idanimal).orElseThrow(() -> new NaoEncontradoException("Animal não encontrado!"));
         animal.setSituacaoAdocao(SituacaoAdocao.ADOTADO);
         return new AnimalDTO(this.animalRepository.save(animal));
     }

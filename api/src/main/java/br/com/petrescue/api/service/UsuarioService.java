@@ -7,7 +7,7 @@ import br.com.petrescue.api.domain.enums.TipoUsuario;
 import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
-import br.com.petrescue.api.validator.GeralValidator;
+import br.com.petrescue.api.utils.GeralValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +21,8 @@ public class UsuarioService {
     private GeralValidator geralValidator;
 
     public UsuarioDTO cadastrarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuario=new Usuario(usuarioDTO);
-        if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())){
+        Usuario usuario = new Usuario(usuarioDTO);
+        if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
             this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
             this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
             this.geralValidator.string(usuario.getNomeOng(), "Nome de ONG/instituição");

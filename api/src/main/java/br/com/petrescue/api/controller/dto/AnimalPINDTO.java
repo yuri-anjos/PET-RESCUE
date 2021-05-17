@@ -4,6 +4,8 @@ import br.com.petrescue.api.domain.AnimalPIN;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
 import br.com.petrescue.api.domain.enums.TipoPIN;
 import br.com.petrescue.api.domain.subClasses.Localizacao;
+import java.time.ZoneId;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,9 @@ public class AnimalPINDTO {
     private TipoPIN tipoPIN;
     private Boolean ativo;
     private Localizacao localizacao;
-    private Integer usuario;
+    private Date dataCadastro;
+    private Integer idUsuario;
+    private String nomeUsuario;
 
     public AnimalPINDTO(AnimalPIN animalPIN) {
         this.id = animalPIN.getId();
@@ -34,6 +38,8 @@ public class AnimalPINDTO {
         this.tipoPIN = animalPIN.getTipoPIN();
         this.ativo = animalPIN.getAtivo();
         this.localizacao = animalPIN.getLocalizacao();
-        this.usuario = animalPIN.getUsuario().getId();
+        this.dataCadastro = Date.from(animalPIN.getDataCadastro().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.idUsuario = animalPIN.getUsuario().getId();
+        this.nomeUsuario = animalPIN.getUsuario().getNome();
     }
 }

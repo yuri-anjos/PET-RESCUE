@@ -4,6 +4,8 @@ import br.com.petrescue.api.controller.dto.AnimalPINDTO;
 import br.com.petrescue.api.domain.enums.TipoAnimal;
 import br.com.petrescue.api.domain.enums.TipoPIN;
 import br.com.petrescue.api.domain.subClasses.Localizacao;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -61,10 +63,22 @@ public class AnimalPIN {
     })
     private Localizacao localizacao;
 
+    @Column(nullable = false, name = "data_cadastro")
+    private LocalDate dataCadastro;
+
     @JoinColumn(name = "id_usuario")
     @ManyToOne
     private Usuario usuario;
 
-    public AnimalPIN(AnimalPINDTO AnimalPIN) {
+    public AnimalPIN(AnimalPINDTO animalPINDTO) {
+        this.id = animalPINDTO.getId();
+        this.foto = animalPINDTO.getFoto();
+        this.descricao = animalPINDTO.getDescricao();
+        this.tipoAnimal = animalPINDTO.getTipoAnimal();
+        this.raca = animalPINDTO.getRaca();
+        this.tipoPIN = animalPINDTO.getTipoPIN();
+        this.ativo = animalPINDTO.getAtivo();
+        this.localizacao = animalPINDTO.getLocalizacao();
+        this.dataCadastro = animalPINDTO.getDataCadastro() == null ? null : animalPINDTO.getDataCadastro().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
