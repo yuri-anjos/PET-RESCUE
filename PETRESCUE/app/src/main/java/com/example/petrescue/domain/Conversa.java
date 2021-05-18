@@ -3,13 +3,19 @@ package com.example.petrescue.domain;
 public class Conversa {
 
     private Integer id;
-    private Integer usuarioUm;
-    private Integer usuarioDois;
+    private Integer idUsuarioUm;
+    private Integer idUsuarioDois;
+    private String nomeUsuarioUm;
+    private String nomeUsuarioDois;
+    private Mensagem ultimaMensagem;
 
-    public Conversa(Integer id, Integer usuarioUm, Integer usuarioDois) {
+    public Conversa(Integer id, Integer idUsuarioUm, Integer idUsuarioDois, String nomeUsuarioUm, String nomeUsuarioDois, Mensagem ultimaMensagem) {
         this.id = id;
-        this.usuarioUm = usuarioUm;
-        this.usuarioDois = usuarioDois;
+        this.idUsuarioUm = idUsuarioUm;
+        this.idUsuarioDois = idUsuarioDois;
+        this.nomeUsuarioUm = nomeUsuarioUm;
+        this.nomeUsuarioDois = nomeUsuarioDois;
+        this.ultimaMensagem = ultimaMensagem;
     }
 
     public Conversa() {
@@ -23,19 +29,43 @@ public class Conversa {
         this.id = id;
     }
 
-    public Integer getUsuarioUm() {
-        return usuarioUm;
+    public Integer getIdUsuarioUm() {
+        return idUsuarioUm;
     }
 
-    public void setUsuarioUm(Integer usuarioUm) {
-        this.usuarioUm = usuarioUm;
+    public void setIdUsuarioUm(Integer idUsuarioUm) {
+        this.idUsuarioUm = idUsuarioUm;
     }
 
-    public Integer getUsuarioDois() {
-        return usuarioDois;
+    public Integer getIdUsuarioDois() {
+        return idUsuarioDois;
     }
 
-    public void setUsuarioDois(Integer usuarioDois) {
-        this.usuarioDois = usuarioDois;
+    public void setIdUsuarioDois(Integer idUsuarioDois) {
+        this.idUsuarioDois = idUsuarioDois;
+    }
+
+    public String getNomeUsuarioUm() {
+        return nomeUsuarioUm;
+    }
+
+    public void setNomeUsuarioUm(String nomeUsuarioUm) {
+        this.nomeUsuarioUm = nomeUsuarioUm;
+    }
+
+    public String getNomeUsuarioDois() {
+        return nomeUsuarioDois;
+    }
+
+    public void setNomeUsuarioDois(String nomeUsuarioDois) {
+        this.nomeUsuarioDois = nomeUsuarioDois;
+    }
+
+    public Mensagem getUltimaMensagem() {
+        return ultimaMensagem;
+    }
+
+    public void setUltimaMensagem(Mensagem ultimaMensagem) {
+        this.ultimaMensagem = ultimaMensagem;
     }
 }

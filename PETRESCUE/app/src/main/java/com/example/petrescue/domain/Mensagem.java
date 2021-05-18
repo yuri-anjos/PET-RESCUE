@@ -1,21 +1,23 @@
 package com.example.petrescue.domain;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Mensagem {
 
     private Integer id;
-    private LocalDateTime horario;
+    private Date horario;
     private String texto;
-    private Integer autor;
-    private Integer conversa;
+    private Integer idAutor;
+    private String nomeAutor;
+    private Integer idConversa;
 
-    public Mensagem(Integer id, LocalDateTime horario, String texto, Integer autor, Integer conversa) {
+    public Mensagem(Integer id, Date horario, String texto, Integer idAutor, String nomeAutor, Integer idConversa) {
         this.id = id;
         this.horario = horario;
         this.texto = texto;
-        this.autor = autor;
-        this.conversa = conversa;
+        this.idAutor = idAutor;
+        this.nomeAutor = nomeAutor;
+        this.idConversa = idConversa;
     }
 
     public Mensagem() {
@@ -29,11 +31,11 @@ public class Mensagem {
         this.id = id;
     }
 
-    public LocalDateTime getHorario() {
+    public Date getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(Date horario) {
         this.horario = horario;
     }
 
@@ -45,19 +47,27 @@ public class Mensagem {
         this.texto = texto;
     }
 
-    public Integer getAutor() {
-        return autor;
+    public Integer getIdAutor() {
+        return idAutor;
     }
 
-    public void setAutor(Integer autor) {
-        this.autor = autor;
+    public void setIdAutor(Integer idAutor) {
+        this.idAutor = idAutor;
     }
 
-    public Integer getConversa() {
-        return conversa;
+    public String getNomeAutor() {
+        return nomeAutor;
     }
 
-    public void setConversa(Integer conversa) {
-        this.conversa = conversa;
+    public void setNomeAutor(String nomeAutor) {
+        this.nomeAutor = nomeAutor;
+    }
+
+    public Integer getIdConversa() {
+        return idConversa;
+    }
+
+    public void setIdConversa(Integer idConversa) {
+        this.idConversa = idConversa;
     }
 }

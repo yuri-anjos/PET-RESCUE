@@ -8,13 +8,15 @@ public class Doacao {
     private Double quantia;
     private Date quando;
     private Integer idDoador;
+    private String nomeDoador;
     private Integer idVaquinha;
 
-    public Doacao(Integer id, Double quantia, Date quando, Integer idDoador, Integer idVaquinha) {
+    public Doacao(Integer id, Double quantia, Date quando, Integer idDoador, String nomeDoador, Integer idVaquinha) {
         this.id = id;
         this.quantia = quantia;
         this.quando = quando;
         this.idDoador = idDoador;
+        this.nomeDoador = nomeDoador;
         this.idVaquinha = idVaquinha;
     }
 
@@ -51,6 +53,14 @@ public class Doacao {
 
     public void setIdDoador(Integer idDoador) {
         this.idDoador = idDoador;
+    }
+
+    public String getNomeDoador() {
+        return nomeDoador;
+    }
+
+    public void setNomeDoador(String nomeDoador) {
+        this.nomeDoador = nomeDoador;
     }
 
     public Integer getIdVaquinha() {

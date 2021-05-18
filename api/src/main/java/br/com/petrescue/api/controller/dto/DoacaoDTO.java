@@ -18,6 +18,7 @@ public class DoacaoDTO {
     private Double quantia;
     private Date quando;
     private Integer idDoador;
+    private String nomeDoador;
     private Integer idVaquinha;
 
     public DoacaoDTO(Doacao doacao) {
@@ -25,6 +26,7 @@ public class DoacaoDTO {
         this.quantia = doacao.getQuantia();
         this.quando = Date.from(doacao.getQuando().atZone(ZoneId.systemDefault()).toInstant());
         this.idDoador = doacao.getDoador().getId();
+        this.nomeDoador = doacao.getDoador().getNome();
         this.idVaquinha = doacao.getVaquinha().getId();
     }
 }

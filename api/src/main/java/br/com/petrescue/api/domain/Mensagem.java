@@ -2,6 +2,7 @@ package br.com.petrescue.api.domain;
 
 import br.com.petrescue.api.controller.dto.MensagemDTO;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,5 +43,8 @@ public class Mensagem {
     private Conversa conversa;
 
     public Mensagem(MensagemDTO mensagemDTO) {
+        this.id = mensagemDTO.getId();
+        this.horario = mensagemDTO.getHorario() == null ? null : mensagemDTO.getHorario().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.texto = mensagemDTO.getTexto();
     }
 }

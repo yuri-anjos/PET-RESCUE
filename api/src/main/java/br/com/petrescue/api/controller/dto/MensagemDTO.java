@@ -1,7 +1,8 @@
 package br.com.petrescue.api.controller.dto;
 
 import br.com.petrescue.api.domain.Mensagem;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +15,18 @@ import lombok.Setter;
 public class MensagemDTO {
 
     private Integer id;
-    private LocalDateTime horario;
+    private Date horario;
     private String texto;
-    private Integer autor;
-    private Integer conversa;
+    private Integer idAutor;
+    private String nomeAutor;
+    private Integer idConversa;
 
     public MensagemDTO(Mensagem mensagem) {
         this.id = mensagem.getId();
-        this.horario = mensagem.getHorario();
+        this.horario = Date.from(mensagem.getHorario().atZone(ZoneId.systemDefault()).toInstant());
         this.texto = mensagem.getTexto();
-        this.autor = mensagem.getAutor().getId();
-        this.conversa = mensagem.getConversa().getId();
+        this.idAutor = mensagem.getAutor().getId();
+        this.nomeAutor = mensagem.getAutor().getNome();
+        this.idConversa = mensagem.getConversa().getId();
     }
 }
