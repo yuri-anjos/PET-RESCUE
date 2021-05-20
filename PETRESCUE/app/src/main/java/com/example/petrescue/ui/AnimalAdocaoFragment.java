@@ -98,7 +98,6 @@ public class AnimalAdocaoFragment extends Fragment {
         this.foto = v.findViewById(R.id.iv_foto_animaladocao);
         this.nome = v.findViewById(R.id.tv_nome_animaladocao);
         this.dono = v.findViewById(R.id.ll_dono_animaladocao);
-        this.visitante = v.findViewById(R.id.ll_visitante_animaladocao);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.animalService = this.retrofit.create(AnimalService.class);
@@ -136,7 +135,7 @@ public class AnimalAdocaoFragment extends Fragment {
         this.vacinas.setText(this.animal.getVacinas());
         this.btAccessarUsuario.setText("Acesse o perfil de " + this.animal.getNomeUsuario());
         if (ControleActivity.USUARIO.getId().equals(this.animal.getIdUsuario())) {
-            this.visitante.setVisibility(View.GONE);
+            this.btAccessarUsuario.setVisibility(View.GONE);
             if (SituacaoAdocao.ADOTADO.equals(this.animal.getSituacaoAdocao())) {
                 this.dono.setVisibility(View.GONE);
             } else {
@@ -144,7 +143,7 @@ public class AnimalAdocaoFragment extends Fragment {
             }
         } else {
             this.dono.setVisibility(View.GONE);
-            this.visitante.setVisibility(View.VISIBLE);
+            this.btAccessarUsuario.setVisibility(View.VISIBLE);
         }
     }
 }

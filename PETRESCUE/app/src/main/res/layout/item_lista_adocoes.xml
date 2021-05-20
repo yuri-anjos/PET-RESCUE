@@ -21,7 +21,7 @@
             android:padding="10dp"
             android:src="@drawable/ic_launcher_background" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -29,38 +29,40 @@
 
             <TextView
                 android:id="@+id/tv_nome_animal_itemlistaadocao"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_centerHorizontal="true"
                 android:text=":nome:" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/tv_tipo_animal_itemlistaadocao"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_below="@id/tv_nome_animal_itemlistaadocao"
+                android:layout_toLeftOf="@id/tv_sexo_animal_itemlistaadocao"
+                android:layout_alignParentLeft="true"
+                android:text=":tipoanimal:"
+                android:layout_marginRight="10dp
+"
+                />
 
-                <TextView
-                    android:id="@+id/tv_tipo_animal_itemlistaadocao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=":tipoanimal:" />
-
-                <TextView
-                    android:id="@+id/tv_sexo_animal_itemlistaadocao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text=":sexo:" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_sexo_animal_itemlistaadocao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_nome_animal_itemlistaadocao"
+                android:layout_alignParentRight="true"
+                android:text=":sexo:" />
 
             <TextView
                 android:id="@+id/tv_situacao_adocao_animal_itemlistaadocao"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tv_tipo_animal_itemlistaadocao"
                 android:text=":situacaoadocao:" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

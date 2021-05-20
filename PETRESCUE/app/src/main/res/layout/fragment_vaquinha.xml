@@ -121,4 +121,11 @@
             android:text="Doar" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_acessar_usuario_vaquinha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acesse o perfil do criador"
+        android:visibility="gone" />
 </LinearLayout>

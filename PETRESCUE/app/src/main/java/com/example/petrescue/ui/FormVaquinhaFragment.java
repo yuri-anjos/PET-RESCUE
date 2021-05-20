@@ -51,7 +51,6 @@ public class FormVaquinhaFragment extends Fragment {
             this.vaquinha.setMeta(this.meta.getText().toString() == null ? null : Double.parseDouble(this.meta.getText().toString()) );
             this.vaquinha.setFoto(this.foto.getText().toString());
             if (this.vaquinha.getId() != null) {
-                System.out.println(this.vaquinha.toString());
                 this.editarVaquinha();
             } else {
                 this.cadastrarVaquinha(root);

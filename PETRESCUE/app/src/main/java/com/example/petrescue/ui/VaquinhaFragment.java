@@ -44,6 +44,7 @@ public class VaquinhaFragment extends Fragment {
 
     private Button editar;
     private Button doar;
+    private Button btAccessarUsuario;
     private TextInputEditText valor;
     private ImageView foto;
     private TextView inicio;
@@ -64,6 +65,12 @@ public class VaquinhaFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("vaquinha", this.vaquinha);
             Navigation.findNavController(v).navigate(R.id.action_nav_vaquinha_to_nav_form_vaquinha, bundle);
+        });
+
+        this.btAccessarUsuario.setOnClickListener(v12 -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("idusuario", this.vaquinha.getIdUsuario());
+            Navigation.findNavController(v).navigate(R.id.action_nav_vaquinha_to_nav_usuario, bundle);
         });
 
         this.doar.setOnClickListener(v1 -> {
@@ -111,6 +118,7 @@ public class VaquinhaFragment extends Fragment {
         this.arrecadado = v.findViewById(R.id.tv_arrecadado_vaquinha);
         this.meta = v.findViewById(R.id.tv_meta_vaquinha);
         this.doador = v.findViewById(R.id.ll_doador);
+        this.btAccessarUsuario = v.findViewById(R.id.bt_acessar_usuario_vaquinha);
         this.valor.setText(Double.toString(0.0));
 
         this.retrofit = RetrofitConfig.generateRetrofit();
@@ -147,22 +155,19 @@ public class VaquinhaFragment extends Fragment {
         this.descricao.setText(this.vaquinha.getDescricao());
         this.arrecadado.setText(Double.toString(this.vaquinha.getValorArrecadado()));
         this.meta.setText(Double.toString(this.vaquinha.getMeta()));
+        this.btAccessarUsuario.setText("Acesse o perfil de " + this.vaquinha.getNomeUsuario());
 
-        if (this.vaquinha.getAtivo().equals(true)) {
-            if (ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())) {
-                this.editar.setVisibility(View.VISIBLE);
-                this.doador.setVisibility(View.GONE);
-            } else {
-                this.editar.setVisibility(View.GONE);
-                this.doador.setVisibility(View.VISIBLE);
-            }
+        if (ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())) {
+            this.editar.setVisibility(View.VISIBLE);
+            this.doador.setVisibility(View.GONE);
+            this.btAccessarUsuario.setVisibility(View.GONE);
         } else {
-//            botao para chegar ao criador da vaquinha?
-//            if(ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())){
-//
-//            }else{
-//
-//            }
+            this.editar.setVisibility(View.GONE);
+            this.doador.setVisibility(View.VISIBLE);
+            this.btAccessarUsuario.setVisibility(View.VISIBLE);
+        }
+
+        if (this.vaquinha.getAtivo().equals(false)) {
             this.editar.setVisibility(View.GONE);
             this.doador.setVisibility(View.GONE);
         }

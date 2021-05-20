@@ -18,16 +18,16 @@ public class ConversaController {
     @Autowired
     private ConversaService cadastrarUsuario;
 
-    @GetMapping("/{idusuario1}/{idusuario2}")
+    @GetMapping("/id/{idusuario1}/{idusuario2}")
     @ResponseStatus(HttpStatus.OK)
     public Integer buscarConversaAmbosUsuarios(@PathVariable("idusuario1") Integer idusuario1, @PathVariable("idusuario2") Integer idusuario2){
         return this.cadastrarUsuario.buscarConversaAmbosUsuarios(idusuario1, idusuario2);
     }
 
-    @GetMapping("/{idconversa}")
+    @GetMapping("/{idconversa}/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public ConversaDTO buscarConversaId(@PathVariable("idconversa") Integer idconversa){
-        return this.cadastrarUsuario.buscarConversaId(idconversa);
+    public ConversaDTO buscarConversaId(@PathVariable("idconversa") Integer idconversa, @PathVariable("idusuario") Integer idusuario){
+        return this.cadastrarUsuario.buscarConversaId(idconversa, idusuario);
     }
 
     @GetMapping("/usuario/{idusuario}")

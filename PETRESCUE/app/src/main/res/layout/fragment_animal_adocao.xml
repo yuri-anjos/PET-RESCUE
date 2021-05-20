@@ -78,25 +78,12 @@
             android:text="Adotar" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_visitante_animaladocao"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/bt_acessar_usuario_animaladocao"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Interessado no animal?" />
-
-        <Button
-            android:id="@+id/bt_acessar_usuario_animaladocao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Acesse o perfil do dono" />
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:text="Acesse o perfil do dono"
+        android:visibility="gone" />
 
 </LinearLayout>

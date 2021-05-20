@@ -36,12 +36,12 @@ public class ConversaService {
         return conversa.getId();
     }
 
-    public ConversaDTO buscarConversaId(Integer idconversa) {
+    public ConversaDTO buscarConversaId(Integer idconversa, Integer idusuario) {
         Conversa conversa = this.conversaRepository.findById(idconversa).orElseThrow(() -> new NaoEncontradoException("Erro ao buscar o chat!"));
-        return new ConversaDTO(conversa);
+        return new ConversaDTO(idusuario, conversa);
     }
 
     public List<ConversaDTO> buscarConversasUsuarioId(Integer idusuario) {
-        return this.conversaRepository.buscarConversasDeUsuario(idusuario).stream().map(obj -> new ConversaDTO(obj, this.mensagemRepository.findFirstByConversaIdOrderByHorarioDesc(obj.getId()).orElse(null))).collect(Collectors.toList());
+        return this.conversaRepository.buscarConversasDeUsuario(idusuario).stream().map(obj -> new ConversaDTO(idusuario, obj, this.mensagemRepository.findFirstByConversaIdOrderByHorarioDesc(obj.getId()).orElse(null))).collect(Collectors.toList());
     }
 }

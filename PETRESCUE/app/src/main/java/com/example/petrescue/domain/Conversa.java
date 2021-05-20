@@ -8,14 +8,16 @@ public class Conversa {
     private String nomeUsuarioUm;
     private String nomeUsuarioDois;
     private Mensagem ultimaMensagem;
+    private String foto;
 
-    public Conversa(Integer id, Integer idUsuarioUm, Integer idUsuarioDois, String nomeUsuarioUm, String nomeUsuarioDois, Mensagem ultimaMensagem) {
+    public Conversa(Integer id, Integer idUsuarioUm, Integer idUsuarioDois, String nomeUsuarioUm, String nomeUsuarioDois, Mensagem ultimaMensagem, String foto) {
         this.id = id;
         this.idUsuarioUm = idUsuarioUm;
         this.idUsuarioDois = idUsuarioDois;
         this.nomeUsuarioUm = nomeUsuarioUm;
         this.nomeUsuarioDois = nomeUsuarioDois;
         this.ultimaMensagem = ultimaMensagem;
+        this.foto = foto;
     }
 
     public Conversa() {
@@ -67,5 +69,13 @@ public class Conversa {
 
     public void setUltimaMensagem(Mensagem ultimaMensagem) {
         this.ultimaMensagem = ultimaMensagem;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

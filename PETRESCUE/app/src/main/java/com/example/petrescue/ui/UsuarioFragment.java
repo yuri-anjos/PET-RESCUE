@@ -28,6 +28,7 @@ import com.example.petrescue.domain.adapter.AdapterAnimal;
 import com.example.petrescue.domain.adapter.AdapterVaquinha;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
+import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.example.petrescue.service.VaquinhaService;
@@ -51,6 +52,7 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
     private TextInputEditText saldoAdicional;
     private Button adicionarSaldo;
     private Button editar;
+    private Button conversar;
 
     private View view;
     private Retrofit retrofit;
@@ -68,6 +70,8 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
     private AdapterAnimal animalAdapter;
     private List<Animal> listaAnimal;
     private AnimalService animalService;
+
+    private ConversaService conversaService;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +110,11 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
             Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_editar_usuario);
         });
 
+        this.conversar.setOnClickListener(v -> {
+            this.conversaService = this.retrofit.create(ConversaService.class);
+            // buscar id da conversa e trocar de tela
+        });
+
         return this.view;
     }
 
@@ -121,6 +130,7 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         this.saldoAdicional = v.findViewById(R.id.et_saldo_adicional_usuario);
         this.adicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.editar = v.findViewById(R.id.bt_editar_usuario);
+        this.conversar = v.findViewById(R.id.bt_conversar_usuario);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = this.retrofit.create(UsuarioService.class);
@@ -176,10 +186,12 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         if (ControleActivity.USUARIO.getId().equals(this.usuario.getId())) {
             this.linearLayoutSaldo.setVisibility(View.VISIBLE);
             this.editar.setVisibility(View.VISIBLE);
+            this.conversar.setVisibility(View.GONE);
             this.saldo.setText(Double.toString(this.usuario.getSaldo()));
         } else {
             this.linearLayoutSaldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);
+            this.conversar.setVisibility(View.VISIBLE);
         }
     }
 

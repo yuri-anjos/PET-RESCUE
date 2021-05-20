@@ -7,38 +7,35 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_titulo_itemlistavaquinha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=":titulo:" />
-
-            <TextView
-                android:id="@+id/tv_inicio_itemlistavaquinha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text=":criacao:" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_titulo_itemlistavaquinha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/tv_inicio_itemlistavaquinha"
+            android:text=":titulo:"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:id="@+id/tv_descricao_itemlistavaquinha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_titulo_itemlistavaquinha"
             android:text=":descricao:" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_inicio_itemlistavaquinha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=":criacao:"/>
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

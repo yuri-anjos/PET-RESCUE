@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_foto_itemlistaconversa"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_nome_itemlistaconversa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":nome:"
+            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
+            android:layout_toLeftOf="@id/tv_horario_itemlistaconversa"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_mensagem_itemlistaconversa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":mensagem:"
+            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
+            android:layout_below="@id/tv_nome_itemlistaconversa"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_horario_itemlistaconversa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":horario:"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

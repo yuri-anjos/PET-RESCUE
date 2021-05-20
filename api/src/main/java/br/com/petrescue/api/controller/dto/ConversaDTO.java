@@ -19,21 +19,24 @@ public class ConversaDTO {
     private String nomeUsuarioUm;
     private String nomeUsuarioDois;
     private MensagemDTO ultimaMensagem;
+    private String foto;
 
-    public ConversaDTO(Conversa conversa) {
+    public ConversaDTO(Integer idusuario, Conversa conversa) {
         this.id = conversa.getId();
         this.idUsuarioUm = conversa.getUsuarioUm().getId();
         this.idUsuarioDois = conversa.getUsuarioDois().getId();
         this.nomeUsuarioUm = conversa.getUsuarioUm().getNome();
         this.nomeUsuarioDois = conversa.getUsuarioDois().getNome();
+        this.foto = conversa.getUsuarioUm().getId() != idusuario ? conversa.getUsuarioUm().getFoto() : conversa.getUsuarioDois().getFoto();
     }
 
-    public ConversaDTO(Conversa conversa, Mensagem mensagem) {
+    public ConversaDTO(Integer idusuario, Conversa conversa, Mensagem mensagem) {
         this.id = conversa.getId();
         this.idUsuarioUm = conversa.getUsuarioUm().getId();
         this.idUsuarioDois = conversa.getUsuarioDois().getId();
         this.nomeUsuarioUm = conversa.getUsuarioUm().getNome();
         this.nomeUsuarioDois = conversa.getUsuarioDois().getNome();
         this.ultimaMensagem = mensagem == null ? null : new MensagemDTO(mensagem);
+        this.foto = conversa.getUsuarioUm().getId() != idusuario ? conversa.getUsuarioUm().getFoto() : conversa.getUsuarioDois().getFoto();
     }
 }
