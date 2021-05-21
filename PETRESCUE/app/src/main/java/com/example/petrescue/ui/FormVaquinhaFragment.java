@@ -48,7 +48,7 @@ public class FormVaquinhaFragment extends Fragment {
         this.salvar.setOnClickListener(v -> {
             this.vaquinha.setTitulo(this.titulo.getText().toString());
             this.vaquinha.setDescricao(this.descricao.getText().toString());
-            this.vaquinha.setMeta(this.meta.getText().toString() == null ? null : Double.parseDouble(this.meta.getText().toString()) );
+            this.vaquinha.setMeta(this.meta.getText().toString().length() > 0 ? Double.parseDouble(this.meta.getText().toString()) : 0.0);
             this.vaquinha.setFoto(this.foto.getText().toString());
             if (this.vaquinha.getId() != null) {
                 this.editarVaquinha();
@@ -68,7 +68,7 @@ public class FormVaquinhaFragment extends Fragment {
         this.salvar = v.findViewById(R.id.bt_salvar_formvaquinha);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
-        this.vaquinhaService= this.retrofit.create(VaquinhaService.class);
+        this.vaquinhaService = this.retrofit.create(VaquinhaService.class);
 
         if (this.vaquinha.getId() != null) {
             this.carregarInputs();
@@ -78,7 +78,7 @@ public class FormVaquinhaFragment extends Fragment {
     private void carregarInputs() {
         this.titulo.setText(this.vaquinha.getTitulo());
         this.descricao.setText(this.vaquinha.getDescricao());
-        this.meta.setText(this.vaquinha.getMeta() == null ? Double.toString(0.0)  : Double.toString(this.vaquinha.getMeta()));
+        this.meta.setText(this.vaquinha.getMeta() == null ? Double.toString(0.0) : Double.toString(this.vaquinha.getMeta()));
         this.foto.setText(this.vaquinha.getFoto());
     }
 

@@ -84,7 +84,7 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         this.inicializaComponentes(this.view);
 
         this.adicionarSaldo.setOnClickListener(v -> {
-            this.usuarioService.depositarSaldo(new CarteiraDTO(this.usuario.getId(), Double.parseDouble(this.saldoAdicional.getText().toString()))).enqueue(new Callback<Usuario>() {
+            this.usuarioService.depositarSaldo(new CarteiraDTO(this.usuario.getId(), this.saldoAdicional.getText().toString().length() > 0 ? Double.parseDouble(this.saldoAdicional.getText().toString()) : 0)).enqueue(new Callback<Usuario>() {
                 @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     if (response.isSuccessful()) {
@@ -131,6 +131,7 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         this.adicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.editar = v.findViewById(R.id.bt_editar_usuario);
         this.conversar = v.findViewById(R.id.bt_conversar_usuario);
+        this.saldoAdicional.setText(Double.toString(0.0));
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = this.retrofit.create(UsuarioService.class);

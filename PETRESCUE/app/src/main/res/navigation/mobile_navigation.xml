@@ -7,6 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
+        android:label="Inicio"
         android:name="com.example.petrescue.ui.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
@@ -93,4 +94,11 @@
             android:id="@+id/action_nav_vaquinha_to_nav_usuario"
             app:destination="@id/nav_usuario" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_conversas"
+        android:name="com.example.petrescue.ui.ConversasFragment"
+        tools:layout="@layout/fragment_conversas"
+        android:label="Contatos"/>
+
 </navigation>

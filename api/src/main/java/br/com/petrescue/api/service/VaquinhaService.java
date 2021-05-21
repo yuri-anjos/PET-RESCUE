@@ -43,11 +43,11 @@ public class VaquinhaService {
         Vaquinha vaquinha = new Vaquinha(vaquinhaDTO);
         Usuario usuario = this.usuarioRepository.findById(vaquinhaDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
 
+        if (vaquinha.getMeta() != -1 && vaquinha.getMeta() <= 0) {
+            throw new NegocioException("Meta de vaquinha PRECISA ser maior que 0!");
+        }
         if (vaquinha.getMeta() == -1 && TipoUsuario.INDIVIDUO.equals(usuario.getTipoUsuario())) {
             throw new NegocioException("Apenas instituições podem utilizar de arregadações sem limite!");
-        }
-        if (vaquinha.getMeta() <= 0) {
-            throw new NegocioException("Meta de vaquinha PRECISA ser maior que 0!");
         }
 
         vaquinha.setUsuario(usuario);
@@ -61,14 +61,17 @@ public class VaquinhaService {
         Vaquinha vaquinha = new Vaquinha(vaquinhaDTO);
         Usuario usuario = this.usuarioRepository.findById(vaquinhaDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
 
+        if (vaquinha.getMeta() != -1 && vaquinha.getMeta() <= 0) {
+            throw new NegocioException("Meta de vaquinha PRECISA ser maior que 0!");
+        }
         if (vaquinha.getAtivo() == false) {
             throw new NegocioException("Vaquinha não pôde ser alterada pois está desativada!");
         }
         if (vaquinha.getMeta() == -1 && TipoUsuario.INDIVIDUO.equals(usuario.getTipoUsuario())) {
             throw new NegocioException("Apenas instituições podem utilizar de arregadações sem limite!");
         }
-        if (vaquinha.getMeta() <= 0) {
-            throw new NegocioException("Meta de vaquinha PRECISA ser maior que 0!");
+        if(vaquinha.getMeta()<=vaquinha.getValorArrecadado()){
+            throw new NegocioException("Meta de vaquinha PRECISA ser maior que o valor arrecadado: " + vaquinha.getValorArrecadado()+"!");
         }
 
         vaquinha.setUsuario(usuario);

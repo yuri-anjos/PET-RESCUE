@@ -75,10 +75,10 @@ public class VaquinhaFragment extends Fragment {
 
         this.doar.setOnClickListener(v1 -> {
             this.doacao = new Doacao();
-            if (ControleActivity.USUARIO.getSaldo() >= Double.parseDouble(this.valor.getText().toString())) {
+            if (ControleActivity.USUARIO.getSaldo() >= Double.parseDouble(this.valor.getText().toString().length() > 0 ? this.valor.getText().toString() : "0")) {
                 this.doacao.setIdDoador(ControleActivity.USUARIO.getId());
                 this.doacao.setIdVaquinha(this.vaquinha.getId());
-                this.doacao.setQuantia(Double.parseDouble(this.valor.getText().toString()));
+                this.doacao.setQuantia(Double.parseDouble(this.valor.getText().toString().length() > 0 ? this.valor.getText().toString() : "0" ));
                 this.doacaoService = this.retrofit.create(DoacaoService.class);
                 this.doacaoService.doarParaVaquinha(this.doacao).enqueue(new Callback<Void>() {
                     @Override
@@ -154,7 +154,7 @@ public class VaquinhaFragment extends Fragment {
         this.titulo.setText(this.vaquinha.getTitulo());
         this.descricao.setText(this.vaquinha.getDescricao());
         this.arrecadado.setText(Double.toString(this.vaquinha.getValorArrecadado()));
-        this.meta.setText(Double.toString(this.vaquinha.getMeta()));
+        this.meta.setText(this.vaquinha.getMeta().equals(-1.0) ? "SEM LIMITE" : Double.toString(this.vaquinha.getMeta()));
         this.btAccessarUsuario.setText("Acesse o perfil de " + this.vaquinha.getNomeUsuario());
 
         if (ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())) {

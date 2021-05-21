@@ -24,12 +24,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="IGAO"
+        android:text="Teste"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="igao@igao.com" />
+        android:text="email@email.com" />
 </LinearLayout>

@@ -7,4 +7,6 @@
     <string name="menu_usuario">Perfil</string>
     <string name="menu_lista_adocao">Adoção</string>
     <string name="menu_lista_vaquinha">Vaquinhas</string>
+    <string name="menu_lista_conversas">Contatos</string>
+
 </resources>
