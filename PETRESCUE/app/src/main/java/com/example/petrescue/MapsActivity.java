@@ -1,4 +1,4 @@
-package com.example.petrescue.ui;
+package com.example.petrescue;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.petrescue.R;
 import com.example.petrescue.domain.constants.Constants;
 import com.example.petrescue.service.FetchAddressService;
 import com.google.android.gms.common.ConnectionResult;
@@ -295,7 +294,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
             }
-
         }
     }
 

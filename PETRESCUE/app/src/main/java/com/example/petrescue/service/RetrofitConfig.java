@@ -14,7 +14,7 @@ public class RetrofitConfig {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.0.4:8888/api/")
+                .baseUrl("http://192.168.1.6:8888/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
