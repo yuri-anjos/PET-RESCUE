@@ -34,8 +34,8 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public static String formatErrorResponse (Response res){
-        ErrorResponse response=new Gson().fromJson(res.errorBody().charStream(),ErrorResponse.class);
+    public static String formatErrorResponse(Response res) {
+        ErrorResponse response = new Gson().fromJson(res.errorBody().charStream(), ErrorResponse.class);
         return response.getStatus() + " - " + response.getMessage();
     }
 }

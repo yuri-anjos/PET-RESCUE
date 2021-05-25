@@ -16,6 +16,6 @@ public interface ConversaRepository extends PagingAndSortingRepository<Conversa,
 
     @Query("select c from Conversa c " +
             "where " +
-            "c.usuarioUm.id = ?1 or c.usuarioUm.id = ?1")
+            "c.usuarioUm.id = ?1 or c.usuarioDois.id = ?1")
     List<Conversa> buscarConversasDeUsuario(Integer idusuario);
 }

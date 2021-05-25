@@ -11,8 +11,11 @@ import retrofit2.http.Path;
 
 public interface UsuarioService {
 
-    @POST("usuario/cadastro")
+    @POST("usuario/cadastrar")
     Call<Usuario> cadastrar(@Body Usuario usuario);
+
+    @POST("usuario/editar")
+    Call<Usuario> editar(@Body Usuario usuario);
 
     @POST("usuario/login")
     Call<Usuario> logar(@Body Usuario usuario);

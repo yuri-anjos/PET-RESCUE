@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Animal;
 import com.example.petrescue.domain.enums.Sexo;
@@ -69,9 +70,11 @@ public class FormAnimalAdocaoFragment extends Fragment {
             this.animal.setDataNascimento(Integer.parseInt(this.nascimento.getText().toString()));
             this.animal.setDescricao(this.descricao.getText().toString());
             this.animal.setVacinas(this.vacinas.getText().toString());
+
             if (this.animal.getId() != null) {
                 this.editarAnimal();
             } else {
+                this.animal.setIdUsuario(ControleActivity.USUARIO.getId());
                 this.cadastrarAnimal(root);
             }
         });
@@ -135,7 +138,6 @@ public class FormAnimalAdocaoFragment extends Fragment {
             @Override
             public void onResponse(Call<Animal> call, Response<Animal> response) {
                 if (response.isSuccessful()) {
-                    getActivity().onBackPressed();
                     Bundle bundle = new Bundle();
                     bundle.putInt("idanimal", response.body().getId());
                     Navigation.findNavController(v).navigate(R.id.action_nav_form_animal_adocao_to_nav_animal_adocao, bundle);

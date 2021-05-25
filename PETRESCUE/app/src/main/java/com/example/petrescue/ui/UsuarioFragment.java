@@ -112,7 +112,25 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
 
         this.conversar.setOnClickListener(v -> {
             this.conversaService = this.retrofit.create(ConversaService.class);
-            // buscar id da conversa e trocar de tela
+            this.conversaService.buscarConversaAmbosUsuarios(ControleActivity.USUARIO.getId(), this.idusuario).enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    if (response.isSuccessful()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("idconversa", response.body());
+                        Navigation.findNavController(v).navigate(R.id.action_nav_usuario_to_nav_chat, bundle);
+                    } else {
+                        Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                        Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "THROW ERROR: " + t.toString());
+                }
+            });
         });
 
         return this.view;

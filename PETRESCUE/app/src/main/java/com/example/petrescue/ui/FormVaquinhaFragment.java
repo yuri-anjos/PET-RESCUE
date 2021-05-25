@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Vaquinha;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
@@ -53,6 +54,7 @@ public class FormVaquinhaFragment extends Fragment {
             if (this.vaquinha.getId() != null) {
                 this.editarVaquinha();
             } else {
+                this.vaquinha.setIdUsuario(ControleActivity.USUARIO.getId());
                 this.cadastrarVaquinha(root);
             }
         });
@@ -87,7 +89,6 @@ public class FormVaquinhaFragment extends Fragment {
             @Override
             public void onResponse(Call<Vaquinha> call, Response<Vaquinha> response) {
                 if (response.isSuccessful()) {
-                    getActivity().onBackPressed();
                     Bundle bundle = new Bundle();
                     bundle.putInt("idvaquinha", response.body().getId());
                     Navigation.findNavController(v).navigate(R.id.action_nav_form_vaquinha_to_nav_vaquinha, bundle);

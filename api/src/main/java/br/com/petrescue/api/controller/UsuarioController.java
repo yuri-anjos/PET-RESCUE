@@ -21,10 +21,16 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/cadastro")
+    @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioDTO cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
         return this.usuarioService.cadastrarUsuario(usuarioDTO);
+    }
+
+    @PostMapping("/editar")
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioDTO editarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+        return this.usuarioService.editarUsuario(usuarioDTO);
     }
 
     @PostMapping("/login")

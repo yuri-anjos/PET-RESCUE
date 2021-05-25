@@ -25,10 +25,19 @@ public class UsuarioService {
         if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
             this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
             this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
-            this.geralValidator.string(usuario.getNomeOng(), "Nome de ONG/instituição");
 //            this.geralValidator.localizacao(usuario.getLocalizacao());
         }
         usuario.setSaldo(0.0);
+        return new UsuarioDTO(this.usuarioRepository.save(usuario));
+    }
+
+    public UsuarioDTO editarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario(usuarioDTO);
+        if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
+            this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
+            this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
+//            this.geralValidator.localizacao(usuario.getLocalizacao());
+        }
         return new UsuarioDTO(this.usuarioRepository.save(usuario));
     }
 

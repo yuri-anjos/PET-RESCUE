@@ -30,7 +30,7 @@ public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHo
     @NonNull
     @Override
     public ViewHolderConversa onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_adocoes, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_conversa, parent, false);
         return new ViewHolderConversa(view, conversaListener);
     }
 

@@ -17,11 +17,10 @@ public class Usuario implements Serializable {
 
     private TipoUsuario tipoUsuario;
 
-    private String nomeOng;
     private String cpfCnpj;
     private String descricao;
 
-    public Usuario(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String nomeOng, String cpfCnpj, String descricao) {
+    public Usuario(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String cpfCnpj, String descricao) {
         this.id = id;
         this.saldo = saldo;
         this.email = email;
@@ -30,7 +29,6 @@ public class Usuario implements Serializable {
         this.foto = foto;
         this.localizacao = localizacao;
         this.tipoUsuario = tipoUsuario;
-        this.nomeOng = nomeOng;
         this.cpfCnpj = cpfCnpj;
         this.descricao = descricao;
     }
@@ -100,14 +98,6 @@ public class Usuario implements Serializable {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-    }
-
-    public String getNomeOng() {
-        return nomeOng;
-    }
-
-    public void setNomeOng(String nomeOng) {
-        this.nomeOng = nomeOng;
     }
 
     public String getCpfCnpj() {
