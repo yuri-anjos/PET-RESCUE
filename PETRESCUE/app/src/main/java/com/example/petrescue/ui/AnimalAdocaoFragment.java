@@ -44,7 +44,6 @@ public class AnimalAdocaoFragment extends Fragment {
     private TextInputEditText vacinas;
     private TextView nome;
     private LinearLayout dono;
-    private LinearLayout visitante;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
