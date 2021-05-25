@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_nav_lista_adocao_to_nav_animal_adocao"
             app:destination="@id/nav_animal_adocao" />
+        <action
+            android:id="@+id/action_nav_lista_adocao_to_nav_form_animal_adocao"
+            app:destination="@id/nav_form_animal_adocao" />
     </fragment>
 
     <fragment
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_nav_lista_vaquinhas_to_nav_vaquinha"
             app:destination="@id/nav_vaquinha" />
+        <action
+            android:id="@+id/action_nav_lista_vaquinhas_to_nav_form_vaquinha"
+            app:destination="@id/nav_form_vaquinha" />
     </fragment>
 
     <fragment
@@ -49,6 +55,9 @@
         <action
             android:id="@+id/action_nav_usuario_to_nav_animal_adocao"
             app:destination="@id/nav_animal_adocao" />
+        <action
+            android:id="@+id/action_nav_usuario_to_nav_chat"
+            app:destination="@id/nav_chat" />
     </fragment>
     <fragment
         android:id="@+id/nav_editar_usuario"
@@ -75,7 +84,9 @@
         tools:layout="@layout/fragment_form_adocao" >
         <action
             android:id="@+id/action_nav_form_animal_adocao_to_nav_animal_adocao"
-            app:destination="@id/nav_animal_adocao" />
+            app:destination="@id/nav_animal_adocao"
+            app:popUpTo="@+id/nav_form_animal_adocao"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -84,7 +95,9 @@
         tools:layout="@layout/fragment_form_vaquinha" >
         <action
             android:id="@+id/action_nav_form_vaquinha_to_nav_vaquinha"
-            app:destination="@id/nav_vaquinha" />
+            app:destination="@id/nav_vaquinha"
+            app:popUpTo="@+id/nav_form_vaquinha"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -101,8 +114,18 @@
 
     <fragment
         android:id="@+id/nav_conversas"
-        android:name="com.example.petrescue.ui.ConversasFragment"
-        tools:layout="@layout/fragment_conversas"
+        android:name="com.example.petrescue.ui.ListaConversasFragment"
+        tools:layout="@layout/fragment_lista_conversas"
+        android:label="Contatos">
+        <action
+            android:id="@+id/action_nav_conversas_to_nav_chat"
+            app:destination="@id/nav_chat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.petrescue.ui.ChatFragment"
+        tools:layout="@layout/fragment_chat"
         android:label="Contatos"/>
 
     <fragment

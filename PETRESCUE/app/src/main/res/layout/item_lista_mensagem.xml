@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_nome_itemlistamensagem"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text=":nome:"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_mensagem_itemlistamensagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_toRightOf="@id/tv_nome_itemlistamensagem"
+            android:layout_toLeftOf="@id/tv_horario_itemlistamensagem"
+            android:text=":mensagem:" />
+
+        <TextView
+            android:id="@+id/tv_horario_itemlistamensagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":horario:"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

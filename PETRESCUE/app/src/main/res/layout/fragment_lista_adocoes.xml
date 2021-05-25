@@ -16,10 +16,16 @@
         android:text="Lista Adoção"
         android:textSize="30sp" />
 
+    <Button
+        android:id="@+id/bt_cadastrar_listaadocoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_listaadocoes"
         android:layout_width="match_parent"
-        android:layout_height="557dp"
+        android:layout_height="500dp"
         tools:listitem="@layout/item_lista_adocoes" />
 
 

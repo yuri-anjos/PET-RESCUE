@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Animal;
+import com.example.petrescue.domain.Vaquinha;
 import com.example.petrescue.domain.adapter.AdapterAnimal;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
@@ -38,11 +39,12 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
     private Integer pagina;
     private Retrofit retrofit;
     private AnimalService animalService;
-    private View view;
 
+    private Button btCadastrar;
     private Button btMinusPage;
     private Button btPlusPage;
     private TextView tvActualPage;
+    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,12 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
         this.btMinusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina - 1));
         this.btPlusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina + 1));
+
+        this.btCadastrar.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("animal", new Animal());
+            Navigation.findNavController(v).navigate(R.id.action_nav_lista_adocao_to_nav_form_animal_adocao, bundle);
+        });
 
         return this.view;
     }
@@ -66,6 +74,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         this.btMinusPage = v.findViewById(R.id.bt_minuspage_listaadocoes);
         this.btPlusPage = v.findViewById(R.id.bt_pluspage_listaadocoes);
         this.tvActualPage = v.findViewById(R.id.tv_actualpage_listaadocoes);
+        this.btCadastrar = v.findViewById(R.id.bt_cadastrar_listaadocoes);
         this.pagina = 0;
 
         this.retrofit = RetrofitConfig.generateRetrofit();
@@ -78,7 +87,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
-        this.animalService.buscarAnimaisAdocao(pagina).enqueue(new Callback<List<Animal>>() {
+        this.animalService.buscarAnimaisAdocao(pg).enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
                 if (response.isSuccessful()) {
@@ -87,26 +96,26 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
 
                     if (listaAnimalAdocao.isEmpty()) {
                         Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUM animal do servidor!", Toast.LENGTH_LONG).show();
-                    }
-
-                    animalAdapter.notifyDataSetChanged();
-                    pagina = pg;
-
-                    if (listaAnimalAdocao.size() == 10) {
-                        btPlusPage.setEnabled(true);
                     } else {
-                        btPlusPage.setEnabled(false);
-                    }
+                        animalAdapter.notifyDataSetChanged();
+                        pagina = pg;
 
-                    if (pg == 0) {
-                        btMinusPage.setEnabled(false);
-                    } else {
-                        btMinusPage.setEnabled(true);
-                    }
+                        if (listaAnimalAdocao.size() == 10) {
+                            btPlusPage.setEnabled(true);
+                        } else {
+                            btPlusPage.setEnabled(false);
+                        }
 
-                    btPlusPage.setText(Integer.toString(pg + 2));
-                    btMinusPage.setText(Integer.toString(pg));
-                    tvActualPage.setText(Integer.toString(pg + 1));
+                        if (pg == 0) {
+                            btMinusPage.setEnabled(false);
+                        } else {
+                            btMinusPage.setEnabled(true);
+                        }
+
+                        btPlusPage.setText(Integer.toString(pg + 2));
+                        btMinusPage.setText(Integer.toString(pg));
+                        tvActualPage.setText(Integer.toString(pg + 1));
+                    }
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());

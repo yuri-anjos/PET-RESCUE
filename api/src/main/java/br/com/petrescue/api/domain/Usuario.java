@@ -60,9 +60,6 @@ public class Usuario {
     @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 
-    @Column(name = "nome_ong")
-    private String nomeOng;
-
     @Column(name = "cpf_cnpj", unique = true)
     private String cpfCnpj;
 
@@ -78,7 +75,6 @@ public class Usuario {
         this.foto = usuarioDTO.getFoto();
         this.localizacao = usuarioDTO.getLocalizacao();
         this.tipoUsuario = usuarioDTO.getTipoUsuario();
-        this.nomeOng = usuarioDTO.getNomeOng();
         this.cpfCnpj = usuarioDTO.getCpfCnpj();
         this.descricao = usuarioDTO.getDescricao();
     }

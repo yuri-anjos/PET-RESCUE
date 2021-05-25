@@ -48,7 +48,6 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputEditText etSenha;
     private TextInputEditText etFoto;
 
-    private TextInputEditText etNomeOng;
     private TextInputEditText etCpfCnpj;
     private TextInputEditText etDescricaoOng;
     private LinearLayout llInstituiucao;
@@ -88,11 +87,9 @@ public class CadastroActivity extends AppCompatActivity {
             this.usuario.setSenha(this.etSenha.getText().toString());
             this.usuario.setFoto(this.etFoto.getText().toString());
             if (this.usuario.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
-                this.usuario.setNomeOng(null);
                 this.usuario.setCpfCnpj(null);
                 this.usuario.setDescricao(null);
             } else {
-                this.usuario.setNomeOng(this.etNomeOng.getText().toString());
                 this.usuario.setCpfCnpj(this.etCpfCnpj.getText().toString());
                 this.usuario.setDescricao(this.etDescricaoOng.getText().toString());
             }
@@ -183,7 +180,6 @@ public class CadastroActivity extends AppCompatActivity {
         this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
         this.etFoto = this.findViewById(R.id.et_foto_cadastrousuario);
 
-        this.etNomeOng = this.findViewById(R.id.et_nome_ong_cadastrousuario);
         this.etCpfCnpj = this.findViewById(R.id.et_cpf_cnpj_cadastrousuario);
         this.etDescricaoOng = this.findViewById(R.id.et_descricao_cadastrousuario);
         this.llInstituiucao = this.findViewById(R.id.ll_instituiucao_cadastrousuario);

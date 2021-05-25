@@ -40,6 +40,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
     private Retrofit retrofit;
     private VaquinhaService vaquinhaService;
 
+    private Button btCadastrar;
     private Button btMinusPage;
     private Button btPlusPage;
     private TextView tvActualPage;
@@ -52,6 +53,12 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
 
         this.btMinusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina - 1));
         this.btPlusPage.setOnClickListener(v -> this.buscarAnimaisAdocao(pagina + 1));
+
+        this.btCadastrar.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("vaquinha", new Vaquinha());
+            Navigation.findNavController(v).navigate(R.id.action_nav_lista_vaquinhas_to_nav_form_vaquinha, bundle);
+        });
 
         return this.view;
     }
@@ -67,6 +74,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
         this.btMinusPage = v.findViewById(R.id.bt_minuspage_listavaquinhas);
         this.btPlusPage = v.findViewById(R.id.bt_pluspage_listavaquinhas);
         this.tvActualPage = v.findViewById(R.id.tv_actualpage_listavaquinhas);
+        this.btCadastrar = v.findViewById(R.id.bt_cadastrar_listavaquinhas);
         this.pagina = 0;
 
         this.retrofit = RetrofitConfig.generateRetrofit();
@@ -79,7 +87,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
     }
 
     private void buscarAnimaisAdocao(Integer pg) {
-        this.vaquinhaService.buscarVaquinhas(pagina).enqueue(new Callback<List<Vaquinha>>() {
+        this.vaquinhaService.buscarVaquinhas(pg).enqueue(new Callback<List<Vaquinha>>() {
             @Override
             public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
                 if (response.isSuccessful()) {
@@ -87,25 +95,26 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
                     listaVaquinha.addAll(response.body());
                     if (listaVaquinha.isEmpty()) {
                         Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUMA vaquinha do servidor!", Toast.LENGTH_LONG).show();
-                    }
-                    vaquinhaAdapter.notifyDataSetChanged();
-                    pagina = pg;
-
-                    if (listaVaquinha.size() == 10) {
-                        btPlusPage.setEnabled(true);
                     } else {
-                        btPlusPage.setEnabled(false);
-                    }
+                        vaquinhaAdapter.notifyDataSetChanged();
+                        pagina = pg;
 
-                    if (pg == 0) {
-                        btMinusPage.setEnabled(false);
-                    } else {
-                        btMinusPage.setEnabled(true);
-                    }
+                        if (listaVaquinha.size() == 10) {
+                            btPlusPage.setEnabled(true);
+                        } else {
+                            btPlusPage.setEnabled(false);
+                        }
 
-                    btPlusPage.setText(Integer.toString(pg + 2));
-                    btMinusPage.setText(Integer.toString(pg));
-                    tvActualPage.setText(Integer.toString(pg + 1));
+                        if (pg == 0) {
+                            btMinusPage.setEnabled(false);
+                        } else {
+                            btMinusPage.setEnabled(true);
+                        }
+
+                        btPlusPage.setText(Integer.toString(pg + 2));
+                        btMinusPage.setText(Integer.toString(pg));
+                        tvActualPage.setText(Integer.toString(pg + 1));
+                    }
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());

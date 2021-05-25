@@ -7,12 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Integer> {
 
-//    boolean existsByUsernameAndCargoNot(String usuario, Cargo cargo);
-//    boolean existsById(Integer id);
-//
-//    List<Usuario> findByDataIngressoLessThanEqualOrDataIngressoGreaterThanEqualAndCargoNot(LocalDate dataAntes, LocalDate data, Cargo cargo);
-//
-//    List<Usuario> findByDataIngressoBetweenAndCargoNot(LocalDate dataAntes, LocalDate data, Cargo cargo);
-
     Optional<Usuario> findByEmailAndSenha(String email, String senha);
 }

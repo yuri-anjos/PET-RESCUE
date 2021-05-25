@@ -15,10 +15,16 @@
         android:text="Lista Vaquinhas"
         android:textSize="30sp" />
 
+    <Button
+        android:id="@+id/bt_cadastrar_listavaquinhas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_listavaquinhas"
         android:layout_width="match_parent"
-        android:layout_height="565dp"
+        android:layout_height="500dp"
         tools:listitem="@layout/item_lista_vaquinhas" />
 
     <LinearLayout
