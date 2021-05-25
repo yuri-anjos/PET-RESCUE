@@ -24,7 +24,6 @@ public class UsuarioDTO {
 
     private TipoUsuario tipoUsuario;
 
-    private String nomeOng;
     private String cpfCnpj;
     private String descricao;
 
@@ -37,7 +36,6 @@ public class UsuarioDTO {
         this.foto = usuario.getFoto();
         this.localizacao = usuario.getLocalizacao();
         this.tipoUsuario = usuario.getTipoUsuario();
-        this.nomeOng = usuario.getNomeOng();
         this.cpfCnpj = usuario.getCpfCnpj();
         this.descricao = usuario.getDescricao();
     }
