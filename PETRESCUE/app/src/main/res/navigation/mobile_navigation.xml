@@ -9,6 +9,12 @@
         android:id="@+id/nav_home"
         android:label="Inicio"
         android:name="com.example.petrescue.ui.HomeFragment"
+        tools:layout="@layout/activity_maps" />
+
+    <fragment
+        android:id="@+id/nav_missing_pin"
+        android:label="Registrar animal desaparecido"
+        android:name="com.example.petrescue.ui.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
