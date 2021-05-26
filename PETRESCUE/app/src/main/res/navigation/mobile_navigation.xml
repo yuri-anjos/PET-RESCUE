@@ -130,12 +130,18 @@
 
     <fragment
         android:id="@+id/nav_registro_animal_avistado"
-        android:name="com.example.petrescue.ui.FormPinFragment"
-        tools:layout="@layout/fragment_form_pin"
+        android:name="com.example.petrescue.ui.FormPinAvistadoFragment"
+        tools:layout="@layout/fragment_form_avistado_pin"
         android:label="Registro animal avistado">
         <action
             android:id="@+id/action_nav_registro_animal_avistado_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_registro_animal_desaparecido"
+        android:name="com.example.petrescue.ui.FormPinDesaparecidoFragment"
+        tools:layout="@layout/fragment_form_desaparecido_pin"
+        android:label="Registro animal desaparecido"/>
 
 </navigation>

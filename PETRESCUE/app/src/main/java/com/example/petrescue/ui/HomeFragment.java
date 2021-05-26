@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,22 +19,24 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.petrescue.R;
+import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.constants.Constants;
+import com.example.petrescue.domain.enums.TipoAnimal;
+import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.domain.subClasses.Localizacao;
+import com.example.petrescue.service.AnimalPinService;
 import com.example.petrescue.service.FetchAddressService;
+import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationAvailability;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
@@ -51,8 +52,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -60,6 +68,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     AddressResultReceiver resultReceiver;
     GoogleMap mMap;
     View view;
+    private FloatingActionButton newSpottedAnimalButton;
+    private FloatingActionButton newMissingAnimalButton;
+    private Retrofit retrofit = RetrofitConfig.generateRetrofit();
+    private AnimalPinService animalPinService = this.retrofit.create(AnimalPinService.class);
 
 
     @Override
@@ -69,11 +81,61 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        newSpottedAnimalButton = view.findViewById(R.id.newSpottedAnimalButtom);
+        newMissingAnimalButton = view.findViewById(R.id.newMissingAnimalButtom);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        // clickListeners
+        newSpottedAnimalButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pin", new AnimalPIN());
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat
+                    .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location == null) {
+                        Log.e("ERROR", "Location not found");
+                    }
+                    bundle.putDoubleArray("location", new double[]{location.getLatitude(),
+                            location.getLongitude()});
+                    Navigation.findNavController(v).navigate(R.id.nav_registro_animal_avistado, bundle);
+                }
+            });
+        });
+
+        newMissingAnimalButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pin", new AnimalPIN());
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat
+                    .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location == null) {
+                        Log.e("ERROR", "Location not found");
+                    }
+                    bundle.putDoubleArray("location", new double[]{location.getLatitude(),
+                            location.getLongitude()});
+                    Navigation.findNavController(v).navigate(R.id.nav_registro_animal_desaparecido, bundle);
+                }
+            });
+        });
+
         resultReceiver = new AddressResultReceiver(null);
         return this.view;
 
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -124,6 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 (getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        AnimalPIN soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio = new AnimalPIN();
         client.getLastLocation().addOnSuccessListener
                 (new OnSuccessListener<Location>() {
                     @Override
@@ -146,6 +209,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         } else {
                             Log.e("Error", "Location not found");
                         }
+
+                        Localizacao userLocation = new Localizacao();
+                        userLocation.setLatitude(location.getLatitude());
+                        userLocation.setLongitude(location.getLongitude());
+                        soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio.setLocalizacao(userLocation);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -154,6 +223,35 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         Log.e("Error", e.getMessage());
                     }
                 });
+        List<AnimalPIN> animalPINS = new ArrayList<>();
+        animalPinService.buscarAnimaisPin(soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio)
+                                    .enqueue(new Callback<List<AnimalPIN>>() {
+                    @Override
+                    public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
+                        if(response.isSuccessful()) {
+                            animalPINS.addAll(response.body());
+                        } else {
+                            Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response),
+                                    Toast.LENGTH_LONG);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<AnimalPIN>> call, Throwable t) {
+                        Log.e("ERROR", t.getMessage());
+                    }
+                });
+
+        for(AnimalPIN pin : animalPINS) {
+            Location location = new Location("none");
+            location.setLatitude(pin.getLocalizacao().getLatitude());
+            location.setLongitude(pin.getLocalizacao().getLongitude());
+            if(TipoAnimal.CACHORRO.equals(pin.getTipoPIN())) {
+                createDogMarker(location);
+            } else if(TipoAnimal.GATO.equals(pin.getTipoPIN())) {
+                createCatMarker(location);
+            }
+        }
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(10 * 1000);
@@ -183,43 +281,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         });
-
-
-        LocationCallback locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(@NonNull LocationResult locationResult) {
-                if (locationResult == null) {
-                    Log.e("Null location", "No location found");
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-
-                    if (!Geocoder.isPresent()) {
-                        return;
-                    }
-//                    startIntentService(location);
-                }
-            }
-
-
-            @Override
-            public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
-                Log.i("Location Availability", "" + locationAvailability.
-                        isLocationAvailable());
-            }
-        };
-        client.requestLocationUpdates(locationRequest, locationCallback, null);
-    }
-
-    public Marker createMarkerOnUserLocation(Location location) {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            getActivity().finish();
-        }
-        client.getLastLocation();
-        return mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(location.getLatitude(), location.getLongitude())));
+        client.requestLocationUpdates(locationRequest, null, null);
     }
 
     private Marker createDogMarker(@NonNull Location location) {
@@ -234,25 +296,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap);
         return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .title("User location")
-                .icon(markerIcon));
-    }
-
-    private Marker resizeDogMarker(Marker marker) {
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_dog_pin);
-        Canvas canvas = new Canvas();
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
-        drawable.setBounds(0, 0, (int) (drawable.getIntrinsicWidth()
-                        - Math.ceil(drawable.getIntrinsicWidth()*0.3)),
-                (int) (drawable.getIntrinsicHeight()
-                        - Math.ceil(drawable.getIntrinsicHeight()*0.3)));
-        drawable.draw(canvas);
-        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap);
-        return mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(marker.getPosition().latitude,
-                        marker.getPosition().longitude))
                 .title("User location")
                 .icon(markerIcon));
     }
@@ -280,7 +323,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
         getActivity().startService(intent);
     }
-
 
 
     private class AddressResultReceiver extends ResultReceiver {

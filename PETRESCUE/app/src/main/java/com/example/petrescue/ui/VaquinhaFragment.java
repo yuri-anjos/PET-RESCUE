@@ -38,7 +38,7 @@ public class VaquinhaFragment extends Fragment {
     private VaquinhaService vaquinhaService;
     private DoacaoService doacaoService;
 
-    private Integer idvaquinha;
+    private Integer idVaquinha;
     private Vaquinha vaquinha;
     private Doacao doacao;
 
@@ -58,7 +58,7 @@ public class VaquinhaFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_vaquinha, container, false);
-        this.idvaquinha = getArguments().getInt("idvaquinha");
+        this.idVaquinha = getArguments().getInt("idvaquinha");
         this.inicializaComponentes(v);
 
         this.editar.setOnClickListener(v1 -> {
@@ -128,7 +128,7 @@ public class VaquinhaFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.vaquinhaService.buscarVaquinhaId(this.idvaquinha).enqueue(new Callback<Vaquinha>() {
+        this.vaquinhaService.buscarVaquinhaId(this.idVaquinha).enqueue(new Callback<Vaquinha>() {
             @Override
             public void onResponse(Call<Vaquinha> call, Response<Vaquinha> response) {
                 if (response.isSuccessful()) {
