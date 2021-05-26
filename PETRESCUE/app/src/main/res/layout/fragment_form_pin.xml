@@ -6,10 +6,21 @@
     android:padding="10dp">
 
 
+    <TextView
+        android:id="@+id/tv_descricao_tela_formpin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Animal :tipopin:"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <Spinner
         android:id="@+id/sp_tipoanimal_formpin"
         android:layout_width="match_parent"
-        android:layout_height="52dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_descricao_tela_formpin"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/container_raca_formpin"
@@ -17,13 +28,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sp_tipoanimal_formpin"
+        android:visibility="gone"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_raca_formpin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Raça" />
+            android:hint="Raça"
+            android:visibility="visible" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

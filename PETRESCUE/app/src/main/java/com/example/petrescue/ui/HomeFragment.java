@@ -1,8 +1,6 @@
 package com.example.petrescue.ui;
 
 import android.Manifest;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,19 +25,21 @@ import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.constants.Constants;
 import com.example.petrescue.domain.enums.TipoAnimal;
+import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.AnimalPinService;
-import com.example.petrescue.service.FetchAddressService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,8 +50,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -89,51 +87,38 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         // clickListeners
         newSpottedAnimalButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("pin", new AnimalPIN());
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat
-                    .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location == null) {
-                        Log.e("ERROR", "Location not found");
-                    }
-                    bundle.putDoubleArray("location", new double[]{location.getLatitude(),
-                            location.getLongitude()});
-                    Navigation.findNavController(v).navigate(R.id.nav_registro_animal_avistado, bundle);
-                }
-            });
+            AnimalPIN animalPIN = new AnimalPIN();
+            animalPIN.setTipoPIN(TipoPIN.AVISTADO);
+            bundle.putSerializable("pin", animalPIN);
+            this.buscarLocalizacaoETrocarTela(bundle, v);
         });
 
         newMissingAnimalButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("pin", new AnimalPIN());
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat
-                    .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location == null) {
-                        Log.e("ERROR", "Location not found");
-                    }
-                    bundle.putDoubleArray("location", new double[]{location.getLatitude(),
-                            location.getLongitude()});
-                    Navigation.findNavController(v).navigate(R.id.nav_registro_animal_desaparecido, bundle);
-                }
-            });
+            AnimalPIN animalPIN = new AnimalPIN();
+            animalPIN.setTipoPIN(TipoPIN.DESAPARECIDO);
+            bundle.putSerializable("pin", animalPIN);
+            this.buscarLocalizacaoETrocarTela(bundle, v);
         });
 
         resultReceiver = new AddressResultReceiver(null);
         return this.view;
+    }
 
+    private void buscarLocalizacaoETrocarTela(Bundle bundle, View v) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat
+                .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.getLastLocation().addOnSuccessListener(location -> {
+            if (location == null) {
+                Log.e("ERROR", "Location not found");
+            }
+            bundle.putDoubleArray("location", new double[]{location.getLatitude(), location.getLongitude()});
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_form_pin, bundle);
+        });
     }
 
 
@@ -173,11 +158,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
         if ((statusCode == 1) || (statusCode == 2) || (statusCode == 3)) {
             GoogleApiAvailability.getInstance().getErrorDialog(this, statusCode,
-                    0, new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            return;
-                        }
+                    0, dialog -> {
+                        return;
                     }).show();
         }
 
@@ -186,69 +168,45 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 (getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        AnimalPIN soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio = new AnimalPIN();
-        client.getLastLocation().addOnSuccessListener
-                (new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            LatLng userLocation = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
+        Localizacao localizacao = new Localizacao();
 
-                            createDogMarker(location);
-                            mMap.moveCamera(CameraUpdateFactory.
-                                    newLatLngZoom(userLocation, 16.0f));
+        client.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16.0f));
+            } else {
+                Log.e("Error", "Location not found");
+            }
+            localizacao.setLatitude(location.getLatitude());
+            localizacao.setLongitude(location.getLongitude());
+        }).addOnFailureListener(e -> Log.e("Error", e.getMessage()));
 
-                            location.setLongitude(-51.134043);
-                            location.setLatitude(-29.8315136);
-                            createCatMarker(location);
-                            mMap.moveCamera(CameraUpdateFactory.
-                                    newLatLngZoom(new LatLng(-29.8315136,
-                                            -51.134043), 16.0f));
-
-                        } else {
-                            Log.e("Error", "Location not found");
-                        }
-
-                        Localizacao userLocation = new Localizacao();
-                        userLocation.setLatitude(location.getLatitude());
-                        userLocation.setLongitude(location.getLongitude());
-                        soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio.setLocalizacao(userLocation);
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", e.getMessage());
-                    }
-                });
         List<AnimalPIN> animalPINS = new ArrayList<>();
-        animalPinService.buscarAnimaisPin(soCrieiPraPassarALocalizacaoDoUserComoPontoDeCalculoDoRaio)
-                                    .enqueue(new Callback<List<AnimalPIN>>() {
-                    @Override
-                    public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
-                        if(response.isSuccessful()) {
-                            animalPINS.addAll(response.body());
-                        } else {
-                            Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response),
-                                    Toast.LENGTH_LONG);
-                        }
-                    }
+        animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
+            @Override
+            public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
+                if (response.isSuccessful()) {
+                    animalPINS.clear();
+                    animalPINS.addAll(response.body());
+                    System.out.println(response.body());
+                } else {
+                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG);
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<List<AnimalPIN>> call, Throwable t) {
-                        Log.e("ERROR", t.getMessage());
-                    }
-                });
+            @Override
+            public void onFailure(Call<List<AnimalPIN>> call, Throwable t) {
+                Log.e("ERROR", t.getMessage());
+            }
+        });
 
-        for(AnimalPIN pin : animalPINS) {
+        for (AnimalPIN pin : animalPINS) {
             Location location = new Location("none");
             location.setLatitude(pin.getLocalizacao().getLatitude());
             location.setLongitude(pin.getLocalizacao().getLongitude());
-            if(TipoAnimal.CACHORRO.equals(pin.getTipoPIN())) {
+            if (TipoAnimal.CACHORRO.equals(pin.getTipoAnimal())) {
                 createDogMarker(location);
-            } else if(TipoAnimal.GATO.equals(pin.getTipoPIN())) {
+            } else if (TipoAnimal.GATO.equals(pin.getTipoAnimal())) {
                 createCatMarker(location);
             }
         }
@@ -258,30 +216,41 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         locationRequest.setFastestInterval(3 * 1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
         SettingsClient settingsClient = LocationServices.getSettingsClient(getActivity());
-        settingsClient.checkLocationSettings(builder.build())
-                .addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
-                    @Override
-                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        Log.i("Success", "" + locationSettingsResponse
-                                .getLocationSettingsStates().isNetworkLocationPresent());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    ResolvableApiException resolvable = (ResolvableApiException) e;
-                    try {
-                        resolvable.startResolutionForResult(getActivity(), 0);
-                    } catch (IntentSender.SendIntentException ex) {
-                        ex.printStackTrace();
-                    }
+        settingsClient.checkLocationSettings(builder.build()).addOnSuccessListener(locationSettingsResponse ->
+                Log.i("Success", "" + locationSettingsResponse.getLocationSettingsStates().isNetworkLocationPresent())).addOnFailureListener(e -> {
+            if (e instanceof ResolvableApiException) {
+                ResolvableApiException resolvable = (ResolvableApiException) e;
+                try {
+                    resolvable.startResolutionForResult(getActivity(), 0);
+                } catch (IntentSender.SendIntentException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
-        client.requestLocationUpdates(locationRequest, null, null);
+
+        LocationCallback locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                if (locationResult == null) {
+                    Log.i("DEBUG", "Localizacao vazia.");
+                    return;
+                } else {
+                    for (Location location : locationResult.getLocations()) {
+                        Log.i("DEBUG", "Localizacao atual: " + location.getLatitude() + " " + location.getLongitude());
+                    }
+                }
+            }
+
+            @Override
+            public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
+                Log.i("DEBUG", "Localizacao disponivel.");
+            }
+        };
+        client.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
     private Marker createDogMarker(@NonNull Location location) {
@@ -317,14 +286,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 .icon(markerIcon));
     }
 
-    private void startIntentService(Location location) {
-        Intent intent = new Intent(getActivity(), FetchAddressService.class);
-        intent.putExtra(Constants.RECEIVER, resultReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
-        getActivity().startService(intent);
-    }
-
-
     private class AddressResultReceiver extends ResultReceiver {
 
         public AddressResultReceiver(Handler handler) {
@@ -342,13 +303,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             final String addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
 
             if (addressOutput != null) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(), addressOutput,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), addressOutput,
+                        Toast.LENGTH_SHORT).show());
             }
         }
     }

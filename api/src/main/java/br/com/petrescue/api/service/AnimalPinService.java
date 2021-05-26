@@ -3,6 +3,7 @@ package br.com.petrescue.api.service;
 import br.com.petrescue.api.controller.dto.AnimalPINDTO;
 import br.com.petrescue.api.domain.AnimalPIN;
 import br.com.petrescue.api.domain.Usuario;
+import br.com.petrescue.api.domain.subClasses.Localizacao;
 import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.repository.AnimalPinRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
@@ -21,8 +22,8 @@ public class AnimalPinService {
 	@Autowired
 	private AnimalPinRepository animalPinRepository;
 
-	public List<AnimalPINDTO> buscarAnimaisPin(AnimalPINDTO animalPINDTO) {
-		return this.animalPinRepository.buscarPinDentroDeRaio(animalPINDTO.getLocalizacao().getLatitude(), animalPINDTO.getLocalizacao().getLongitude(), 15.0).stream().map(AnimalPINDTO::new).collect(Collectors.toList());
+	public List<AnimalPINDTO> buscarAnimaisPin(Localizacao localizacao) {
+		return this.animalPinRepository.buscarPinDentroDeRaio(localizacao.getLatitude(), localizacao.getLongitude(), 15.0).stream().map(AnimalPINDTO::new).collect(Collectors.toList());
 	}
 
 	public List<AnimalPINDTO> buscarAnimaisPinUsuarioId(Integer idusuario) {

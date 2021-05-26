@@ -1,5 +1,6 @@
 package br.com.petrescue.api.controller;
 
+import br.com.petrescue.api.domain.subClasses.Localizacao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class AnimalPinController {
 
     @PostMapping("/buscar")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalPINDTO> buscarAnimaisPin(@RequestBody AnimalPINDTO animalPINDTO){
-        return this.animalPinService.buscarAnimaisPin(animalPINDTO);
+    public List<AnimalPINDTO> buscarAnimaisPin(@RequestBody Localizacao localizacao){
+        return this.animalPinService.buscarAnimaisPin(localizacao);
     }
 
     @GetMapping("/usuario/{idusuario}")

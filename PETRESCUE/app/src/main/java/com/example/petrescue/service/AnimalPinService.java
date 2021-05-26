@@ -1,6 +1,7 @@
 package com.example.petrescue.service;
 
 import com.example.petrescue.domain.AnimalPIN;
+import com.example.petrescue.domain.subClasses.Localizacao;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import retrofit2.http.Path;
 public interface AnimalPinService {
 
     @POST("animalpin/buscar")
-    Call<List<AnimalPIN>> buscarAnimaisPin(@Body AnimalPIN AnimalPIN);
+    Call<List<AnimalPIN>> buscarAnimaisPin(@Body Localizacao localizacao);
 
     @GET("animalpin/usuario/{idusuario}")
     Call<List<AnimalPIN>> buscarAnimaisPinUsuarioId(@Path("idusuario") Integer idusuario);
