@@ -23,6 +23,7 @@ public class AnimalPinService {
 	private AnimalPinRepository animalPinRepository;
 
 	public List<AnimalPINDTO> buscarAnimaisPin(Localizacao localizacao) {
+		System.out.println("AVISO: " + localizacao.getLatitude() + " / " + localizacao.getLongitude());
 		return this.animalPinRepository.buscarPinDentroDeRaio(localizacao.getLatitude(), localizacao.getLongitude(), 15.0).stream().map(AnimalPINDTO::new).collect(Collectors.toList());
 	}
 

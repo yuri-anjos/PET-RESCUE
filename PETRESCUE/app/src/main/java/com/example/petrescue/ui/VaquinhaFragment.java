@@ -67,15 +67,15 @@ public class VaquinhaFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_nav_vaquinha_to_nav_form_vaquinha, bundle);
         });
 
-        this.btAccessarUsuario.setOnClickListener(v12 -> {
+        this.btAccessarUsuario.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
             bundle.putInt("idusuario", this.vaquinha.getIdUsuario());
             Navigation.findNavController(v).navigate(R.id.action_nav_vaquinha_to_nav_usuario, bundle);
         });
 
         this.doar.setOnClickListener(v1 -> {
-            this.doacao = new Doacao();
             if (ControleActivity.USUARIO.getSaldo() >= Double.parseDouble(this.valor.getText().toString().length() > 0 ? this.valor.getText().toString() : "0")) {
+                this.doacao = new Doacao();
                 this.doacao.setIdDoador(ControleActivity.USUARIO.getId());
                 this.doacao.setIdVaquinha(this.vaquinha.getId());
                 this.doacao.setQuantia(Double.parseDouble(this.valor.getText().toString().length() > 0 ? this.valor.getText().toString() : "0" ));

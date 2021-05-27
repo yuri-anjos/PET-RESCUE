@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+
+    <ImageView
+        android:id="@+id/iv_foto_pin"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/pets_icon"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_tipopin_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=":tipopin:"
+        android:layout_below="@id/iv_foto_pin"/>
+
+    <TextView
+        android:id="@+id/tv_tipoanimal_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tipopin_pin"
+        android:text=":tipoanimal:" />
+
+    <TextView
+        android:id="@+id/tv_raca_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tipoanimal_pin"
+        android:text=":raca:" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxBackgroundMode="outline"
+        android:layout_below="@id/tv_raca_pin"
+        android:id="@+id/container_descricao_pin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_descricao_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Descrição" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/bt_editar_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_descricao_pin"
+        android:text="Editar"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/bt_acessar_usuario_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt_editar_pin"
+        android:text="Acesse o perfil do criador"
+        android:visibility="gone" />
+
+</RelativeLayout>

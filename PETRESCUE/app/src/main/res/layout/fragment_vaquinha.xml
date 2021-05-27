@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/iv_foto_vaquinha"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:src="@drawable/side_nav_bar" />
+        android:src="@drawable/pets_icon"/>
 
     <TextView
         android:id="@+id/tv_inicio_vaquinha"
@@ -49,13 +49,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Arrecadado:" />
+                android:gravity="center"
+                android:text="Arrecadado" />
 
             <TextView
                 android:id="@+id/tv_arrecadado_vaquinha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text=":valor arrecadado:" />
 
         </LinearLayout>
@@ -71,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="Meta" />
 
             <TextView
@@ -78,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text=":meta:" />
 
         </LinearLayout>

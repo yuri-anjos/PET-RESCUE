@@ -76,8 +76,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.activity_maps, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         newSpottedAnimalButton = view.findViewById(R.id.newSpottedAnimalButtom);
@@ -121,7 +120,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -136,7 +134,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
     }
 
     @Override
@@ -157,18 +154,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             Log.d("Success", "Google Play Services' up-to-date");
         }
         if ((statusCode == 1) || (statusCode == 2) || (statusCode == 3)) {
-            GoogleApiAvailability.getInstance().getErrorDialog(this, statusCode,
-                    0, dialog -> {
-                        return;
-                    }).show();
+            GoogleApiAvailability.getInstance().getErrorDialog(this, statusCode, 0, dialog -> {
+                return;
+            }).show();
         }
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Localizacao localizacao = new Localizacao();
+
+        if(this.mMap != null){
+            this.mMap.clear();
+        }
 
         client.getLastLocation().addOnSuccessListener(location -> {
             if (location != null) {
@@ -177,39 +174,39 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             } else {
                 Log.e("Error", "Location not found");
             }
+            Localizacao localizacao = new Localizacao();
             localizacao.setLatitude(location.getLatitude());
             localizacao.setLongitude(location.getLongitude());
-        }).addOnFailureListener(e -> Log.e("Error", e.getMessage()));
 
-        List<AnimalPIN> animalPINS = new ArrayList<>();
-        animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
-            @Override
-            public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
-                if (response.isSuccessful()) {
-                    animalPINS.clear();
-                    animalPINS.addAll(response.body());
-                    System.out.println(response.body());
-                } else {
-                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG);
+            this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
+                @Override
+                public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
+                    if (response.isSuccessful()) {
+                        List<AnimalPIN> animalPINS = new ArrayList<>();
+                        animalPINS.addAll(response.body());
+                        for (AnimalPIN pin : animalPINS) {
+                            Location location = new Location("none");
+                            location.setLatitude(pin.getLocalizacao().getLatitude());
+                            location.setLongitude(pin.getLocalizacao().getLongitude());
+                            if (TipoAnimal.CACHORRO.equals(pin.getTipoAnimal())) {
+                                createDogMarker(location);
+                            } else if (TipoAnimal.GATO.equals(pin.getTipoAnimal())) {
+                                createCatMarker(location);
+                            }
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                        Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<AnimalPIN>> call, Throwable t) {
-                Log.e("ERROR", t.getMessage());
-            }
-        });
-
-        for (AnimalPIN pin : animalPINS) {
-            Location location = new Location("none");
-            location.setLatitude(pin.getLocalizacao().getLatitude());
-            location.setLongitude(pin.getLocalizacao().getLongitude());
-            if (TipoAnimal.CACHORRO.equals(pin.getTipoAnimal())) {
-                createDogMarker(location);
-            } else if (TipoAnimal.GATO.equals(pin.getTipoAnimal())) {
-                createCatMarker(location);
-            }
-        }
+                @Override
+                public void onFailure(Call<List<AnimalPIN>> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
+                }
+            });
+        }).addOnFailureListener(e -> Log.e("Error", e.getMessage()));
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(10 * 1000);

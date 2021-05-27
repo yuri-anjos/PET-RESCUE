@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
@@ -73,7 +74,7 @@ public class FormPinFragment extends Fragment {
                 this.editarPin();
             } else {
                 this.pin.setIdUsuario(ControleActivity.USUARIO.getId());
-                this.cadastrarPin();
+                this.cadastrarPin(v);
             }
         });
 
@@ -137,12 +138,14 @@ public class FormPinFragment extends Fragment {
         });
     }
 
-    private void cadastrarPin() {
+    private void cadastrarPin(View v) {
         this.animalPinService.cadastrarAnimalPIN(this.pin).enqueue(new Callback<AnimalPIN>() {
             @Override
             public void onResponse(Call<AnimalPIN> call, Response<AnimalPIN> response) {
                 if (response.isSuccessful()) {
-                    getActivity().onBackPressed();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idpin", response.body().getId());
+                    Navigation.findNavController(v).navigate(R.id.action_nav_form_pin_to_nav_pin, bundle);
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());

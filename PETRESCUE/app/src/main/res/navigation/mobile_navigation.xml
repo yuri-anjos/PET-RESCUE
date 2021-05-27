@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_form_pin"
             app:destination="@id/nav_form_pin" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_pin"
+            app:destination="@id/nav_pin" />
     </fragment>
 
     <fragment
@@ -132,6 +135,25 @@
         android:id="@+id/nav_form_pin"
         android:name="com.example.petrescue.ui.FormPinFragment"
         tools:layout="@layout/fragment_form_pin"
-        android:label="Cadastro PIN"/>
+        android:label="Cadastro PIN">
+        <action
+            android:id="@+id/action_nav_form_pin_to_nav_pin"
+            app:destination="@id/nav_pin"
+            app:popUpTo="@id/nav_form_pin"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_pin"
+        android:name="com.example.petrescue.ui.PinFragment"
+        tools:layout="@layout/fragment_pin"
+        android:label="Animal PIN">
+        <action
+            android:id="@+id/action_nav_pin_to_nav_form_pin"
+            app:destination="@id/nav_form_pin" />
+        <action
+            android:id="@+id/action_nav_pin_to_nav_usuario"
+            app:destination="@id/nav_usuario" />
+    </fragment>
 
 </navigation>
