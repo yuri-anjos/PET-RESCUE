@@ -38,7 +38,7 @@ public class PinFragment extends Fragment {
     private TextView raca;
     private ImageView foto;
 
-    private Integer idpin;
+    private Integer idPin;
     private AnimalPIN pin;
 
     private Retrofit retrofit;
@@ -47,13 +47,16 @@ public class PinFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_vaquinha, container, false);
-        this.idpin = getArguments().getInt("idpin");
+        View v = inflater.inflate(R.layout.fragment_pin, container, false);
+        this.pin = (AnimalPIN) getArguments().getSerializable("pin");
+        this.idPin = pin.getId();
         this.inicializaComponentes(v);
 
         this.editar.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("pin", this.pin);
+            bundle.putDoubleArray("location", new double[]{this.pin.getLocalizacao().getLatitude(),
+                                                    this.pin.getLocalizacao().getLongitude()});
             Navigation.findNavController(v).navigate(R.id.action_nav_pin_to_nav_form_pin, bundle);
         });
 
@@ -83,7 +86,7 @@ public class PinFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        this.animalPinService.buscarAnimalPinId(this.idpin).enqueue(new Callback<AnimalPIN>() {
+        this.animalPinService.buscarAnimalPinId(this.idPin).enqueue(new Callback<AnimalPIN>() {
             @Override
             public void onResponse(Call<AnimalPIN> call, Response<AnimalPIN> response) {
                 if (response.isSuccessful()) {

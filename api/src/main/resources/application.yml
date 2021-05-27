@@ -23,5 +23,5 @@ spring:
     hikari:
       maximum-pool-size: 3
     username: root
-    password: 123
+    password: root
     url: jdbc:mysql://localhost:3306/petrescue

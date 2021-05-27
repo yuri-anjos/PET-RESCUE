@@ -125,4 +125,6 @@ public class AnimalPIN implements Serializable {
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
+
+
 }

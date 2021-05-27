@@ -52,6 +52,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,14 +64,14 @@ import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
-    FusedLocationProviderClient client;
-    AddressResultReceiver resultReceiver;
-    GoogleMap mMap;
-    View view;
+    private FusedLocationProviderClient client;
+    private GoogleMap mMap;
+    private View view;
     private FloatingActionButton newSpottedAnimalButton;
     private FloatingActionButton newMissingAnimalButton;
     private Retrofit retrofit = RetrofitConfig.generateRetrofit();
     private AnimalPinService animalPinService = this.retrofit.create(AnimalPinService.class);
+    private List<AnimalPIN> animalPINS = new ArrayList<>();
 
 
     @Override
@@ -100,7 +102,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             this.buscarLocalizacaoETrocarTela(bundle, v);
         });
 
-        resultReceiver = new AddressResultReceiver(null);
         return this.view;
     }
 
@@ -134,6 +135,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        mMap.setOnMarkerClickListener(marker -> {
+            Bundle bundle = new Bundle();
+            double latitude = marker.getPosition().latitude;
+            double longitude = marker.getPosition().longitude;
+
+            for(AnimalPIN pin : animalPINS) {
+                Localizacao location = pin.getLocalizacao();
+                if(location.getLatitude() == latitude && location.getLongitude() == longitude) {
+                    System.out.println("**\n**\n***\nENTROU\n***\n**\n");
+                    bundle.putSerializable("pin", pin);
+                    Navigation.findNavController(view).navigate(R.id.nav_pin, bundle);
+                }
+            }
+            return false;
+        });
+
     }
 
     @Override
@@ -182,7 +200,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
                     if (response.isSuccessful()) {
-                        List<AnimalPIN> animalPINS = new ArrayList<>();
                         animalPINS.addAll(response.body());
                         for (AnimalPIN pin : animalPINS) {
                             Location location = new Location("none");
@@ -283,27 +300,5 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 .icon(markerIcon));
     }
 
-    private class AddressResultReceiver extends ResultReceiver {
-
-        public AddressResultReceiver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            super.onReceiveResult(resultCode, resultData);
-
-            if (resultData == null) {
-                return;
-            }
-
-            final String addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-
-            if (addressOutput != null) {
-                getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), addressOutput,
-                        Toast.LENGTH_SHORT).show());
-            }
-        }
-    }
 
 }

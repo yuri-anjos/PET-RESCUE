@@ -145,7 +145,7 @@ public class FormPinFragment extends Fragment {
                 if (response.isSuccessful()) {
                     Bundle bundle = new Bundle();
                     bundle.putInt("idpin", response.body().getId());
-                    Navigation.findNavController(v).navigate(R.id.action_nav_form_pin_to_nav_pin, bundle);
+                    Navigation.findNavController(v).navigate(R.id.nav_home, bundle);
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
