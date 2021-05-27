@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalPIN;
+import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalPinService;
 import com.example.petrescue.service.RetrofitConfig;
@@ -108,6 +109,12 @@ public class PinFragment extends Fragment {
         this.tipoPin.setText(this.pin.getRaca());
         this.tipoAnimal.setText(this.pin.getRaca());
         this.raca.setText(this.pin.getRaca());
+
+        if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
+            this.raca.setVisibility(View.GONE);
+        }else{
+            this.raca.setVisibility(View.VISIBLE);
+        }
 
         if(ControleActivity.USUARIO.getId().equals(this.pin.getIdUsuario())){
             this.editar.setVisibility(View.VISIBLE);
