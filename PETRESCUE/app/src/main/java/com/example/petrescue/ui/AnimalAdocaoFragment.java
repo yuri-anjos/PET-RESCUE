@@ -38,13 +38,12 @@ public class AnimalAdocaoFragment extends Fragment {
 
     private Button btEditar;
     private Button btAdotar;
-    private Button btAccessarUsuario;
+    private Button btAcessarUsuario;
     private ImageView foto;
     private TextInputEditText descricao;
     private TextInputEditText vacinas;
     private TextView nome;
     private LinearLayout dono;
-    private LinearLayout visitante;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +79,7 @@ public class AnimalAdocaoFragment extends Fragment {
             });
         });
 
-        this.btAccessarUsuario.setOnClickListener(v1 -> {
+        this.btAcessarUsuario.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
             bundle.putInt("idusuario", this.animal.getIdUsuario());
             Navigation.findNavController(v).navigate(R.id.action_nav_animal_adocao_to_nav_usuario, bundle);
@@ -90,7 +89,7 @@ public class AnimalAdocaoFragment extends Fragment {
     }
 
     private void inicializaComponentes(View v) {
-        this.btAccessarUsuario = v.findViewById(R.id.bt_acessar_usuario_animaladocao);
+        this.btAcessarUsuario = v.findViewById(R.id.bt_acessar_usuario_animaladocao);
         this.btEditar = v.findViewById(R.id.bt_editar_animaladocao);
         this.btAdotar = v.findViewById(R.id.bt_adotar_animaladocao);
         this.descricao = v.findViewById(R.id.tv_descricao_animaladocao);
@@ -127,15 +126,16 @@ public class AnimalAdocaoFragment extends Fragment {
     }
 
     private void atualizaCampos() {
+        //        this.foto.setImageBitmap();
         this.descricao.setText(this.animal.getDescricao());
         this.vacinas.setText(this.animal.getVacinas());
-//        this.foto.setImageBitmap();
         this.nome.setText(this.animal.getNome());
         this.descricao.setText(this.animal.getDescricao());
         this.vacinas.setText(this.animal.getVacinas());
-        this.btAccessarUsuario.setText("Acesse o perfil de " + this.animal.getNomeUsuario());
+        this.btAcessarUsuario.setText("Acesse o perfil de " + this.animal.getNomeUsuario());
+
         if (ControleActivity.USUARIO.getId().equals(this.animal.getIdUsuario())) {
-            this.btAccessarUsuario.setVisibility(View.GONE);
+            this.btAcessarUsuario.setVisibility(View.GONE);
             if (SituacaoAdocao.ADOTADO.equals(this.animal.getSituacaoAdocao())) {
                 this.dono.setVisibility(View.GONE);
             } else {
@@ -143,7 +143,7 @@ public class AnimalAdocaoFragment extends Fragment {
             }
         } else {
             this.dono.setVisibility(View.GONE);
-            this.btAccessarUsuario.setVisibility(View.VISIBLE);
+            this.btAcessarUsuario.setVisibility(View.VISIBLE);
         }
     }
 }

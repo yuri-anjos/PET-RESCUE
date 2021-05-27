@@ -4,9 +4,10 @@ import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AnimalPIN {
+public class AnimalPIN implements Serializable {
 
     private Integer id;
     private String foto;
@@ -124,4 +125,6 @@ public class AnimalPIN {
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
     }
+
+
 }

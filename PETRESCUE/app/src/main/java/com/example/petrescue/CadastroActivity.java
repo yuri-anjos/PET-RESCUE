@@ -122,7 +122,7 @@ public class CadastroActivity extends AppCompatActivity {
                         Log.i("DEBUG", "Erro ao buscar posição atual. sucess");
                     } else {
                         Log.i("DEBUG", "Buscou ultima posicao.");
-                        this.usuario.setLocalizacao(new Localizacao(location.getAltitude(), location.getLongitude()));
+                        this.usuario.setLocalizacao(new Localizacao(location.getLatitude(), location.getLongitude()));
                     }
                 })
                 .addOnFailureListener(e -> {
