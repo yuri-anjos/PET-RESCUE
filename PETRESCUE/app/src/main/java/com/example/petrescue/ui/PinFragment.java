@@ -48,15 +48,13 @@ public class PinFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_pin, container, false);
-        this.pin = (AnimalPIN) getArguments().getSerializable("pin");
-        this.idPin = pin.getId();
+        this.idPin = getArguments().getInt("idpin");
         this.inicializaComponentes(v);
 
         this.editar.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("pin", this.pin);
-            bundle.putDoubleArray("location", new double[]{this.pin.getLocalizacao().getLatitude(),
-                                                    this.pin.getLocalizacao().getLongitude()});
+
             Navigation.findNavController(v).navigate(R.id.action_nav_pin_to_nav_form_pin, bundle);
         });
 
@@ -109,9 +107,10 @@ public class PinFragment extends Fragment {
     private void atualizaCampos(){
 //        this.foto.setImageBitmap();
         this.descricao.setText(this.pin.getDescricao());
-        this.tipoPin.setText(this.pin.getRaca());
-        this.tipoAnimal.setText(this.pin.getRaca());
+        this.tipoPin.setText(this.pin.getTipoPIN().toString());
+        this.tipoAnimal.setText(this.pin.getTipoAnimal().toString());
         this.raca.setText(this.pin.getRaca());
+        this.btAcessarUsuario.setText("Acesse o perfil de " + this.pin.getNomeUsuario());
 
         if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
             this.raca.setVisibility(View.GONE);

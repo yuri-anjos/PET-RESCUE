@@ -137,16 +137,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         mMap.setOnMarkerClickListener(marker -> {
-            Bundle bundle = new Bundle();
             double latitude = marker.getPosition().latitude;
             double longitude = marker.getPosition().longitude;
 
-            for(AnimalPIN pin : animalPINS) {
+            for (AnimalPIN pin : animalPINS) {
                 Localizacao location = pin.getLocalizacao();
-                if(location.getLatitude() == latitude && location.getLongitude() == longitude) {
-                    System.out.println("**\n**\n***\nENTROU\n***\n**\n");
-                    bundle.putSerializable("pin", pin);
-                    Navigation.findNavController(view).navigate(R.id.nav_pin, bundle);
+                if (location.getLatitude() == latitude && location.getLongitude() == longitude) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("idpin", pin.getId());
+                    Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_pin, bundle);
                 }
             }
             return false;
@@ -181,7 +180,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
 
-        if(this.mMap != null){
+        if (this.mMap != null) {
             this.mMap.clear();
         }
 

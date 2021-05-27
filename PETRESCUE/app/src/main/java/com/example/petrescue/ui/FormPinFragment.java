@@ -56,10 +56,6 @@ public class FormPinFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_form_pin, container, false);
 
         this.pin = (AnimalPIN) getArguments().getSerializable("pin");
-        Localizacao location = new Localizacao();
-        double[] latLng = getArguments().getDoubleArray("location");
-        location.setLatitude(latLng[0]);
-        location.setLongitude(latLng[1]);
 
         this.inicializaComponentes(view);
 
@@ -68,7 +64,6 @@ public class FormPinFragment extends Fragment {
             this.pin.setFoto(this.foto.getText().toString());
             this.pin.setRaca(this.raca.getText().toString());
             this.pin.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
-            this.pin.setLocalizacao(location);
 
             if (this.pin.getId() != null) {
                 this.editarPin();
@@ -98,7 +93,7 @@ public class FormPinFragment extends Fragment {
             this.containerRaca.setVisibility(View.VISIBLE);
             this.descricaoTela.setText("Animal Desaparecido");
         }else{
-            this.descricaoTela.setText("Animal Encontrado");
+            this.descricaoTela.setText("Animal Avistado");
         }
 
         if (this.pin.getId() != null) {
