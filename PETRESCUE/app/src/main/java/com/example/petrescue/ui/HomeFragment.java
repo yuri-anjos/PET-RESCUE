@@ -199,6 +199,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
                     if (response.isSuccessful()) {
+                        animalPINS.clear();
                         animalPINS.addAll(response.body());
                         for (AnimalPIN pin : animalPINS) {
                             Location location = new Location("none");
