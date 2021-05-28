@@ -81,25 +81,21 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         // clickListeners
         newSpottedAnimalButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
             AnimalPIN animalPIN = new AnimalPIN();
             animalPIN.setTipoPIN(TipoPIN.AVISTADO);
-            bundle.putSerializable("pin", animalPIN);
-            this.buscarLocalizacaoETrocarTela(bundle, v);
+            this.buscarLocalizacaoETrocarTela(animalPIN, v);
         });
 
         newMissingAnimalButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
             AnimalPIN animalPIN = new AnimalPIN();
             animalPIN.setTipoPIN(TipoPIN.DESAPARECIDO);
-            bundle.putSerializable("pin", animalPIN);
-            this.buscarLocalizacaoETrocarTela(bundle, v);
+            this.buscarLocalizacaoETrocarTela(animalPIN, v);
         });
 
         return this.view;
     }
 
-    private void buscarLocalizacaoETrocarTela(Bundle bundle, View v) {
+    private void buscarLocalizacaoETrocarTela(AnimalPIN animalPIN, View v) {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat
                 .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -110,7 +106,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             if (location == null) {
                 Log.e("ERROR", "Location not found");
             }
-            bundle.putDoubleArray("location", new double[]{location.getLatitude(), location.getLongitude()});
+            animalPIN.setLocalizacao(new Localizacao(location.getLatitude(), location.getLongitude()));
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("pin", animalPIN);
             Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_form_pin, bundle);
         });
     }

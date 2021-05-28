@@ -160,7 +160,7 @@ public class CadastroActivity extends AppCompatActivity {
                     return;
                 } else {
                     for (Location location : locationResult.getLocations()) {
-                        Log.i("DEBUG", "Localizacao atual: " + location.getAltitude() + " " + location.getLongitude());
+                        Log.i("DEBUG", "Localizacao atual: " + location.getLatitude() + " " + location.getLongitude());
                     }
                 }
             }

@@ -21,7 +21,7 @@ public class AdapterAnimal extends RecyclerView.Adapter<AdapterAnimal.ViewHolder
 
     public AdapterAnimal(List<Animal> data, OnAnimalListener onAnimalListener) {
         this.data = data;
-        this.animalListener=onAnimalListener;
+        this.animalListener = onAnimalListener;
     }
 
     @NonNull
@@ -34,6 +34,8 @@ public class AdapterAnimal extends RecyclerView.Adapter<AdapterAnimal.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAnimal holder, int position) {
         Animal animal = this.data.get(position);
+
+//        holder.foto.setImageBitmap();
         holder.nome.setText(animal.getNome());
         holder.sitacaoAdocao.setText("Situacao: " + animal.getSituacaoAdocao().toString());
         holder.tipoAnimal.setText(animal.getTipoAnimal().toString());
@@ -70,7 +72,7 @@ public class AdapterAnimal extends RecyclerView.Adapter<AdapterAnimal.ViewHolder
         }
     }
 
-    public interface OnAnimalListener{
+    public interface OnAnimalListener {
         void onAnimalClick(int position);
     }
 }

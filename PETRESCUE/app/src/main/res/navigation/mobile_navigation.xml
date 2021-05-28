@@ -156,4 +156,10 @@
             app:destination="@id/nav_usuario" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.petrescue.ui.LogoutFragment"
+        android:label="Logout">
+    </fragment>
+
 </navigation>

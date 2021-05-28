@@ -24,5 +24,9 @@
             android:id="@+id/nav_conversas"
             android:icon="@drawable/conversas_icon"
             android:title="@string/menu_lista_conversas" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout_icon"
+            android:title="@string/menu_logout" />
     </group>
 </menu>

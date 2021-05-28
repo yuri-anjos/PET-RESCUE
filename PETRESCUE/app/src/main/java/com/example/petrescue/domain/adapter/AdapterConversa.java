@@ -42,7 +42,7 @@ public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHo
         if (conversa.getUltimaMensagem() != null) {
             holder.mensagem.setText(conversa.getUltimaMensagem().getTexto());
             holder.horario.setText(new SimpleDateFormat("hh:mm dd/MM").format(conversa.getUltimaMensagem().getHorario()));
-        }else{
+        } else {
             holder.mensagem.setText("");
             holder.horario.setText("");
         }

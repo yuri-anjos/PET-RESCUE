@@ -19,9 +19,9 @@ public class AdapterVaquinha extends RecyclerView.Adapter<AdapterVaquinha.ViewHo
     private List<Vaquinha> data;
     private OnVaquinhaListener vaquinhaListener;
 
-        public AdapterVaquinha(List<Vaquinha> data, OnVaquinhaListener onVaquinhaListener) {
+    public AdapterVaquinha(List<Vaquinha> data, OnVaquinhaListener onVaquinhaListener) {
         this.data = data;
-        this.vaquinhaListener=onVaquinhaListener;
+        this.vaquinhaListener = onVaquinhaListener;
     }
 
     @NonNull
@@ -66,7 +66,7 @@ public class AdapterVaquinha extends RecyclerView.Adapter<AdapterVaquinha.ViewHo
         }
     }
 
-    public interface OnVaquinhaListener{
+    public interface OnVaquinhaListener {
         void onVaquinhaClick(int position);
     }
 }
