@@ -8,8 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +21,6 @@ import androidx.navigation.Navigation;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalPIN;
-import com.example.petrescue.domain.constants.Constants;
-import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.domain.subClasses.Localizacao;
@@ -51,8 +47,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,10 +199,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             Location location = new Location("none");
                             location.setLatitude(pin.getLocalizacao().getLatitude());
                             location.setLongitude(pin.getLocalizacao().getLongitude());
-                            if (TipoAnimal.CACHORRO.equals(pin.getTipoAnimal())) {
-                                createDogMarker(location);
-                            } else if (TipoAnimal.GATO.equals(pin.getTipoAnimal())) {
-                                createCatMarker(location);
+
+                            switch (pin.getTipoAnimal()){
+                                case CACHORRO:
+                                    createMarker(location, R.drawable.ic_dog_pin);
+                                    break;
+                                case GATO:
+                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    break;
+                                case ROEDOR:
+                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    break;
+                                case AVE:
+                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    break;
+                                case OUTROS:
+                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    break;
                             }
                         }
                     } else {
@@ -267,8 +274,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         client.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
-    private Marker createDogMarker(@NonNull Location location) {
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_dog_pin);
+    private Marker createMarker(@NonNull Location location, int img) {
+        Drawable drawable = getResources().getDrawable(img);
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -279,26 +286,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap);
         return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .title("User location")
                 .icon(markerIcon));
     }
-
-
-    private Marker createCatMarker(@NonNull Location location) {
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_cat_pin);
-        Canvas canvas = new Canvas();
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap);
-        return mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .title("User location")
-                .icon(markerIcon));
-    }
-
-
 }
