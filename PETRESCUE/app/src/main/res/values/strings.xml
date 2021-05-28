@@ -3,11 +3,11 @@
     <string name="title_activity_main2">PET RESCUE</string>
     <string name="imagem_usuario">Imagem do Usuário</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Início</string>
     <string name="menu_usuario">Perfil</string>
     <string name="menu_lista_adocao">Adoção</string>
     <string name="menu_lista_vaquinha">Vaquinhas</string>
     <string name="menu_lista_conversas">Contatos</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa</string>
 
 </resources>
