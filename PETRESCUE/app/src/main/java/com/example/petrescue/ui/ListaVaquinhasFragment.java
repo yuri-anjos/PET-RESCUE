@@ -36,7 +36,7 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
     private RecyclerView recyclerView;
     private AdapterVaquinha vaquinhaAdapter;
     private List<Vaquinha> listaVaquinha;
-    private Integer pagina;
+    private int pagina;
     private Retrofit retrofit;
     private VaquinhaService vaquinhaService;
 
@@ -86,16 +86,16 @@ public class ListaVaquinhasFragment extends Fragment implements AdapterVaquinha.
         this.recyclerView.setAdapter(this.vaquinhaAdapter);
     }
 
-    private void buscarAnimaisAdocao(Integer pg) {
+    private void buscarAnimaisAdocao(int pg) {
         this.vaquinhaService.buscarVaquinhas(pg).enqueue(new Callback<List<Vaquinha>>() {
             @Override
             public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
                 if (response.isSuccessful()) {
-                    listaVaquinha.clear();
-                    listaVaquinha.addAll(response.body());
-                    if (listaVaquinha.isEmpty()) {
+                    if (response.body().isEmpty()) {
                         Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUMA vaquinha do servidor!", Toast.LENGTH_LONG).show();
                     } else {
+                        listaVaquinha.clear();
+                        listaVaquinha.addAll(response.body());
                         vaquinhaAdapter.notifyDataSetChanged();
                         pagina = pg;
 

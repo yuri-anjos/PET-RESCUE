@@ -46,12 +46,13 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputEditText etNome;
     private TextInputEditText etEmail;
     private TextInputEditText etSenha;
+    private TextInputEditText etSenha2;
     private TextInputEditText etFoto;
 
     private TextInputEditText etCpfCnpj;
     private TextInputEditText etDescricaoOng;
-    private LinearLayout llInstituiucao;
 
+    private LinearLayout llInstituiucao;
     private RadioGroup rgTipoUsuario;
     private Button btCadastroUsuario;
 
@@ -82,18 +83,26 @@ public class CadastroActivity extends AppCompatActivity {
         });
 
         this.btCadastroUsuario.setOnClickListener(v -> {
-            this.usuario.setNome(this.etNome.getText().toString());
-            this.usuario.setEmail(this.etEmail.getText().toString());
-            this.usuario.setSenha(this.etSenha.getText().toString());
-            this.usuario.setFoto(this.etFoto.getText().toString());
-            if (this.usuario.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
-                this.usuario.setCpfCnpj(null);
-                this.usuario.setDescricao(null);
+            if (this.etSenha.getText().toString().length() > 0 && this.etSenha2.getText().length() > 0 && this.etSenha.getText().toString().equals(this.etSenha2.getText().toString())) {
+                this.usuario.setNome(this.etNome.getText().toString());
+                this.usuario.setEmail(this.etEmail.getText().toString());
+                this.usuario.setSenha(this.etSenha.getText().toString());
+                this.usuario.setFoto(this.etFoto.getText().toString());
+                if (this.usuario.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
+                    this.usuario.setCpfCnpj(null);
+                    this.usuario.setDescricao(null);
+                } else {
+                    this.usuario.setCpfCnpj(this.etCpfCnpj.getText().toString());
+                    this.usuario.setDescricao(this.etDescricaoOng.getText().toString());
+                }
+                this.cadastrarUsuario(this.usuario);
             } else {
-                this.usuario.setCpfCnpj(this.etCpfCnpj.getText().toString());
-                this.usuario.setDescricao(this.etDescricaoOng.getText().toString());
+                if (this.etSenha.getText().toString().length() > 0 && this.etSenha2.getText().toString().length() > 0) {
+                    Toast.makeText(getApplicationContext(), "Senha incorreta!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Senha não pode ser nulo!", Toast.LENGTH_LONG).show();
+                }
             }
-            this.cadastrarUsuario(this.usuario);
         });
     }
 
@@ -178,6 +187,7 @@ public class CadastroActivity extends AppCompatActivity {
         this.etNome = this.findViewById(R.id.et_nome_cadastrousuario);
         this.etEmail = this.findViewById(R.id.et_email_cadastrousuario);
         this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
+        this.etSenha2 = this.findViewById(R.id.et_senha2_cadastrousuario);
         this.etFoto = this.findViewById(R.id.et_foto_cadastrousuario);
 
         this.etCpfCnpj = this.findViewById(R.id.et_cpf_cnpj_cadastrousuario);

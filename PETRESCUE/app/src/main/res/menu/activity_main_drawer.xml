@@ -21,6 +21,10 @@
             android:icon="@drawable/vaquinha_icon"
             android:title="@string/menu_lista_vaquinha" />
         <item
+            android:id="@+id/nav_lista_instituicoes"
+            android:icon="@drawable/instituicoes_icon"
+            android:title="@string/menu_lista_instituicoes" />
+        <item
             android:id="@+id/nav_conversas"
             android:icon="@drawable/conversas_icon"
             android:title="@string/menu_lista_conversas" />

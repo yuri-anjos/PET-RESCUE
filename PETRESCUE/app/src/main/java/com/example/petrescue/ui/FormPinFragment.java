@@ -62,8 +62,13 @@ public class FormPinFragment extends Fragment {
         this.salvar.setOnClickListener(v -> {
             this.pin.setDescricao(this.descricao.getText().toString());
             this.pin.setFoto(this.foto.getText().toString());
-            this.pin.setRaca(this.raca.getText().toString());
             this.pin.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
+
+            if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
+                this.pin.setRaca(null);
+            }else{
+                this.pin.setRaca(this.raca.getText().toString());
+            }
 
             if (this.pin.getId() != null) {
                 this.editarPin();

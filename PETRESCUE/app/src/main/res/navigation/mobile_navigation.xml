@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/nav_lista_adocao"
         android:name="com.example.petrescue.ui.ListaAdocoesFragment"
-        android:label="@string/menu_lista_adocao"
+        android:label="Animal Adoção"
         tools:layout="@layout/fragment_lista_adocoes" >
         <action
             android:id="@+id/action_nav_lista_adocao_to_nav_animal_adocao"
@@ -70,7 +70,7 @@
     <fragment
         android:id="@+id/nav_animal_adocao"
         android:name="com.example.petrescue.ui.AnimalAdocaoFragment"
-        android:label="@string/menu_lista_adocao"
+        android:label="Animal Adoção"
         tools:layout="@layout/fragment_animal_adocao" >
         <action
             android:id="@+id/action_nav_animal_adocao_to_nav_form_animal_adocao"
@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/nav_form_animal_adocao"
         android:name="com.example.petrescue.ui.FormAnimalAdocaoFragment"
-        android:label="@string/menu_lista_adocao"
+        android:label="Animal Adoção"
         tools:layout="@layout/fragment_form_adocao" >
         <action
             android:id="@+id/action_nav_form_animal_adocao_to_nav_animal_adocao"
@@ -160,6 +160,16 @@
         android:id="@+id/nav_logout"
         android:name="com.example.petrescue.ui.LogoutFragment"
         android:label="Logout">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_lista_instituicoes"
+        android:label="Abrigos"
+        android:name="com.example.petrescue.ui.ListaInstituicoesFragment"
+        tools:layout="@layout/fragment_lista_instituicoes">
+        <action
+            android:id="@+id/action_nav_lista_instituicoes_to_nav_usuario"
+            app:destination="@id/nav_usuario" />
     </fragment>
 
 </navigation>

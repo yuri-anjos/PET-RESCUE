@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Animal;
-import com.example.petrescue.domain.Vaquinha;
 import com.example.petrescue.domain.adapter.AdapterAnimal;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
@@ -36,7 +35,7 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
     private RecyclerView recyclerView;
     private AdapterAnimal animalAdapter;
     private List<Animal> listaAnimalAdocao;
-    private Integer pagina;
+    private int pagina;
     private Retrofit retrofit;
     private AnimalService animalService;
 
@@ -86,17 +85,16 @@ public class ListaAdocoesFragment extends Fragment implements AdapterAnimal.OnAn
         this.recyclerView.setAdapter(this.animalAdapter);
     }
 
-    private void buscarAnimaisAdocao(Integer pg) {
+    private void buscarAnimaisAdocao(int pg) {
         this.animalService.buscarAnimaisAdocao(pg).enqueue(new Callback<List<Animal>>() {
             @Override
             public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
                 if (response.isSuccessful()) {
-                    listaAnimalAdocao.clear();
-                    listaAnimalAdocao.addAll(response.body());
-
-                    if (listaAnimalAdocao.isEmpty()) {
+                    if (response.body().isEmpty()) {
                         Toast.makeText(getActivity(), "A lista não foi atualizada pois não foi retornado NENHUM animal do servidor!", Toast.LENGTH_LONG).show();
                     } else {
+                        listaAnimalAdocao.clear();
+                        listaAnimalAdocao.addAll(response.body());
                         animalAdapter.notifyDataSetChanged();
                         pagina = pg;
 

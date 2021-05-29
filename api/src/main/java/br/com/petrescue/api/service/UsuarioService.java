@@ -2,13 +2,19 @@ package br.com.petrescue.api.service;
 
 import br.com.petrescue.api.controller.dto.CarteiraDTO;
 import br.com.petrescue.api.controller.dto.UsuarioDTO;
+import br.com.petrescue.api.controller.dto.VaquinhaDTO;
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
 import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.utils.GeralValidator;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -56,5 +62,10 @@ public class UsuarioService {
         }
         usuario.setSaldo(usuario.getSaldo() + carteiraDTO.getSaldoAdicional());
         return new UsuarioDTO(this.usuarioRepository.save(usuario));
+    }
+
+    public List<UsuarioDTO> buscarInstituicoes(Integer pg) {
+        Pageable pageable = PageRequest.of(pg, 10);
+        return this.usuarioRepository.findByTipoUsuario(TipoUsuario.INSTITUCIONAL, pageable).stream().map(UsuarioDTO::new).collect(Collectors.toList());
     }
 }

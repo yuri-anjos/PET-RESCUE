@@ -4,6 +4,7 @@ package br.com.petrescue.api.controller;
 import br.com.petrescue.api.controller.dto.CarteiraDTO;
 import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,5 +51,11 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public UsuarioDTO depositarSaldo(@RequestBody CarteiraDTO carteiraDTO){
         return this.usuarioService.depositarSaldo(carteiraDTO);
+    }
+
+    @GetMapping("/instituicoes")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UsuarioDTO> buscarInstituicoes(@RequestParam("pg") Integer pg){
+        return this.usuarioService.buscarInstituicoes(pg);
     }
 }

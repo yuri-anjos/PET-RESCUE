@@ -8,6 +8,7 @@
     <string name="menu_lista_adocao">Adoção</string>
     <string name="menu_lista_vaquinha">Vaquinhas</string>
     <string name="menu_lista_conversas">Contatos</string>
+    <string name="menu_lista_instituicoes">Abrigos</string>
     <string name="menu_logout">Logout</string>
     <string name="title_activity_maps">Mapa</string>
 </resources>

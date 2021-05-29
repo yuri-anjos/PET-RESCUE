@@ -55,9 +55,9 @@ public class AdapterInstituicoes extends RecyclerView.Adapter<AdapterInstituicoe
         public ViewHolderInstituicao(@NonNull View itemView, AdapterInstituicoes.OnInstituicaoListener onInstituicaoListener) {
             super(itemView);
 
-//            nome = itemView.findViewById(R.id.tv_nome_itemlistaUsuario);
-//            descricao = itemView.findViewById(R.id.tv_Usuario_itemlistaUsuario);
-//            foto = itemView.findViewById(R.id.tv_horario_itemlistaUsuario);
+            nome = itemView.findViewById(R.id.tv_nome_itemlistainstituicao);
+            descricao = itemView.findViewById(R.id.tv_descricao_itemlistainstituicao);
+            foto = itemView.findViewById(R.id.iv_foto_itemlistainstituicao);
 
             this.onInstituicaoListener = onInstituicaoListener;
             itemView.setOnClickListener(this);

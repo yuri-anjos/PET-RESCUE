@@ -54,27 +54,31 @@ public class EditarUsuarioFragment extends Fragment {
                 this.usuario.setDescricao(this.descricao.getText().toString());
                 this.usuario.setCpfCnpj(this.cpfCnpj.getText().toString());
             }
-            this.usuarioService.editar(this.usuario).enqueue(new Callback<Usuario>() {
-                @Override
-                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                    if (response.isSuccessful()) {
-                        ControleActivity.USUARIO = response.body();
-                        getActivity().onBackPressed();
-                    } else {
-                        Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
-                        Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Usuario> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
-                }
-            });
+            this.editarUsuario(this.usuario);
         });
 
         return v;
+    }
+
+    private void editarUsuario(Usuario usuario) {
+        this.usuarioService.editar(usuario).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful()) {
+                    ControleActivity.USUARIO = response.body();
+                    getActivity().onBackPressed();
+                } else {
+                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
+                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(getActivity(), "Falha ao conectar com o servidor, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
+                Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
+            }
+        });
     }
 
     private void inicializaComponentes(View v) {
@@ -87,7 +91,6 @@ public class EditarUsuarioFragment extends Fragment {
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = this.retrofit.create(UsuarioService.class);
-
         this.usuario = ControleActivity.USUARIO;
 
         this.carregarCampos();
