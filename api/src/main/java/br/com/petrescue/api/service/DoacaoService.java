@@ -35,7 +35,7 @@ public class DoacaoService {
         Vaquinha vaquinha = this.vaquinhaRepository.findById(doacaoDTO.getIdVaquinha()).orElseThrow(() -> new NaoEncontradoException("Vaquinha não encontrada!"));
         Usuario recebedor = this.usuarioRepository.findById(vaquinha.getUsuario().getId()).orElseThrow(() -> new NaoEncontradoException("Responsável pela vaquinha não encontrado!"));
 
-        if(doacaoDTO.getQuantia()== null || doacaoDTO.getQuantia()<=0){
+        if (doacaoDTO.getQuantia() == null || doacaoDTO.getQuantia() <= 0) {
             throw new NegocioException("Valor de doação inválido!");
         }
 

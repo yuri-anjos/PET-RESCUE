@@ -22,13 +22,13 @@ public class DoacaoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void doarParaVaquinha(@RequestBody DoacaoDTO doacaoDTO){
+    public void doarParaVaquinha(@RequestBody DoacaoDTO doacaoDTO) {
         this.doacaoService.doarParaVaquinha(doacaoDTO);
     }
 
     @GetMapping("/vaquinha/{idvaquinha}")
     @ResponseStatus(HttpStatus.OK)
-    public List<DoacaoDTO> buscarDoacoesVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha){
+    public List<DoacaoDTO> buscarDoacoesVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha) {
         return this.doacaoService.buscarDoacoesVaquinha(idvaquinha);
     }
 

@@ -24,37 +24,37 @@ public class AnimalController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalDTO> buscarAnimaisAdocao(@RequestParam("pg") Integer pg){
+    public List<AnimalDTO> buscarAnimaisAdocao(@RequestParam("pg") Integer pg) {
         return this.animalService.buscarAnimaisAdocao(pg);
     }
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusuario") Integer idusuario){
+    public List<AnimalDTO> buscarAnimaisAdocaoUsuarioId(@PathVariable("idusuario") Integer idusuario) {
         return this.animalService.buscarAnimaisAdocaoUsuarioId(idusuario);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AnimalDTO cadastrarAnimalAdocao(@RequestBody AnimalDTO animalDTO){
+    public AnimalDTO cadastrarAnimalAdocao(@RequestBody AnimalDTO animalDTO) {
         return this.animalService.cadastrarAnimalAdocao(animalDTO);
     }
 
     @PutMapping("/editar")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO editarAnimalAdocao(@RequestBody AnimalDTO animalDTO){
+    public AnimalDTO editarAnimalAdocao(@RequestBody AnimalDTO animalDTO) {
         return this.animalService.editarAnimalAdocao(animalDTO);
     }
 
     @GetMapping("/{idanimal}")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO buscarAnimalAdocaoId(@PathVariable("idanimal") Integer idanimal){
+    public AnimalDTO buscarAnimalAdocaoId(@PathVariable("idanimal") Integer idanimal) {
         return this.animalService.buscarAnimalAdocaoId(idanimal);
     }
 
     @GetMapping("/adotar/{idanimal}")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalDTO adotarAnimal(@PathVariable("idanimal") Integer idanimal){
+    public AnimalDTO adotarAnimal(@PathVariable("idanimal") Integer idanimal) {
         return this.animalService.adotarAnimal(idanimal);
     }
 }

@@ -24,31 +24,31 @@ public class VaquinhaController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<VaquinhaDTO> buscarVaquinhas(@RequestParam("pg") Integer pg){
+    public List<VaquinhaDTO> buscarVaquinhas(@RequestParam("pg") Integer pg) {
         return this.vaquinhaService.buscarVaquinhas(pg);
     }
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusuario") Integer idusuario){
+    public List<VaquinhaDTO> buscarVaquinhasUsuarioId(@PathVariable("idusuario") Integer idusuario) {
         return this.vaquinhaService.buscarVaquinhasUsuarioId(idusuario);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VaquinhaDTO cadastrarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO){
+    public VaquinhaDTO cadastrarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO) {
         return this.vaquinhaService.cadastrarVaquinha(vaquinhaDTO);
     }
 
     @PutMapping("/editar")
     @ResponseStatus(HttpStatus.OK)
-    public VaquinhaDTO editarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO){
+    public VaquinhaDTO editarVaquinha(@RequestBody VaquinhaDTO vaquinhaDTO) {
         return this.vaquinhaService.editarVaquinha(vaquinhaDTO);
     }
 
     @GetMapping("/{idvaquinha}")
     @ResponseStatus(HttpStatus.OK)
-    public VaquinhaDTO buscarVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha){
+    public VaquinhaDTO buscarVaquinhaId(@PathVariable("idvaquinha") Integer idvaquinha) {
         return this.vaquinhaService.buscarVaquinhaId(idvaquinha);
     }
 }

@@ -22,13 +22,13 @@ public class MensagemController {
 
     @GetMapping("/{idconversa}")
     @ResponseStatus(HttpStatus.OK)
-    public List<MensagemDTO> buscarMensagensConversaId(@PathVariable("idconversa") Integer idconversa){
+    public List<MensagemDTO> buscarMensagensConversaId(@PathVariable("idconversa") Integer idconversa) {
         return this.mensagemService.buscarMensagensConversaId(idconversa);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MensagemDTO cadastrarMensagem(@RequestBody MensagemDTO mensagemDTO){
+    public MensagemDTO cadastrarMensagem(@RequestBody MensagemDTO mensagemDTO) {
         return this.mensagemService.cadastrarMensagem(mensagemDTO);
     }
 }

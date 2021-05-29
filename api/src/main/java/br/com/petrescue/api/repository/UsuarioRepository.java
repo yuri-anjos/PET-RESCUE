@@ -1,6 +1,5 @@
 package br.com.petrescue.api.repository;
 
-
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
 import java.util.List;

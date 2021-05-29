@@ -20,19 +20,19 @@ public class ConversaController {
 
     @GetMapping("/{idusuario1}/{idusuario2}")
     @ResponseStatus(HttpStatus.OK)
-    public Integer buscarConversaAmbosUsuarios(@PathVariable("idusuario1") Integer idusuario1, @PathVariable("idusuario2") Integer idusuario2){
+    public Integer buscarConversaAmbosUsuarios(@PathVariable("idusuario1") Integer idusuario1, @PathVariable("idusuario2") Integer idusuario2) {
         return this.cadastrarUsuario.buscarConversaAmbosUsuarios(idusuario1, idusuario2);
     }
 
     @GetMapping("/id/{idconversa}/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public ConversaDTO buscarConversaId(@PathVariable("idconversa") Integer idconversa, @PathVariable("idusuario") Integer idusuario){
+    public ConversaDTO buscarConversaId(@PathVariable("idconversa") Integer idconversa, @PathVariable("idusuario") Integer idusuario) {
         return this.cadastrarUsuario.buscarConversaId(idconversa, idusuario);
     }
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<ConversaDTO> buscarConversasUsuarioId(@PathVariable("idusuario") Integer idusuario){
+    public List<ConversaDTO> buscarConversasUsuarioId(@PathVariable("idusuario") Integer idusuario) {
         return this.cadastrarUsuario.buscarConversasUsuarioId(idusuario);
     }
 }

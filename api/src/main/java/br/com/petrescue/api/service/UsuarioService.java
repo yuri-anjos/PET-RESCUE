@@ -57,7 +57,7 @@ public class UsuarioService {
 
     public UsuarioDTO depositarSaldo(CarteiraDTO carteiraDTO) {
         Usuario usuario = this.usuarioRepository.findById(carteiraDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
-        if(carteiraDTO.getSaldoAdicional() == null || carteiraDTO.getSaldoAdicional() <= 0){
+        if (carteiraDTO.getSaldoAdicional() == null || carteiraDTO.getSaldoAdicional() <= 0) {
             throw new NegocioException("Valor de depósito inválido!");
         }
         usuario.setSaldo(usuario.getSaldo() + carteiraDTO.getSaldoAdicional());

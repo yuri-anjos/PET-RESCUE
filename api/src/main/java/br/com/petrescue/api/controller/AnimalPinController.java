@@ -26,31 +26,31 @@ public class AnimalPinController {
 
     @PostMapping("/buscar")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalPINDTO> buscarAnimaisPin(@RequestBody Localizacao localizacao){
+    public List<AnimalPINDTO> buscarAnimaisPin(@RequestBody Localizacao localizacao) {
         return this.animalPinService.buscarAnimaisPin(localizacao);
     }
 
     @GetMapping("/usuario/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AnimalPINDTO> buscarAnimaisPinUsuarioId(@PathVariable("idusuario") Integer idusuario){
+    public List<AnimalPINDTO> buscarAnimaisPinUsuarioId(@PathVariable("idusuario") Integer idusuario) {
         return this.animalPinService.buscarAnimaisPinUsuarioId(idusuario);
     }
 
     @GetMapping("/{idanimalpin}")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalPINDTO buscarAnimalPinId(@PathVariable("idanimalpin") Integer idanimalpin){
+    public AnimalPINDTO buscarAnimalPinId(@PathVariable("idanimalpin") Integer idanimalpin) {
         return this.animalPinService.buscarAnimalPinId(idanimalpin);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AnimalPINDTO cadastrarAnimalPIN(@RequestBody AnimalPINDTO animalPINDTO){
+    public AnimalPINDTO cadastrarAnimalPIN(@RequestBody AnimalPINDTO animalPINDTO) {
         return this.animalPinService.cadastrarAnimalPIN(animalPINDTO);
     }
 
     @PutMapping("/editar")
     @ResponseStatus(HttpStatus.OK)
-    public AnimalPINDTO editarAnimalPIN(@RequestBody AnimalPINDTO animalPINDTO){
+    public AnimalPINDTO editarAnimalPIN(@RequestBody AnimalPINDTO animalPINDTO) {
         return this.animalPinService.editarAnimalPIN(animalPINDTO);
     }
 

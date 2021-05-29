@@ -25,37 +25,37 @@ public class UsuarioController {
 
     @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioDTO cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public UsuarioDTO cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return this.usuarioService.cadastrarUsuario(usuarioDTO);
     }
 
     @PostMapping("/editar")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO editarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public UsuarioDTO editarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return this.usuarioService.editarUsuario(usuarioDTO);
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO loginUsuario(@RequestBody UsuarioDTO usuarioDTO){
+    public UsuarioDTO loginUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return this.usuarioService.loginUsuario(usuarioDTO);
     }
 
     @GetMapping("/{idusuario}")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO buscarUsuarioId(@PathVariable("idusuario") Integer idusuario){
+    public UsuarioDTO buscarUsuarioId(@PathVariable("idusuario") Integer idusuario) {
         return this.usuarioService.buscarUsuarioId(idusuario);
     }
 
     @PostMapping("/depositar")
     @ResponseStatus(HttpStatus.OK)
-    public UsuarioDTO depositarSaldo(@RequestBody CarteiraDTO carteiraDTO){
+    public UsuarioDTO depositarSaldo(@RequestBody CarteiraDTO carteiraDTO) {
         return this.usuarioService.depositarSaldo(carteiraDTO);
     }
 
     @GetMapping("/instituicoes")
     @ResponseStatus(HttpStatus.OK)
-    public List<UsuarioDTO> buscarInstituicoes(@RequestParam("pg") Integer pg){
+    public List<UsuarioDTO> buscarInstituicoes(@RequestParam("pg") Integer pg) {
         return this.usuarioService.buscarInstituicoes(pg);
     }
 }

@@ -70,8 +70,8 @@ public class VaquinhaService {
         if (vaquinha.getMeta() == -1 && TipoUsuario.INDIVIDUO.equals(usuario.getTipoUsuario())) {
             throw new NegocioException("Apenas instituições podem utilizar de arregadações sem limite!");
         }
-        if(vaquinha.getMeta()<=vaquinha.getValorArrecadado()){
-            throw new NegocioException("Meta de vaquinha PRECISA ser maior que o valor arrecadado: " + vaquinha.getValorArrecadado()+"!");
+        if (vaquinha.getMeta() <= vaquinha.getValorArrecadado()) {
+            throw new NegocioException("Meta de vaquinha PRECISA ser maior que o valor arrecadado: " + vaquinha.getValorArrecadado() + "!");
         }
 
         vaquinha.setUsuario(usuario);
