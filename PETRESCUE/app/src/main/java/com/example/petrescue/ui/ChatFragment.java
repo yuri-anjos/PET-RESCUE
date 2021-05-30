@@ -21,11 +21,15 @@ import com.example.petrescue.domain.Conversa;
 import com.example.petrescue.domain.Mensagem;
 import com.example.petrescue.domain.adapter.AdapterConversa;
 import com.example.petrescue.domain.adapter.AdapterMensagem;
+import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.MensagemService;
 import com.example.petrescue.service.RetrofitConfig;
+import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +157,15 @@ public class ChatFragment extends Fragment {
     }
 
     private void carregarCampos() {
-//        this.foto.setImageBitmap();
         this.nome.setText(ControleActivity.USUARIO.getNome() == this.conversa.getNomeUsuarioUm() ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
+        if (this.conversa.getFoto() != null && this.conversa.getFoto().length() > 0) {
+            Picasso.get()
+                    .load(this.conversa.getFoto()).transform(new CircleImageTransform())
+                    .placeholder(R.drawable.perfil_icon)
+                    .error(R.drawable.perfil_icon)
+                    .resize(64, 64)
+                    .centerCrop()
+                    .into(this.foto);
+        }
     }
 }

@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Conversa;
+import com.example.petrescue.service.CircleImageTransform;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHolderConversa> {
@@ -38,13 +39,21 @@ public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHo
     public void onBindViewHolder(@NonNull ViewHolderConversa holder, int position) {
         Conversa conversa = this.data.get(position);
         holder.nome.setText(ControleActivity.USUARIO.getId() != conversa.getIdUsuarioUm() ? conversa.getNomeUsuarioUm() : conversa.getNomeUsuarioDois());
-        // holder.foto.setImageBitmap();
         if (conversa.getUltimaMensagem() != null) {
             holder.mensagem.setText(conversa.getUltimaMensagem().getTexto());
             holder.horario.setText(new SimpleDateFormat("hh:mm dd/MM").format(conversa.getUltimaMensagem().getHorario()));
         } else {
             holder.mensagem.setText("");
             holder.horario.setText("");
+        }
+        if (conversa.getFoto() != null && conversa.getFoto().length() > 0) {
+            Picasso.get()
+                    .load(conversa.getFoto()).transform(new CircleImageTransform())
+                    .placeholder(R.drawable.perfil_icon)
+                    .error(R.drawable.perfil_icon)
+                    .resize(48, 48)
+                    .centerCrop()
+                    .into(holder.foto);
         }
     }
 

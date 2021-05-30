@@ -38,6 +38,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
     private TextInputEditText raca;
     private RadioGroup rgSexo;
     private TextInputEditText nome;
+    private TextInputEditText foto;
     private TextInputEditText nascimento;
     private TextInputEditText descricao;
     private TextInputEditText vacinas;
@@ -58,6 +59,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
         this.salvar.setOnClickListener(v -> {
             this.animal.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
             this.animal.setRaca(this.raca.getText().toString());
+            this.animal.setFoto(this.foto.getText().toString());
             switch (this.rgSexo.getCheckedRadioButtonId()) {
                 case R.id.rb_macho_formadocao:
                     this.animal.setSexo(Sexo.MACHO);
@@ -98,6 +100,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
         this.raca = v.findViewById(R.id.et_raca_formadocao);
         this.rgSexo = v.findViewById(R.id.rg_sexo_formadocao);
         this.nome = v.findViewById(R.id.et_nome_formadocao);
+        this.foto = v.findViewById(R.id.et_foto_formadocao);
         this.nascimento = v.findViewById(R.id.et_nascimento_formadocao);
         this.descricao = v.findViewById(R.id.et_descricao_formadocao);
         this.vacinas = v.findViewById(R.id.et_vacinas_formadocao);
@@ -121,6 +124,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
         }
         this.raca.setText(this.animal.getRaca());
         this.nome.setText(this.animal.getNome());
+        this.foto.setText(this.animal.getFoto());
         this.nascimento.setText(this.animal.getDataNascimento() == null ? null : Integer.toString(this.animal.getDataNascimento()));
         this.descricao.setText(this.animal.getDescricao());
         this.vacinas.setText(this.animal.getVacinas());

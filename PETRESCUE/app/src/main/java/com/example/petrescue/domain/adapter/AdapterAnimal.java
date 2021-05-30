@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Animal;
+import com.example.petrescue.service.RoundedCornersTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,11 +37,19 @@ public class AdapterAnimal extends RecyclerView.Adapter<AdapterAnimal.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolderAnimal holder, int position) {
         Animal animal = this.data.get(position);
 
-//        holder.foto.setImageBitmap();
         holder.nome.setText(animal.getNome());
         holder.sitacaoAdocao.setText("Situacao: " + animal.getSituacaoAdocao().toString());
         holder.tipoAnimal.setText(animal.getTipoAnimal().toString());
         holder.sexo.setText(animal.getSexo().toString());
+        if (animal.getFoto() != null && animal.getFoto().length() > 0) {
+            Picasso.get()
+                    .load(animal.getFoto()).transform(new RoundedCornersTransform())
+                    .placeholder(R.drawable.pets_icon)
+                    .error(R.drawable.pets_icon)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(holder.foto);
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/pets_icon" />
 
         <RelativeLayout
             android:layout_width="match_parent"

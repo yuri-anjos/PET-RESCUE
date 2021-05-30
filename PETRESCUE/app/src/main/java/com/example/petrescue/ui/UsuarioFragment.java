@@ -26,13 +26,16 @@ import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.domain.Vaquinha;
 import com.example.petrescue.domain.adapter.AdapterAnimal;
 import com.example.petrescue.domain.adapter.AdapterVaquinha;
+import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
+import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.example.petrescue.service.VaquinhaService;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +204,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
     private void atualizaCampos() {
         this.nome.setText(this.usuario.getNome());
         this.email.setText(this.usuario.getEmail());
-//        this.foto.setImageBitmap();
         if (ControleActivity.USUARIO.getId().equals(this.usuario.getId())) {
             this.linearLayoutSaldo.setVisibility(View.VISIBLE);
             this.editar.setVisibility(View.VISIBLE);
@@ -211,6 +213,16 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
             this.linearLayoutSaldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);
             this.conversar.setVisibility(View.VISIBLE);
+        }
+        if (this.usuario.getFoto() != null && this.usuario.getFoto().length() > 0) {
+            int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
+            Picasso.get()
+                    .load(this.usuario.getFoto()).transform(new CircleImageTransform())
+                    .placeholder(img)
+                    .error(img)
+                    .resize(130, 130)
+                    .centerCrop()
+                    .into(this.foto);
         }
     }
 

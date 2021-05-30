@@ -20,8 +20,11 @@ import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalPinService;
+import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.RetrofitConfig;
+import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,7 +108,6 @@ public class PinFragment extends Fragment {
     }
 
     private void atualizaCampos(){
-//        this.foto.setImageBitmap();
         this.descricao.setText(this.pin.getDescricao());
         this.tipoPin.setText(this.pin.getTipoPIN().toString());
         this.tipoAnimal.setText(this.pin.getTipoAnimal().toString());
@@ -130,5 +132,14 @@ public class PinFragment extends Fragment {
             this.editar.setVisibility(View.GONE);
         }
 
+        if (this.pin.getFoto() != null && this.pin.getFoto().length() > 0) {
+            Picasso.get()
+                    .load(this.pin.getFoto()).transform(new RoundedCornersTransform())
+                    .placeholder(R.drawable.pets_icon)
+                    .error(R.drawable.pets_icon)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(this.foto);
+        }
     }
 }

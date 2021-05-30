@@ -34,6 +34,7 @@ public class EditarUsuarioFragment extends Fragment {
     private Button salvar;
     private TextInputEditText nome;
     private TextInputEditText email;
+    private TextInputEditText foto;
     private TextInputEditText cpfCnpj;
     private TextInputEditText descricao;
     private LinearLayout instituccional;
@@ -50,6 +51,7 @@ public class EditarUsuarioFragment extends Fragment {
         this.salvar.setOnClickListener(v1 -> {
             this.usuario.setNome(this.nome.getText().toString());
             this.usuario.setEmail(this.email.getText().toString());
+            this.usuario.setFoto(this.foto.getText().toString());
             if (TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())) {
                 this.usuario.setDescricao(this.descricao.getText().toString());
                 this.usuario.setCpfCnpj(this.cpfCnpj.getText().toString());
@@ -84,6 +86,7 @@ public class EditarUsuarioFragment extends Fragment {
     private void inicializaComponentes(View v) {
         this.nome = v.findViewById(R.id.et_nome_editarusuario);
         this.email = v.findViewById(R.id.et_email_editarusuario);
+        this.foto = v.findViewById(R.id.et_foto_editarusuario);
         this.cpfCnpj = v.findViewById(R.id.et_cpf_cnpj_editarusuario);
         this.descricao = v.findViewById(R.id.et_descricao_editarusuario);
         this.salvar = v.findViewById(R.id.bt_salvar_editarusuario);
@@ -99,6 +102,7 @@ public class EditarUsuarioFragment extends Fragment {
     private void carregarCampos() {
         this.nome.setText(this.usuario.getNome());
         this.email.setText(this.usuario.getEmail());
+        this.foto.setText(this.usuario.getFoto());
 
         if (TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())) {
             this.instituccional.setVisibility(View.VISIBLE);

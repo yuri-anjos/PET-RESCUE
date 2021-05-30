@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Usuario;
+import com.example.petrescue.service.RoundedCornersTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +39,15 @@ public class AdapterInstituicoes extends RecyclerView.Adapter<AdapterInstituicoe
 
         holder.nome.setText(usuario.getNome());
         holder.descricao.setText(usuario.getDescricao());
-//        holder.foto.setImageBitmap();
-
+        if (usuario.getFoto() != null && usuario.getFoto().length() > 0) {
+            Picasso.get()
+                    .load(usuario.getFoto()).transform(new RoundedCornersTransform())
+                    .placeholder(R.drawable.instituicoes_icon)
+                    .error(R.drawable.instituicoes_icon)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(holder.foto);
+        }
     }
 
     @Override

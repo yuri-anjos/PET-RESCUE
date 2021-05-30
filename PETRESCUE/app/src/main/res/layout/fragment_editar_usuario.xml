@@ -32,6 +32,20 @@
             android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="outline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_foto_editarusuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Foto" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:id="@+id/ll_instituiucao_editarusuario"
         android:layout_width="match_parent"
