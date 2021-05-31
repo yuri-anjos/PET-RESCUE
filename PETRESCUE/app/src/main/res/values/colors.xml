@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#FF7F00</color>
-    <color name="secundary">#15B6D6</color>
-    <color name="terciary">#4ee44e</color>
-    <color name="yellow_missing_buttom">#FFF200</color>
-    <color name="green_spotted_buttom">#FF26BF04</color>
+    <color name="oragange">#FF7F00</color>
+    <color name="blue">#15B6D6</color>
+    <color name="green">#4ee44e</color>
+    <color name="color_missing_buttom">#4278A1</color>
+    <color name="color_spotted_buttom">#C54A5A</color>
 </resources>

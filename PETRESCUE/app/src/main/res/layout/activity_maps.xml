@@ -18,7 +18,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="150dp"
-        app:tint="@color/green_spotted_buttom"
+        app:tint="@color/color_spotted_buttom"
         app:backgroundTint="@color/cardview_light_background"
         app:srcCompat="@drawable/ic_baseline_error_outline_24"
         tools:ignore="VectorDrawableCompat" />
@@ -30,7 +30,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="75dp"
-        app:tint="@color/yellow_missing_buttom"
+        app:tint="@color/color_missing_buttom"
         app:backgroundTint="@color/cardview_light_background"
         app:srcCompat="@drawable/ic_baseline_help_outline_24"
         tools:ignore="VectorDrawableCompat" />

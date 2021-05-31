@@ -200,19 +200,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                             switch (pin.getTipoAnimal()){
                                 case CACHORRO:
-                                    createMarker(location, R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
                                     break;
                                 case GATO:
-                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
                                     break;
                                 case ROEDOR:
-                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
                                     break;
                                 case AVE:
-                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
                                     break;
                                 case OUTROS:
-                                    createMarker(location, R.drawable.ic_cat_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
                                     break;
                             }
                         }
