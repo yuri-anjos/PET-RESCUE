@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".LoginActivity">
@@ -12,6 +12,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -32,6 +33,7 @@
             android:id="@+id/et_senha_loginusuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:hint="Senha"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>

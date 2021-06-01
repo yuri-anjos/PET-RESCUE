@@ -12,6 +12,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -25,6 +26,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -39,6 +41,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline"
         app:passwordToggleEnabled="true">
 
@@ -54,6 +57,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline"
         app:passwordToggleEnabled="true">
 
@@ -69,6 +73,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -82,6 +87,7 @@
         android:id="@+id/rg_tipo_cadastrousuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:checkedButton="@id/rb_individuo_cadastrousuario"
         android:orientation="horizontal">
 
@@ -112,6 +118,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:visibility="visible"
             app:boxBackgroundMode="outline">
 
@@ -126,6 +133,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:visibility="visible"
             app:boxBackgroundMode="outline">
 

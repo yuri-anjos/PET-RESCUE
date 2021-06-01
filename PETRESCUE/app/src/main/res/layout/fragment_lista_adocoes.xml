@@ -11,11 +11,12 @@
         android:id="@+id/tv_descricao_listaadocoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:gravity="center"
         android:padding="10dp"
         android:text="Lista Adoção"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"/>
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/bt_cadastrar_listaadocoes"

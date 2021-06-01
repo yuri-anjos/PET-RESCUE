@@ -47,7 +47,7 @@ import retrofit2.Retrofit;
 
 public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalListener, AdapterVaquinha.OnVaquinhaListener {
 
-    private LinearLayout linearLayoutSaldo;
+    private LinearLayout containerSaldo;
     private ImageView foto;
     private TextView nome;
     private TextView email;
@@ -143,7 +143,7 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         this.recyclerViewAnimal = v.findViewById(R.id.rv_animais_usuario);
         this.recyclerViewVaquinha = v.findViewById(R.id.rv_vaquinhas_usuario);
 
-        this.linearLayoutSaldo = v.findViewById(R.id.ll_saldo_usuario);
+        this.containerSaldo = v.findViewById(R.id.container_saldo_usuario);
         this.foto = v.findViewById(R.id.iv_foto_usuario);
         this.nome = v.findViewById(R.id.tv_nome_usuario);
         this.email = v.findViewById(R.id.tv_email_usuario);
@@ -205,12 +205,14 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         this.nome.setText(this.usuario.getNome());
         this.email.setText(this.usuario.getEmail());
         if (ControleActivity.USUARIO.getId().equals(this.usuario.getId())) {
-            this.linearLayoutSaldo.setVisibility(View.VISIBLE);
             this.editar.setVisibility(View.VISIBLE);
             this.conversar.setVisibility(View.GONE);
-            this.saldo.setText(Double.toString(this.usuario.getSaldo()));
+            this.containerSaldo.setVisibility(View.VISIBLE);
+            this.saldo.setVisibility(View.VISIBLE);
+            this.saldo.setText("R$: " + Double.toString(this.usuario.getSaldo()));
         } else {
-            this.linearLayoutSaldo.setVisibility(View.GONE);
+            this.containerSaldo.setVisibility(View.GONE);
+            this.saldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);
             this.conversar.setVisibility(View.VISIBLE);
         }

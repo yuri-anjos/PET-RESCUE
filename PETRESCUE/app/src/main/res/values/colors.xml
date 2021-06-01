@@ -7,9 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="oragange">#FF7F00</color>
-    <color name="blue">#15B6D6</color>
-    <color name="green">#4ee44e</color>
+    <color name="orange">#FF6F00</color>
+    <color name="blue1">#16A2E3</color>
+    <color name="blue2">#5160E8</color>
+
+    <color name="green">#0B910B</color>
     <color name="color_missing_buttom">#4278A1</color>
     <color name="color_spotted_buttom">#C54A5A</color>
 </resources>

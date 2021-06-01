@@ -13,6 +13,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Lista Abrigos"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -22,14 +22,15 @@
             android:id="@+id/tv_nome_itemlistaconversa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=":nome:"
-            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
-            android:layout_toLeftOf="@id/tv_horario_itemlistaconversa"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/tv_horario_itemlistaconversa"
+            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
+            android:text=":nome:"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_mensagem_itemlistaconversa"

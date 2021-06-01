@@ -9,12 +9,14 @@
     <Spinner
         android:id="@+id/sp_tipoanimal_formadocao"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -28,6 +30,7 @@
         android:id="@+id/rg_sexo_formadocao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:checkedButton="@id/rb_macho_formadocao"
         android:orientation="horizontal">
 
@@ -50,6 +53,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -63,6 +67,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,6 +81,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -90,6 +96,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -104,6 +111,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText

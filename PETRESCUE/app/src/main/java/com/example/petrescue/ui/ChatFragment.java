@@ -157,7 +157,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void carregarCampos() {
-        this.nome.setText(ControleActivity.USUARIO.getNome() == this.conversa.getNomeUsuarioUm() ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
+        this.nome.setText(ControleActivity.USUARIO.getId().equals(this.conversa.getIdUsuarioUm()) ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
         if (this.conversa.getFoto() != null && this.conversa.getFoto().length() > 0) {
             Picasso.get()
                     .load(this.conversa.getFoto()).transform(new CircleImageTransform())

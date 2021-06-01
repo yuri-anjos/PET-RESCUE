@@ -117,7 +117,7 @@ public class VaquinhaFragment extends Fragment {
         this.descricao = v.findViewById(R.id.tv_descricao_vaquinha);
         this.arrecadado = v.findViewById(R.id.tv_arrecadado_vaquinha);
         this.meta = v.findViewById(R.id.tv_meta_vaquinha);
-        this.doador = v.findViewById(R.id.ll_doador);
+        this.doador = v.findViewById(R.id.container_doador);
         this.btAccessarUsuario = v.findViewById(R.id.bt_acessar_usuario_vaquinha);
         this.valor.setText(Double.toString(0.0));
 

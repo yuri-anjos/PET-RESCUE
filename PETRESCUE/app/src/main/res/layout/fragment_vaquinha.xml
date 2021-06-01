@@ -96,9 +96,10 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/ll_doador"
+        android:id="@+id/container_doador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone">
@@ -121,7 +122,7 @@
         <Button
             android:id="@+id/bt_doar_vaquinha"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Doar" />
 

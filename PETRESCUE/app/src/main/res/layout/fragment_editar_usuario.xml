@@ -10,6 +10,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -23,6 +24,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -37,6 +39,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +52,7 @@
     <LinearLayout
         android:id="@+id/ll_instituiucao_editarusuario"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -57,6 +60,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:visibility="visible"
             app:boxBackgroundMode="outline">
 
@@ -71,6 +75,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:visibility="visible"
             app:boxBackgroundMode="outline">
 
