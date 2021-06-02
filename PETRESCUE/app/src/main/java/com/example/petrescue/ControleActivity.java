@@ -2,13 +2,19 @@ package com.example.petrescue;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.domain.Usuario;
+import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,6 +55,8 @@ public class ControleActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+
         this.idusuario = getIntent().getExtras().getInt("idusuario");
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
@@ -69,6 +77,7 @@ public class ControleActivity extends AppCompatActivity {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (response.isSuccessful()) {
                     ControleActivity.USUARIO = response.body();
+                    carregarUsuarioMenu();
                 } else {
                     Toast.makeText(getApplicationContext(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
@@ -81,5 +90,25 @@ public class ControleActivity extends AppCompatActivity {
                 Log.i("DEBUG", "THROW ERROR: " + t.getMessage());
             }
         });
+    }
+
+    private void carregarUsuarioMenu() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headview = navigationView.getHeaderView(0);
+        TextView nome = headview.findViewById(R.id.tv_nome_menu);
+        TextView email = headview.findViewById(R.id.tv_email_menu);
+        ImageView foto = headview.findViewById(R.id.iv_foto_menu);
+        nome.setText(USUARIO.getNome());
+        email.setText(USUARIO.getEmail());
+        if (USUARIO.getFoto() != null && USUARIO.getFoto().length() > 0) {
+            int img = TipoUsuario.INSTITUCIONAL.equals(USUARIO.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon;
+            Picasso.get()
+                    .load(USUARIO.getFoto()).transform(new CircleImageTransform())
+                    .placeholder(img)
+                    .error(img)
+                    .resize(80, 80)
+                    .centerCrop()
+                    .into(foto);
+        }
     }
 }
