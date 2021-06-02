@@ -73,7 +73,8 @@
         <Button
             android:id="@+id/bt_enviar_chat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="66dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="6"
             app:icon="@drawable/send_icon" />
 

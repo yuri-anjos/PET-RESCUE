@@ -1,5 +1,6 @@
 package com.example.petrescue.ui;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalListener, AdapterVaquinha.OnVaquinhaListener {
+public class UsuarioFragment extends Fragment {
 
     private LinearLayout containerSaldo;
     private ImageView foto;
@@ -63,16 +64,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
     private UsuarioService usuarioService;
     private Usuario usuario;
     private Integer idusuario;
-
-    private RecyclerView recyclerViewVaquinha;
-    private AdapterVaquinha vaquinhaAdapter;
-    private List<Vaquinha> listaVaquinha;
-    private VaquinhaService vaquinhaService;
-
-    private RecyclerView recyclerViewAnimal;
-    private AdapterAnimal animalAdapter;
-    private List<Animal> listaAnimal;
-    private AnimalService animalService;
 
     private ConversaService conversaService;
 
@@ -140,9 +131,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
     }
 
     private void inicializaComponentes(View v) {
-        this.recyclerViewAnimal = v.findViewById(R.id.rv_animais_usuario);
-        this.recyclerViewVaquinha = v.findViewById(R.id.rv_vaquinhas_usuario);
-
         this.containerSaldo = v.findViewById(R.id.container_saldo_usuario);
         this.foto = v.findViewById(R.id.iv_foto_usuario);
         this.nome = v.findViewById(R.id.tv_nome_usuario);
@@ -156,18 +144,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = this.retrofit.create(UsuarioService.class);
-        this.vaquinhaService = this.retrofit.create(VaquinhaService.class);
-        this.animalService = this.retrofit.create(AnimalService.class);
-
-        this.listaVaquinha = new ArrayList<>();
-        this.vaquinhaAdapter = new AdapterVaquinha(this.listaVaquinha, this);
-        this.recyclerViewVaquinha.setLayoutManager(new LinearLayoutManager(getActivity()));
-        this.recyclerViewVaquinha.setAdapter(this.vaquinhaAdapter);
-
-        this.listaAnimal = new ArrayList<>();
-        this.animalAdapter = new AdapterAnimal(this.listaAnimal, this);
-        this.recyclerViewAnimal.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
-        this.recyclerViewAnimal.setAdapter(this.animalAdapter);
     }
 
     @Override
@@ -181,7 +157,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
                     if (response.isSuccessful()) {
                         usuario = response.body();
                         atualizaCampos();
-                        buscarListas();
                     } else {
                         Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                         Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
@@ -197,7 +172,6 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
         } else {
             this.usuario = ControleActivity.USUARIO;
             this.atualizaCampos();
-            buscarListas();
         }
     }
 
@@ -209,15 +183,16 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
             this.conversar.setVisibility(View.GONE);
             this.containerSaldo.setVisibility(View.VISIBLE);
             this.saldo.setVisibility(View.VISIBLE);
-            this.saldo.setText("R$: " + Double.toString(this.usuario.getSaldo()));
+            this.saldo.setText("R$: " + this.usuario.getSaldo());
         } else {
             this.containerSaldo.setVisibility(View.GONE);
             this.saldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);
             this.conversar.setVisibility(View.VISIBLE);
         }
+        int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
+        this.foto.setImageResource(img);
         if (this.usuario.getFoto() != null && this.usuario.getFoto().length() > 0) {
-            int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
             Picasso.get()
                     .load(this.usuario.getFoto()).transform(new CircleImageTransform())
                     .placeholder(img)
@@ -226,71 +201,5 @@ public class UsuarioFragment extends Fragment implements AdapterAnimal.OnAnimalL
                     .centerCrop()
                     .into(this.foto);
         }
-    }
-
-    private void buscarListas() {
-        this.vaquinhaService.buscarVaquinhasUsuarioId(this.usuario.getId()).enqueue(new Callback<List<Vaquinha>>() {
-            @Override
-            public void onResponse(Call<List<Vaquinha>> call, Response<List<Vaquinha>> response) {
-                if (response.isSuccessful()) {
-                    listaVaquinha.clear();
-                    listaVaquinha.addAll(response.body());
-                    if (listaVaquinha.isEmpty()) {
-                        recyclerViewVaquinha.setVisibility(View.GONE);
-                    } else {
-                        recyclerViewVaquinha.setVisibility(View.VISIBLE);
-                    }
-                    vaquinhaAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Vaquinha>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-                Log.i("DEBUG", "THROW ERROR: " + t.toString());
-            }
-        });
-
-        this.animalService.buscarAnimaisAdocaoUsuarioId(this.usuario.getId()).enqueue(new Callback<List<Animal>>() {
-            @Override
-            public void onResponse(Call<List<Animal>> call, Response<List<Animal>> response) {
-                if (response.isSuccessful()) {
-                    listaAnimal.clear();
-                    listaAnimal.addAll(response.body());
-                    if (listaAnimal.isEmpty()) {
-                        recyclerViewAnimal.setVisibility(View.GONE);
-                    } else {
-                        recyclerViewAnimal.setVisibility(View.VISIBLE);
-                    }
-                    animalAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
-                    Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Animal>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Falha ao conectar com o servidos, tente novamente mais tarde!", Toast.LENGTH_LONG).show();
-                Log.i("DEBUG", "THROW ERROR: " + t.toString());
-            }
-        });
-    }
-
-    @Override
-    public void onAnimalClick(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("idanimal", this.listaAnimal.get(position).getId());
-        Navigation.findNavController(this.view).navigate(R.id.action_nav_usuario_to_nav_animal_adocao, bundle);
-    }
-
-    @Override
-    public void onVaquinhaClick(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("idvaquinha", this.listaVaquinha.get(position).getId());
-        Navigation.findNavController(this.view).navigate(R.id.action_nav_usuario_to_nav_vaquinha, bundle);
     }
 }
