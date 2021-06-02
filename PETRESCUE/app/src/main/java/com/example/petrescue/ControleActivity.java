@@ -100,13 +100,14 @@ public class ControleActivity extends AppCompatActivity {
         ImageView foto = headview.findViewById(R.id.iv_foto_menu);
         nome.setText(USUARIO.getNome());
         email.setText(USUARIO.getEmail());
+        int img = TipoUsuario.INSTITUCIONAL.equals(USUARIO.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
+        foto.setImageResource(img);
         if (USUARIO.getFoto() != null && USUARIO.getFoto().length() > 0) {
-            int img = TipoUsuario.INSTITUCIONAL.equals(USUARIO.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon;
             Picasso.get()
                     .load(USUARIO.getFoto()).transform(new CircleImageTransform())
                     .placeholder(img)
                     .error(img)
-                    .resize(80, 80)
+                    .resize(130, 130)
                     .centerCrop()
                     .into(foto);
         }

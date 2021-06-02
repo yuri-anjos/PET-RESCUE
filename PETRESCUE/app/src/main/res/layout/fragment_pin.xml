@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_raca_pin"
+        android:layout_marginBottom="10dp"
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/container_descricao_pin"
         android:text="Editar"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/bt_acessar_usuario_pin"
@@ -74,6 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bt_editar_pin"
         android:text="Acesse o perfil do criador"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </RelativeLayout>

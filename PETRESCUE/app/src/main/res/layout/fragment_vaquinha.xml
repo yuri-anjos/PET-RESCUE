@@ -114,21 +114,21 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             app:boxBackgroundMode="outline">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_valor_vaquinha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
                 android:hint="Valor"
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -136,8 +136,8 @@
         <Button
             android:id="@+id/bt_doar_vaquinha"
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginTop="1dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="2dp"
             android:layout_weight="2"
             android:text="Doar" />
 
@@ -149,5 +149,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Acesse o perfil do criador"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </LinearLayout>
