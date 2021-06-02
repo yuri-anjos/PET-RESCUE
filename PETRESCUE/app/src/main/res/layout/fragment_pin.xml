@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="90dp"
+    android:gravity="center"
     android:padding="10dp">
 
 
@@ -10,38 +12,45 @@
         android:id="@+id/iv_foto_pin"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/pets_icon"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"/>
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        android:src="@drawable/pets_icon" />
 
     <TextView
         android:id="@+id/tv_tipopin_pin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/iv_foto_pin"
+        android:layout_marginBottom="10dp"
         android:text=":tipopin:"
-        android:layout_below="@id/iv_foto_pin"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_tipoanimal_pin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/tv_tipopin_pin"
-        android:text=":tipoanimal:" />
+        android:layout_marginBottom="10dp"
+        android:text=":tipoanimal:"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_raca_pin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/tv_tipoanimal_pin"
-        android:text=":raca:" />
+        android:layout_marginBottom="5dp"
+        android:text=":raca:"
+        android:textSize="16sp" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/container_descricao_pin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxBackgroundMode="outline"
         android:layout_below="@id/tv_raca_pin"
-        android:id="@+id/container_descricao_pin">
+        app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_descricao_pin"
@@ -57,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/container_descricao_pin"
         android:text="Editar"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/bt_acessar_usuario_pin"
@@ -65,6 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bt_editar_pin"
         android:text="Acesse o perfil do criador"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -31,10 +31,11 @@
                 android:id="@+id/tv_nome_animal_itemlistaadocao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text=":nome:"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
 
@@ -43,11 +44,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_nome_animal_itemlistaadocao"
-                android:layout_toLeftOf="@id/tv_sexo_animal_itemlistaadocao"
                 android:layout_alignParentLeft="true"
-                android:text=":tipoanimal:"
-                android:layout_marginRight="10dp"
-                />
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_toLeftOf="@id/tv_sexo_animal_itemlistaadocao"
+                android:text=":tipoanimal:" />
 
             <TextView
                 android:id="@+id/tv_sexo_animal_itemlistaadocao"
@@ -55,13 +57,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_nome_animal_itemlistaadocao"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:text=":sexo:" />
 
             <TextView
                 android:id="@+id/tv_situacao_adocao_animal_itemlistaadocao"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_tipo_animal_itemlistaadocao"
+                android:layout_marginTop="7dp"
                 android:text=":situacaoadocao:" />
 
         </RelativeLayout>
