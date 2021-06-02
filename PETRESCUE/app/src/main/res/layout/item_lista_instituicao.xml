@@ -10,33 +10,38 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="="
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/iv_foto_itemlistainstituicao"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/instituicoes_icon"
-            android:layout_alignParentTop="true"/>
+            android:src="@drawable/instituicoes_icon" />
 
         <TextView
             android:id="@+id/tv_nome_itemlistainstituicao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/iv_foto_itemlistainstituicao"
             android:gravity="center"
             android:text=":nome:"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_below="@id/iv_foto_itemlistainstituicao"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_descricao_itemlistainstituicao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nome_itemlistainstituicao"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text=":descricao:"
-            android:layout_below="@id/tv_nome_itemlistainstituicao"/>
+            android:text=":descricao:" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

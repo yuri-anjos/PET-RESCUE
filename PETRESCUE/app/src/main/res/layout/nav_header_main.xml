@@ -13,8 +13,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
         android:contentDescription="@string/imagem_usuario"
         android:paddingTop="8dp"
         android:src="@drawable/perfil_icon" />
@@ -24,11 +25,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Teste"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="email@email.com" />
 </LinearLayout>
