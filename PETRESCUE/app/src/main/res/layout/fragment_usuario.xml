@@ -118,7 +118,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_listar_vaquinhas_usuario"
+            android:id="@+id/bt_lista_vaquinhas_usuario"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -127,7 +127,7 @@
             android:text="Listar vaquinhas" />
 
         <Button
-            android:id="@+id/btn_listar_animais_usuario"
+            android:id="@+id/bt_lista_animais_adocao_usuario"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

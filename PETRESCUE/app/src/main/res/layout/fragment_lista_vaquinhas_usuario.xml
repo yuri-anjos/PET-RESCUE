@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.ListaVaquinhasUsuarioFragment">
+
+    <TextView
+        android:id="@+id/tv_descricao_listavaquinhasusuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Lista Vaquinhas"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_listavaquinhasusuario"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        tools:listitem="@layout/item_lista_vaquinhas"
+        android:layout_below="@id/tv_descricao_listavaquinhasusuario"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
