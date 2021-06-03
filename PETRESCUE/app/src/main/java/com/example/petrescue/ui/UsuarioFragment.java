@@ -1,6 +1,5 @@
 package com.example.petrescue.ui;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,31 +14,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
-import com.example.petrescue.domain.Animal;
 import com.example.petrescue.domain.CarteiraDTO;
 import com.example.petrescue.domain.Usuario;
-import com.example.petrescue.domain.Vaquinha;
-import com.example.petrescue.domain.adapter.AdapterAnimal;
-import com.example.petrescue.domain.adapter.AdapterVaquinha;
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
-import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
-import com.example.petrescue.service.VaquinhaService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +43,8 @@ public class UsuarioFragment extends Fragment {
     private Button adicionarSaldo;
     private Button editar;
     private Button conversar;
+    private Button listaAnimais;
+    private Button listaVaquinhas;
 
     private View view;
     private Retrofit retrofit;
@@ -76,6 +64,18 @@ public class UsuarioFragment extends Fragment {
         }
 
         this.inicializaComponentes(this.view);
+
+        this.listaAnimais.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("idusuario", this.usuario.getId());
+            Navigation.findNavController(this.view).navigate(R.id.action_nav_usuario_to_nav_lista_adocao_usuario, bundle);
+        });
+        
+        this.listaVaquinhas.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("idusuario", this.usuario.getId());
+            Navigation.findNavController(this.view).navigate(R.id.action_nav_usuario_to_nav_lista_vaquinhas_usuario, bundle);
+        });
 
         this.adicionarSaldo.setOnClickListener(v -> {
             this.usuarioService.depositarSaldo(new CarteiraDTO(this.usuario.getId(), this.saldoAdicional.getText().toString().length() > 0 ? Double.parseDouble(this.saldoAdicional.getText().toString()) : 0)).enqueue(new Callback<Usuario>() {
@@ -140,6 +140,8 @@ public class UsuarioFragment extends Fragment {
         this.adicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.editar = v.findViewById(R.id.bt_editar_usuario);
         this.conversar = v.findViewById(R.id.bt_conversar_usuario);
+        this.listaAnimais = v.findViewById(R.id.bt_lista_animais_adocao_usuario);
+        this.listaVaquinhas = v.findViewById(R.id.bt_lista_vaquinhas_usuario);
         this.saldoAdicional.setText(Double.toString(0.0));
 
         this.retrofit = RetrofitConfig.generateRetrofit();
