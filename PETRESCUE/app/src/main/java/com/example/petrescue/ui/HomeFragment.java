@@ -1,10 +1,14 @@
 package com.example.petrescue.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -55,6 +60,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -198,21 +205,21 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             location.setLatitude(pin.getLocalizacao().getLatitude());
                             location.setLongitude(pin.getLocalizacao().getLongitude());
 
-                            switch (pin.getTipoAnimal()){
+                            switch (pin.getTipoAnimal()) {
                                 case CACHORRO:
-                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
                                     break;
                                 case GATO:
-                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_cat : R.drawable.missing_cat);
                                     break;
                                 case ROEDOR:
-                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_rodent : R.drawable.missing_rodent);
                                     break;
                                 case AVE:
-                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_bird : R.drawable.missing_bird);
                                     break;
                                 case OUTROS:
-                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.ic_dog_pin : R.drawable.ic_dog_pin);
+                                    createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
                                     break;
                             }
                         }
@@ -272,18 +279,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         client.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
-    private Marker createMarker(@NonNull Location location, int img) {
-        Drawable drawable = getResources().getDrawable(img);
-        Canvas canvas = new Canvas();
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        canvas.setBitmap(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(bitmap);
-        return mMap.addMarker(new MarkerOptions()
+    private void createMarker(@NonNull Location location, int img) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), img);
+        int width = (int) (vectorDrawable.getIntrinsicWidth() * 0.5);
+        int height = (int) (vectorDrawable.getIntrinsicHeight() * 0.5);
+        vectorDrawable.setBounds(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                .icon(markerIcon));
+                .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                .anchor(0.5f, 1));
     }
 }

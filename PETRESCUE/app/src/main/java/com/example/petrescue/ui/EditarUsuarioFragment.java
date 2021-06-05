@@ -94,7 +94,7 @@ public class EditarUsuarioFragment extends Fragment {
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = this.retrofit.create(UsuarioService.class);
-        this.usuario = ControleActivity.USUARIO;
+        this.usuario = ControleActivity.USUARIO.getCopy();
 
         this.carregarCampos();
     }

@@ -126,7 +126,7 @@
                 android:id="@+id/et_descricao_cadastrousuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Quem são vocês?" />
+                android:hint="Descrição" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -141,7 +141,7 @@
                 android:id="@+id/et_cpf_cnpj_cadastrousuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="CPF/CNPJ" />
+                android:hint="Cpf/Cnpj" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

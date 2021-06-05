@@ -49,13 +49,6 @@ public class Usuario {
     @Column
     private String foto;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride( name = "latitude", column = @Column(name = "latitude")),
-            @AttributeOverride( name = "longitude", column = @Column(name = "longitude"))
-    })
-    private Localizacao localizacao;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
@@ -73,7 +66,6 @@ public class Usuario {
         this.senha = usuarioDTO.getSenha();
         this.nome = usuarioDTO.getNome();
         this.foto = usuarioDTO.getFoto();
-        this.localizacao = usuarioDTO.getLocalizacao();
         this.tipoUsuario = usuarioDTO.getTipoUsuario();
         this.cpfCnpj = usuarioDTO.getCpfCnpj();
         this.descricao = usuarioDTO.getDescricao();

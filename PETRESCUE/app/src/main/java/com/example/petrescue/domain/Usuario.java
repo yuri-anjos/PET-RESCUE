@@ -1,5 +1,7 @@
 package com.example.petrescue.domain;
 
+import android.os.CpuUsageInfo;
+
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.Localizacao;
 
@@ -13,21 +15,19 @@ public class Usuario implements Serializable {
     private String senha;
     private String nome;
     private String foto;
-    private Localizacao localizacao;
 
     private TipoUsuario tipoUsuario;
 
     private String cpfCnpj;
     private String descricao;
 
-    public Usuario(Integer id, Double saldo, String email, String senha, String nome, String foto, Localizacao localizacao, TipoUsuario tipoUsuario, String cpfCnpj, String descricao) {
+    public Usuario(Integer id, Double saldo, String email, String senha, String nome, String foto, TipoUsuario tipoUsuario, String cpfCnpj, String descricao) {
         this.id = id;
         this.saldo = saldo;
         this.email = email;
-        this.senha=senha;
+        this.senha = senha;
         this.nome = nome;
         this.foto = foto;
-        this.localizacao = localizacao;
         this.tipoUsuario = tipoUsuario;
         this.cpfCnpj = cpfCnpj;
         this.descricao = descricao;
@@ -84,14 +84,6 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Localizacao getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(Localizacao localizacao) {
-        this.localizacao = localizacao;
-    }
-
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
@@ -116,4 +108,17 @@ public class Usuario implements Serializable {
         this.descricao = descricao;
     }
 
+    public Usuario getCopy() {
+        Usuario u = new Usuario();
+        u.setId(this.id);
+        u.setSaldo(this.saldo);
+        u.setEmail(this.email);
+        u.setSenha(this.senha);
+        u.setNome(this.nome);
+        u.setFoto(this.foto);
+        u.setTipoUsuario(this.tipoUsuario);
+        u.setCpfCnpj(this.cpfCnpj);
+        u.setDescricao(this.descricao);
+        return u;
+    }
 }

@@ -20,7 +20,6 @@ public class UsuarioDTO {
     private String senha;
     private String nome;
     private String foto;
-    private Localizacao localizacao;
 
     private TipoUsuario tipoUsuario;
 
@@ -34,7 +33,6 @@ public class UsuarioDTO {
         this.senha = usuario.getSenha();
         this.nome = usuario.getNome();
         this.foto = usuario.getFoto();
-        this.localizacao = usuario.getLocalizacao();
         this.tipoUsuario = usuario.getTipoUsuario();
         this.cpfCnpj = usuario.getCpfCnpj();
         this.descricao = usuario.getDescricao();

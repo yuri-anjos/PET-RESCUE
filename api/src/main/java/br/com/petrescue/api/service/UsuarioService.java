@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioService {
@@ -28,10 +29,13 @@ public class UsuarioService {
 
     public UsuarioDTO cadastrarUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario(usuarioDTO);
+        this.geralValidator.string(usuario.getEmail(), "Email");
+        this.geralValidator.string(usuario.getNome(), "Nome");
+        this.geralValidator.string(usuario.getSenha(), "Senha");
+        this.geralValidator.validarEmail(usuario.getEmail());
         if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
-            this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
-            this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
-//            this.geralValidator.localizacao(usuario.getLocalizacao());
+            this.geralValidator.string(usuario.getDescricao(), "Descrição de Ong/Instituição");
+            this.geralValidator.validarCpfCnpj(usuario.getCpfCnpj());
         }
         usuario.setSaldo(0.0);
         return new UsuarioDTO(this.usuarioRepository.save(usuario));
@@ -39,10 +43,13 @@ public class UsuarioService {
 
     public UsuarioDTO editarUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario(usuarioDTO);
+        this.geralValidator.string(usuario.getEmail(), "Email");
+        this.geralValidator.string(usuario.getNome(), "Nome");
+        this.geralValidator.string(usuario.getSenha(), "Senha");
+        this.geralValidator.validarEmail(usuario.getEmail());
         if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
             this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
-            this.geralValidator.string(usuario.getCpfCnpj(), "CPF/CNPJ");
-//            this.geralValidator.localizacao(usuario.getLocalizacao());
+            this.geralValidator.validarCpfCnpj(usuario.getCpfCnpj());
         }
         return new UsuarioDTO(this.usuarioRepository.save(usuario));
     }
