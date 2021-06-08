@@ -20,6 +20,7 @@ public class AnimalDTO {
     private SituacaoAdocao situacaoAdocao;
     private String foto;
     private TipoAnimal tipoAnimal;
+    private Boolean castrado;
     private String raca;
     private Sexo sexo;
     private Integer dataNascimento;
@@ -34,6 +35,7 @@ public class AnimalDTO {
         this.situacaoAdocao = animal.getSituacaoAdocao();
         this.foto = animal.getFoto();
         this.tipoAnimal = animal.getTipoAnimal();
+        this.castrado = animal.getCastrado();
         this.raca = animal.getRaca();
         this.sexo = animal.getSexo();
         this.dataNascimento = animal.getDataNascimento();

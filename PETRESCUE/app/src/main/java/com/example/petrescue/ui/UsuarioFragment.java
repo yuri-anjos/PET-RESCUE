@@ -39,6 +39,7 @@ public class UsuarioFragment extends Fragment {
     private TextView nome;
     private TextView email;
     private TextView saldo;
+    private TextView descricao;
     private TextInputEditText saldoAdicional;
     private Button adicionarSaldo;
     private Button editar;
@@ -136,6 +137,7 @@ public class UsuarioFragment extends Fragment {
         this.nome = v.findViewById(R.id.tv_nome_usuario);
         this.email = v.findViewById(R.id.tv_email_usuario);
         this.saldo = v.findViewById(R.id.tv_saldo_usuario);
+        this.descricao = v.findViewById(R.id.tv_descricao_usuario);
         this.saldoAdicional = v.findViewById(R.id.et_saldo_adicional_usuario);
         this.adicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.editar = v.findViewById(R.id.bt_editar_usuario);
@@ -191,6 +193,11 @@ public class UsuarioFragment extends Fragment {
             this.saldo.setVisibility(View.GONE);
             this.editar.setVisibility(View.GONE);
             this.conversar.setVisibility(View.VISIBLE);
+        }
+        if(TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())){
+            this.descricao.setVisibility(View.VISIBLE);
+        }else{
+            this.descricao.setVisibility(View.GONE);
         }
         int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
         this.foto.setImageResource(img);

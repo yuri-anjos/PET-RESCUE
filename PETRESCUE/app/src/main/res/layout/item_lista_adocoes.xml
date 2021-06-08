@@ -18,7 +18,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:padding="10dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/pets_icon" />
 
         <RelativeLayout
@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:padding="3dp"
                 android:text=":nome:"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -45,11 +46,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_nome_animal_itemlistaadocao"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toLeftOf="@id/tv_sexo_animal_itemlistaadocao"
-                android:text=":tipoanimal:" />
+                android:padding="3dp"
+                android:text=":tipoanimal:"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_sexo_animal_itemlistaadocao"
@@ -57,18 +59,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_nome_animal_itemlistaadocao"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:text=":sexo:" />
+                android:padding="3dp"
+                android:text=":sexo:"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_situacao_adocao_animal_itemlistaadocao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_tipo_animal_itemlistaadocao"
-                android:layout_marginTop="7dp"
-                android:text=":situacaoadocao:" />
+                android:padding="3dp"
+                android:text=":situacaoadocao:"
+                android:textColor="@color/black" />
 
         </RelativeLayout>
 

@@ -2,11 +2,7 @@ package br.com.petrescue.api.domain;
 
 import br.com.petrescue.api.controller.dto.UsuarioDTO;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
-import br.com.petrescue.api.domain.subClasses.Localizacao;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

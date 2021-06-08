@@ -2,7 +2,6 @@ package br.com.petrescue.api.controller.dto;
 
 import br.com.petrescue.api.domain.Usuario;
 import br.com.petrescue.api.domain.enums.TipoUsuario;
-import br.com.petrescue.api.domain.subClasses.Localizacao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

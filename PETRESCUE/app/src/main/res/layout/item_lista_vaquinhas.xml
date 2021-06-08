@@ -20,9 +20,11 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/tv_inicio_itemlistavaquinha"
+            android:padding="3dp"
             android:text=":titulo:"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_descricao_itemlistavaquinha"
@@ -30,14 +32,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_titulo_itemlistavaquinha"
             android:layout_marginTop="3dp"
-            android:text=":descricao:" />
+            android:padding="3dp"
+            android:text=":descricao:"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_inicio_itemlistavaquinha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text=":criacao:"/>
+            android:padding="3dp"
+            android:text=":criacao:"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

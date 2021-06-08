@@ -45,7 +45,10 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     private TipoAnimal tipoAnimal;
 
-    @Column
+    @Column(nullable = false)
+    private Boolean castrado;
+
+    @Column(nullable = false)
     private String raca;
 
     @Column(nullable = false)
@@ -71,6 +74,7 @@ public class Animal {
         this.situacaoAdocao = animalDTO.getSituacaoAdocao();
         this.foto = animalDTO.getFoto();
         this.tipoAnimal = animalDTO.getTipoAnimal();
+        this.castrado = animalDTO.getCastrado();
         this.raca = animalDTO.getRaca();
         this.sexo = animalDTO.getSexo();
         this.dataNascimento = animalDTO.getDataNascimento();

@@ -28,7 +28,7 @@ public class Vaquinha {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition="DECIMAL(8,2)")
+    @Column(columnDefinition="DECIMAL(8,2)", nullable = false)
     private Double meta;
 
     @Column(name = "valor_arrecadado", columnDefinition="DECIMAL(8,2) UNSIGNED", nullable = false)

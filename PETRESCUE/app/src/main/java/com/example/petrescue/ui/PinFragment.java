@@ -76,7 +76,7 @@ public class PinFragment extends Fragment {
         this.descricao = v.findViewById(R.id.et_descricao_pin);
         this.tipoPin = v.findViewById(R.id.tv_tipopin_pin);
         this.tipoAnimal = v.findViewById(R.id.tv_tipoanimal_pin);
-        this.raca = v.findViewById(R.id.tv_raca_pin);
+        this.raca = v.findViewById(R.id.et_raca_pin);
         this.foto = v.findViewById(R.id.iv_foto_pin);
 
         this.retrofit = RetrofitConfig.generateRetrofit();

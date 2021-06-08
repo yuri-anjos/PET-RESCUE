@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="150dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="80dp"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp">
@@ -13,88 +15,83 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/pets_icon" />
-
-    <TextView
-        android:id="@+id/tv_titulo_vaquinha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-25dp"
-        android:gravity="center"
-        android:text=":titulo:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_inicio_vaquinha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text=":data inicio:" />
+        android:gravity="center|right|center_horizontal|center_vertical"
+        android:padding="3dp"
+        android:text=":data inicio:"
+        android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/tv_descricao_vaquinha"
+        android:id="@+id/tv_titulo_vaquinha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text=":descricao:"
-        android:textSize="16sp" />
+        android:padding="3dp"
+        android:text=":titulo:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="outline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_descricao_vaquinha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:hint="Descrição" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Arrecadado" />
-
-            <TextView
-                android:id="@+id/tv_arrecadado_vaquinha"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=":valor arrecadado:" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            app:boxBackgroundMode="outline">
 
-            <TextView
-                android:id="@+id/textView12"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_arrecadado_vaquinha"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Meta" />
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Arrecadado" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            app:boxBackgroundMode="outline">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_meta_vaquinha"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=":meta:" />
-
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Meta" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -102,8 +99,7 @@
         android:id="@+id/bt_editar_vaquinha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="-5dp"
+        android:layout_marginBottom="5dp"
         android:text="Editar"
         android:visibility="gone" />
 
@@ -111,7 +107,8 @@
         android:id="@+id/container_doador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone">
@@ -120,8 +117,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             app:boxBackgroundMode="outline">
 
@@ -137,8 +134,10 @@
             android:id="@+id/bt_doar_vaquinha"
             android:layout_width="match_parent"
             android:layout_height="66dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="2dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Doar" />
 
     </LinearLayout>
@@ -147,7 +146,6 @@
         android:id="@+id/bt_acessar_usuario_vaquinha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="Acesse o perfil do criador"
         android:visibility="gone" />
 </LinearLayout>

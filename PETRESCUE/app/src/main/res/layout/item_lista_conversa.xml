@@ -36,19 +36,21 @@
             android:id="@+id/tv_mensagem_itemlistaconversa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=":mensagem:"
-            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
             android:layout_below="@id/tv_nome_itemlistaconversa"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_toRightOf="@id/iv_foto_itemlistaconversa"
+            android:text=":mensagem:"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_horario_itemlistaconversa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=":horario:"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:text=":horario:"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

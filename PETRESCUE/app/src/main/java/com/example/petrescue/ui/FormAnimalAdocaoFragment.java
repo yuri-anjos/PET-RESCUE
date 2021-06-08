@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -42,6 +43,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
     private TextInputEditText nascimento;
     private TextInputEditText descricao;
     private TextInputEditText vacinas;
+    private CheckBox castrado;
     private Button salvar;
 
     private Animal animal;
@@ -72,6 +74,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
             this.animal.setDataNascimento(Integer.parseInt(this.nascimento.getText().toString()));
             this.animal.setDescricao(this.descricao.getText().toString());
             this.animal.setVacinas(this.vacinas.getText().toString());
+            this.animal.setCastrado(this.castrado.isChecked());
 
             if (this.animal.getId() != null) {
                 this.editarAnimal();
@@ -104,6 +107,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
         this.nascimento = v.findViewById(R.id.et_nascimento_formadocao);
         this.descricao = v.findViewById(R.id.et_descricao_formadocao);
         this.vacinas = v.findViewById(R.id.et_vacinas_formadocao);
+        this.castrado = v.findViewById(R.id.cb_castrado_formadocao);
         this.salvar = v.findViewById(R.id.bt_salvar_formadocao);
 
         this.tipoAnimal.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, TipoAnimal.ANIMAIS));
@@ -128,6 +132,7 @@ public class FormAnimalAdocaoFragment extends Fragment {
         this.nascimento.setText(this.animal.getDataNascimento() == null ? null : Integer.toString(this.animal.getDataNascimento()));
         this.descricao.setText(this.animal.getDescricao());
         this.vacinas.setText(this.animal.getVacinas());
+        this.castrado.setChecked(this.animal.getCastrado());
         RadioButton rb;
         if (Sexo.MACHO.equals(this.animal.getSexo())) {
             rb = v.findViewById(R.id.rb_macho_formadocao);

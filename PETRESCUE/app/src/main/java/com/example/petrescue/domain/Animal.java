@@ -13,6 +13,7 @@ public class Animal implements Serializable {
     private SituacaoAdocao situacaoAdocao;
     private String foto;
     private TipoAnimal tipoAnimal;
+    private Boolean castrado;
     private String raca;
     private Sexo sexo;
     private Integer dataNascimento;
@@ -24,12 +25,13 @@ public class Animal implements Serializable {
     public Animal() {
     }
 
-    public Animal(Integer id, String nome, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer idUsuario, String nomeUsuario) {
+    public Animal(Integer id, String nome, SituacaoAdocao situacaoAdocao, String foto, TipoAnimal tipoAnimal, Boolean castrado, String raca, Sexo sexo, Integer dataNascimento, String descricao, String vacinas, Integer idUsuario, String nomeUsuario) {
         this.id = id;
         this.nome = nome;
         this.situacaoAdocao = situacaoAdocao;
         this.foto = foto;
         this.tipoAnimal = tipoAnimal;
+        this.castrado = castrado;
         this.raca = raca;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
@@ -77,6 +79,14 @@ public class Animal implements Serializable {
 
     public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
+    }
+
+    public Boolean getCastrado() {
+        return castrado;
+    }
+
+    public void setCastrado(Boolean castrado) {
+        this.castrado = castrado;
     }
 
     public String getRaca() {
@@ -143,6 +153,7 @@ public class Animal implements Serializable {
                 ", situacaoAdocao=" + situacaoAdocao +
                 ", foto='" + foto + '\'' +
                 ", tipoAnimal=" + tipoAnimal +
+                ", castrado=" + castrado +
                 ", raca='" + raca + '\'' +
                 ", sexo=" + sexo +
                 ", dataNascimento=" + dataNascimento +

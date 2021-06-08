@@ -19,26 +19,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text=":nome:"
-            android:textStyle="bold"/>
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_mensagem_itemlistamensagem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/tv_horario_itemlistamensagem"
             android:layout_toRightOf="@id/tv_nome_itemlistamensagem"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text=":mensagem:" />
+            android:text=":mensagem:"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_horario_itemlistamensagem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text=":horario:"
-            android:layout_alignParentRight="true" />
+            android:textColor="@color/black" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

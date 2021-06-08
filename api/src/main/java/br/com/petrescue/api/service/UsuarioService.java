@@ -48,7 +48,7 @@ public class UsuarioService {
         this.geralValidator.string(usuario.getSenha(), "Senha");
         this.geralValidator.validarEmail(usuario.getEmail());
         if (TipoUsuario.INSTITUCIONAL.equals(usuario.getTipoUsuario())) {
-            this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/instituição");
+            this.geralValidator.string(usuario.getDescricao(), "Descrição de ONG/Instituição");
             this.geralValidator.validarCpfCnpj(usuario.getCpfCnpj());
         }
         return new UsuarioDTO(this.usuarioRepository.save(usuario));

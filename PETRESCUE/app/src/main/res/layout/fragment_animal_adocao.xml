@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,27 +15,91 @@
         android:id="@+id/tv_nome_animaladocao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:text=":nome:"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
 
     <ImageView
         android:id="@+id/iv_foto_animaladocao"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_below="@id/tv_nome_animaladocao"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
         android:src="@drawable/pets_icon" />
 
+    <LinearLayout
+        android:id="@+id/ll_container_animaladocao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_foto_animaladocao"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_raca_animaladocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=":raca:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_idade_animaladocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=":idade:"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_container2_animaladocao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_container_animaladocao"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_sexo_animaladocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=":sexo:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_castrado_animaladocao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=":castrado:"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        app:boxBackgroundMode="outline">
+        android:id="@+id/container_descricao_animaladocao"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxBackgroundMode="outline"
+        android:layout_below="@id/ll_container2_animaladocao">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tv_descricao_animaladocao"
@@ -46,13 +110,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:layout_below="@id/container_descricao_animaladocao"
+        android:id="@+id/container_vacinas_animaladocao"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxBackgroundMode="outline">
 
-        <com.google.android.material.textfield.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tv_vacinas_animaladocao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +131,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layout_below="@id/container_vacinas_animaladocao">
 
         <Button
             android:id="@+id/bt_editar_animaladocao"
@@ -90,8 +157,8 @@
         android:id="@+id/bt_acessar_usuario_animaladocao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="Acesse o perfil do dono"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_below="@id/ll_dono_animaladocao"/>
 
-</LinearLayout>
+</RelativeLayout>

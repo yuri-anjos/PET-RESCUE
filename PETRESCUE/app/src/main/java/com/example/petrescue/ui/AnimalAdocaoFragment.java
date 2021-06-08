@@ -26,6 +26,8 @@ import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +48,10 @@ public class AnimalAdocaoFragment extends Fragment {
     private TextInputEditText vacinas;
     private TextView nome;
     private LinearLayout dono;
+    private TextView raca;
+    private TextView idade;
+    private TextView sexo;
+    private TextView castrado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +105,10 @@ public class AnimalAdocaoFragment extends Fragment {
         this.foto = v.findViewById(R.id.iv_foto_animaladocao);
         this.nome = v.findViewById(R.id.tv_nome_animaladocao);
         this.dono = v.findViewById(R.id.ll_dono_animaladocao);
+        this.raca = v.findViewById(R.id.tv_raca_animaladocao);
+        this.idade = v.findViewById(R.id.tv_idade_animaladocao);
+        this.sexo = v.findViewById(R.id.tv_sexo_animaladocao);
+        this.castrado = v.findViewById(R.id.tv_castrado_animaladocao);
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.animalService = this.retrofit.create(AnimalService.class);
@@ -133,6 +143,10 @@ public class AnimalAdocaoFragment extends Fragment {
         this.nome.setText(this.animal.getNome());
         this.descricao.setText(this.animal.getDescricao());
         this.vacinas.setText(this.animal.getVacinas());
+        this.raca.setText(this.animal.getRaca());
+        this.idade.setText(Integer.toString(Calendar.getInstance().get(Calendar.YEAR) - this.animal.getDataNascimento()) + " ano(s)");
+        this.sexo.setText(this.animal.getSexo().toString());
+        this.castrado.setText(this.animal.getCastrado() == true ? "Castrado" : "Não castrado");
         this.btAcessarUsuario.setText("Acesse o perfil de " + this.animal.getNomeUsuario());
 
         if (ControleActivity.USUARIO.getId().equals(this.animal.getIdUsuario())) {
