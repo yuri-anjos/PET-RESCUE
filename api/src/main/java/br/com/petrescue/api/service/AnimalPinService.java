@@ -7,6 +7,7 @@ import br.com.petrescue.api.domain.subClasses.Localizacao;
 import br.com.petrescue.api.exceptions.NaoEncontradoException;
 import br.com.petrescue.api.repository.AnimalPinRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
+import br.com.petrescue.api.utils.GeralValidator;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,9 @@ public class AnimalPinService {
 
     @Autowired
     private AnimalPinRepository animalPinRepository;
+
+    @Autowired
+    private GeralValidator geralValidator;
 
     public List<AnimalPINDTO> buscarAnimaisPin(Localizacao localizacao) {
         return this.animalPinRepository.buscarPinDentroDeRaio(localizacao.getLatitude(), localizacao.getLongitude(), 15.0).stream().map(AnimalPINDTO::new).collect(Collectors.toList());
@@ -38,6 +42,8 @@ public class AnimalPinService {
         AnimalPIN animalPIN = new AnimalPIN(animalPinDTO);
         Usuario usuario = this.usuarioRepository.findById(animalPinDTO.getIdUsuario()).orElseThrow(() -> new NaoEncontradoException("Usuário não encontrado!"));
 
+        this.geralValidator.localizacao(animalPinDTO.getLocalizacao());
+        
         animalPIN.setAtivo(true);
         animalPIN.setDataCadastro(LocalDate.now());
         animalPIN.setUsuario(usuario);

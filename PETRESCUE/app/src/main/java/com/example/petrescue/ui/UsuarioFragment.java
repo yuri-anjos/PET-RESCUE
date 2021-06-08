@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.CarteiraDTO;
@@ -40,6 +41,7 @@ public class UsuarioFragment extends Fragment {
     private TextView email;
     private TextView saldo;
     private TextView descricao;
+    private TextView cpfCnpj;
     private TextInputEditText saldoAdicional;
     private Button adicionarSaldo;
     private Button editar;
@@ -71,7 +73,7 @@ public class UsuarioFragment extends Fragment {
             bundle.putInt("idusuario", this.usuario.getId());
             Navigation.findNavController(this.view).navigate(R.id.action_nav_usuario_to_nav_lista_adocao_usuario, bundle);
         });
-        
+
         this.listaVaquinhas.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("idusuario", this.usuario.getId());
@@ -138,6 +140,7 @@ public class UsuarioFragment extends Fragment {
         this.email = v.findViewById(R.id.tv_email_usuario);
         this.saldo = v.findViewById(R.id.tv_saldo_usuario);
         this.descricao = v.findViewById(R.id.tv_descricao_usuario);
+        this.cpfCnpj = v.findViewById(R.id.tv_cpfcnpj_usuario);
         this.saldoAdicional = v.findViewById(R.id.et_saldo_adicional_usuario);
         this.adicionarSaldo = v.findViewById(R.id.bt_adicionar_saldo_usuario);
         this.editar = v.findViewById(R.id.bt_editar_usuario);
@@ -182,6 +185,8 @@ public class UsuarioFragment extends Fragment {
     private void atualizaCampos() {
         this.nome.setText(this.usuario.getNome());
         this.email.setText(this.usuario.getEmail());
+        this.descricao.setText(this.usuario.getDescricao());
+        this.cpfCnpj.setText(this.usuario.getCpfCnpj());
         if (ControleActivity.USUARIO.getId().equals(this.usuario.getId())) {
             this.editar.setVisibility(View.VISIBLE);
             this.conversar.setVisibility(View.GONE);
@@ -194,12 +199,14 @@ public class UsuarioFragment extends Fragment {
             this.editar.setVisibility(View.GONE);
             this.conversar.setVisibility(View.VISIBLE);
         }
-        if(TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())){
+        if (TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())) {
             this.descricao.setVisibility(View.VISIBLE);
-        }else{
+            this.cpfCnpj.setVisibility(View.VISIBLE);
+        } else {
             this.descricao.setVisibility(View.GONE);
+            this.cpfCnpj.setVisibility(View.GONE);
         }
-        int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
+        int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon;
         this.foto.setImageResource(img);
         if (this.usuario.getFoto() != null && this.usuario.getFoto().length() > 0) {
             Picasso.get()

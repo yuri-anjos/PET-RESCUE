@@ -46,6 +46,17 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_cpfcnpj_usuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text=":descricao:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/tv_saldo_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
