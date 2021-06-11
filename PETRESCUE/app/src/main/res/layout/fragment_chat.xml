@@ -17,11 +17,11 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_foto_chat"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/perfil_icon"
+            android:src="@drawable/perfil_icon"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView

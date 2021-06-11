@@ -69,19 +69,28 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        app:boxBackgroundMode="outline">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_foto_cadastrousuario"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_foto_cadastro"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Foto" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_weight="1"
+            android:text="Carregar Foto" />
+
+        <TextView
+            android:id="@+id/img_message_cadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="imgUrl"
+            android:textSize="13sp" />
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/rg_tipo_cadastrousuario"

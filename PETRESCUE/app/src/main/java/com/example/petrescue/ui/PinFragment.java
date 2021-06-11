@@ -1,6 +1,9 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +116,6 @@ public class PinFragment extends Fragment {
         this.tipoAnimal.setText(this.pin.getTipoAnimal().toString());
         this.raca.setText(this.pin.getRaca());
         this.btAcessarUsuario.setText("Acesse o perfil de " + this.pin.getNomeUsuario());
-
         if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
             this.raca.setVisibility(View.GONE);
         }else{
@@ -132,14 +134,10 @@ public class PinFragment extends Fragment {
             this.editar.setVisibility(View.GONE);
         }
 
-        if (this.pin.getFoto() != null && this.pin.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(this.pin.getFoto()).transform(new RoundedCornersTransform())
-                    .placeholder(R.drawable.pets_icon)
-                    .error(R.drawable.pets_icon)
-                    .resize(150, 150)
-                    .centerCrop()
-                    .into(this.foto);
+        if (this.pin.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(this.pin.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            foto.setImageBitmap(bitmap);
         }
     }
 }

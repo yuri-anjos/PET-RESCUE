@@ -16,6 +16,8 @@ public class Usuario implements Serializable {
     private String nome;
     private String foto;
 
+    private Localizacao localizacao;
+
     private TipoUsuario tipoUsuario;
 
     private String cpfCnpj;
@@ -34,6 +36,14 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() {
+    }
+
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
     }
 
     public Integer getId() {

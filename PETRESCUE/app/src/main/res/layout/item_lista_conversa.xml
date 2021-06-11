@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_foto_itemlistaconversa"
             android:layout_width="48dp"
             android:layout_height="48dp"

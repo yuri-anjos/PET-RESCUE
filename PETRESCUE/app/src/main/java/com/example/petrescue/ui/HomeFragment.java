@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.enums.TipoPIN;
@@ -53,6 +55,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +76,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private Retrofit retrofit = RetrofitConfig.generateRetrofit();
     private AnimalPinService animalPinService = this.retrofit.create(AnimalPinService.class);
     private List<AnimalPIN> animalPINS = new ArrayList<>();
+    private FloatingActionButton btnListPins;
 
+    private Localizacao localizacao;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -84,6 +89,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         newSpottedAnimalButton = view.findViewById(R.id.newSpottedAnimalButtom);
         newMissingAnimalButton = view.findViewById(R.id.newMissingAnimalButtom);
+        btnListPins = view.findViewById(R.id.listAnimalPinsButton);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
         // clickListeners
@@ -97,6 +103,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             AnimalPIN animalPIN = new AnimalPIN();
             animalPIN.setTipoPIN(TipoPIN.DESAPARECIDO);
             this.buscarLocalizacaoETrocarTela(animalPIN, v);
+        });
+
+        btnListPins.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("location", (Serializable) localizacao);
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_lista_pin, bundle);
         });
 
         return this.view;
@@ -190,9 +202,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             } else {
                 Log.e("Error", "Location not found");
             }
-            Localizacao localizacao = new Localizacao();
-            localizacao.setLatitude(location.getLatitude());
-            localizacao.setLongitude(location.getLongitude());
+            this.localizacao = new Localizacao();
+            this.localizacao.setLatitude(location.getLatitude());
+            this.localizacao.setLongitude(location.getLongitude());
 
             this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
                 @Override

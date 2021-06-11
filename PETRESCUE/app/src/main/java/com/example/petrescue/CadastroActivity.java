@@ -1,13 +1,19 @@
 package com.example.petrescue;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petrescue.domain.Usuario;
@@ -16,6 +22,9 @@ import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +37,6 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputEditText etEmail;
     private TextInputEditText etSenha;
     private TextInputEditText etSenha2;
-    private TextInputEditText etFoto;
 
     private TextInputEditText etCpfCnpj;
     private TextInputEditText etDescricaoOng;
@@ -36,10 +44,15 @@ public class CadastroActivity extends AppCompatActivity {
     private LinearLayout llInstituiucao;
     private RadioGroup rgTipoUsuario;
     private Button btCadastroUsuario;
+    private Button btnFoto;
+    private TextView imgMessage;
 
     private Usuario usuario;
     private Retrofit retrofit;
     private UsuarioService usuarioService;
+
+    private final static int IMG_REQUEST_CODE = 21;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,13 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         this.iniciarComponentes();
+
+        this.btnFoto.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, IMG_REQUEST_CODE);
+        });
 
         this.rgTipoUsuario.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
@@ -66,7 +86,7 @@ public class CadastroActivity extends AppCompatActivity {
                 this.usuario.setNome(this.etNome.getText().toString());
                 this.usuario.setEmail(this.etEmail.getText().toString());
                 this.usuario.setSenha(this.etSenha.getText().toString());
-                this.usuario.setFoto(this.etFoto.getText().toString());
+                if(bitmap != null) this.usuario.setFoto(imageToBase64());
                 if (this.usuario.getTipoUsuario().equals(TipoUsuario.INDIVIDUO)) {
                     this.usuario.setCpfCnpj(null);
                     this.usuario.setDescricao(null);
@@ -85,12 +105,39 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
+    public String imageToBase64() {
+        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteOutput);
+        byte[] imgBytes = byteOutput.toByteArray();
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMG_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri path = data.getData();
+            this.imgMessage.setText("Imagem carregada!");
+            this.imgMessage.setVisibility(View.VISIBLE);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("Erro", "deu erro isso ae");
+            }
+        }
+
+    }
+
     private void iniciarComponentes() {
         this.etNome = this.findViewById(R.id.et_nome_cadastrousuario);
         this.etEmail = this.findViewById(R.id.et_email_cadastrousuario);
         this.etSenha = this.findViewById(R.id.et_senha_cadastrousuario);
         this.etSenha2 = this.findViewById(R.id.et_senha2_cadastrousuario);
-        this.etFoto = this.findViewById(R.id.et_foto_cadastrousuario);
+        this.btnFoto = this.findViewById(R.id.btn_foto_cadastro);
+        this.imgMessage = this.findViewById(R.id.img_message_cadastro);
+        this.imgMessage.setVisibility(View.GONE);
 
         this.etCpfCnpj = this.findViewById(R.id.et_cpf_cnpj_cadastrousuario);
         this.etDescricaoOng = this.findViewById(R.id.et_descricao_cadastrousuario);

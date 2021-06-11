@@ -1,5 +1,8 @@
 package com.example.petrescue.domain.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +44,10 @@ public class AdapterAnimal extends RecyclerView.Adapter<AdapterAnimal.ViewHolder
         holder.sitacaoAdocao.setText("Situacao: " + animal.getSituacaoAdocao().toString());
         holder.tipoAnimal.setText(animal.getTipoAnimal().toString());
         holder.sexo.setText(animal.getSexo().toString());
-        if (animal.getFoto() != null && animal.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(animal.getFoto()).transform(new RoundedCornersTransform())
-                    .placeholder(R.drawable.pets_icon)
-                    .error(R.drawable.pets_icon)
-                    .resize(150, 150)
-                    .centerCrop()
-                    .into(holder.foto);
+        if (animal.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(animal.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            holder.foto.setImageBitmap(bitmap);
         }
     }
 

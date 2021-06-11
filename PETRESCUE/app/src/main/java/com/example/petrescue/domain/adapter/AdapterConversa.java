@@ -1,5 +1,8 @@
 package com.example.petrescue.domain.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +49,10 @@ public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHo
             holder.mensagem.setText("");
             holder.horario.setText("");
         }
-        if (conversa.getFoto() != null && conversa.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(conversa.getFoto()).transform(new CircleImageTransform())
-                    .placeholder(R.drawable.perfil_icon)
-                    .error(R.drawable.perfil_icon)
-                    .resize(48, 48)
-                    .centerCrop()
-                    .into(holder.foto);
+        if (conversa.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(conversa.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            holder.foto.setImageBitmap(bitmap);
         }
     }
 

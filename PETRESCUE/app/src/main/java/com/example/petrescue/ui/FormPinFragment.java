@@ -1,6 +1,11 @@
 package com.example.petrescue.ui;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,31 +27,39 @@ import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
-import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.AnimalPinService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class FormPinFragment extends Fragment {
 
     private TextView descricaoTela;
     private TextInputEditText descricao;
-    private TextInputEditText foto;
     private TextInputEditText raca;
     private TextInputLayout containerRaca;
     private Spinner tipoAnimal;
     private Button salvar;
+    private Button btnFoto;
+    private TextView imgMessage;
 
     private AnimalPIN pin;
     private AnimalPinService animalPinService;
     private Retrofit retrofit;
+
+    private final static int IMG_REQUEST_CODE = 21;
+    private Bitmap bitmap;
 
     @Nullable
     @Override
@@ -59,11 +72,17 @@ public class FormPinFragment extends Fragment {
 
         this.inicializaComponentes(view);
 
+        this.btnFoto.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, IMG_REQUEST_CODE);
+        });
+
         this.salvar.setOnClickListener(v -> {
             this.pin.setDescricao(this.descricao.getText().toString());
-            this.pin.setFoto(this.foto.getText().toString());
             this.pin.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
-
+            if(bitmap != null) this.pin.setFoto(imageToBase64());
             if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
                 this.pin.setRaca(null);
             }else{
@@ -81,14 +100,41 @@ public class FormPinFragment extends Fragment {
         return view;
     }
 
+    public String imageToBase64() {
+        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteOutput);
+        byte[] imgBytes = byteOutput.toByteArray();
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMG_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri path = data.getData();
+            this.imgMessage.setText("Imagem carregada!");
+            this.imgMessage.setVisibility(View.VISIBLE);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("Erro", "deu erro isso ae");
+            }
+        }
+
+    }
+
     private void inicializaComponentes(View view) {
         this.descricao = view.findViewById(R.id.et_descricao_formpin);
-        this.foto = view.findViewById(R.id.et_foto_formpin);
         this.raca = view.findViewById(R.id.et_raca_formpin);
         this.tipoAnimal = view.findViewById(R.id.sp_tipoanimal_formpin);
         this.salvar = view.findViewById(R.id.bt_salvar_formpin);
         this.containerRaca = view.findViewById(R.id.container_raca_formpin);
         this.descricaoTela = view.findViewById(R.id.tv_descricao_tela_formpin);
+        this.btnFoto = view.findViewById(R.id.btn_foto_pin);
+        this.imgMessage = view.findViewById(R.id.img_message_form_pin);
+        this.imgMessage.setVisibility(View.GONE);
 
         this.tipoAnimal.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, TipoAnimal.ANIMAIS));
         this.retrofit = RetrofitConfig.generateRetrofit();
@@ -114,7 +160,6 @@ public class FormPinFragment extends Fragment {
             }
         }
         this.descricao.setText(this.pin.getDescricao());
-        this.foto.setText(this.pin.getFoto());
         this.raca.setText(this.pin.getRaca());
     }
 

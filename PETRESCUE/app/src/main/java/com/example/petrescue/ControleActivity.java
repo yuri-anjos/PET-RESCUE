@@ -1,6 +1,9 @@
 package com.example.petrescue;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,8 +58,6 @@ public class ControleActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
-
         this.idusuario = getIntent().getExtras().getInt("idusuario");
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.usuarioService = retrofit.create(UsuarioService.class);
@@ -102,14 +103,10 @@ public class ControleActivity extends AppCompatActivity {
         email.setText(USUARIO.getEmail());
         int img = TipoUsuario.INSTITUCIONAL.equals(USUARIO.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon ;
         foto.setImageResource(img);
-        if (USUARIO.getFoto() != null && USUARIO.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(USUARIO.getFoto()).transform(new CircleImageTransform())
-                    .placeholder(img)
-                    .error(img)
-                    .resize(130, 130)
-                    .centerCrop()
-                    .into(foto);
+        if (USUARIO.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(USUARIO.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            foto.setImageBitmap(bitmap);
         }
     }
 }

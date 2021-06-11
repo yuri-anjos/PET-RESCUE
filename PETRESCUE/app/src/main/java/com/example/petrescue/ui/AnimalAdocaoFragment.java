@@ -1,10 +1,13 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,14 +164,10 @@ public class AnimalAdocaoFragment extends Fragment {
             this.btAcessarUsuario.setVisibility(View.VISIBLE);
         }
 
-        if (this.animal.getFoto() != null && this.animal.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(this.animal.getFoto()).transform(new RoundedCornersTransform())
-                    .placeholder(R.drawable.pets_icon)
-                    .error(R.drawable.pets_icon)
-                    .resize(150, 150)
-                    .centerCrop()
-                    .into(this.foto);
+        if(this.animal.getFoto() != null) {
+            byte[] byteArray = Base64.decode(this.animal.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            foto.setImageBitmap(bitmap);
         }
     }
 }

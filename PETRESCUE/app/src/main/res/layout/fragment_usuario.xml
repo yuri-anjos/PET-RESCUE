@@ -10,7 +10,7 @@
     android:padding="10dp"
     tools:context=".ui.UsuarioFragment">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_foto_usuario"
         android:layout_width="130dp"
         android:layout_height="130dp"
