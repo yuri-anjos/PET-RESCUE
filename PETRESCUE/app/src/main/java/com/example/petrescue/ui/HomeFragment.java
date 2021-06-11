@@ -48,10 +48,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -63,8 +61,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -205,7 +201,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             this.localizacao = new Localizacao();
             this.localizacao.setLatitude(location.getLatitude());
             this.localizacao.setLongitude(location.getLongitude());
-
+//            ControleActivity.USUARIO.setLocalizacao(localizacao);
             this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
                 @Override
                 public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {

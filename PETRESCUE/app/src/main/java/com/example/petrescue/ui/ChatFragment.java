@@ -28,7 +28,6 @@ import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.MensagemService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,7 +156,7 @@ public class ChatFragment extends Fragment {
 
     private void carregarCampos() {
         this.nome.setText(ControleActivity.USUARIO.getId().equals(this.conversa.getIdUsuarioUm()) ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
-        if(this.conversa.getFoto() != null) {
+        if (this.conversa.getFoto() != null) {
             byte[] imgBytes = Base64.decode(this.conversa.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             this.foto.setImageBitmap(bitmap);

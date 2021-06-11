@@ -64,11 +64,18 @@ public class EditarUsuarioFragment extends Fragment {
 
         this.inicializaComponentes(v);
 
+        this.btnFoto.setOnClickListener(v1 -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, IMG_REQUEST_CODE);
+        });
+
         this.salvar.setOnClickListener(v1 -> {
             this.usuario.setNome(this.nome.getText().toString());
             this.usuario.setEmail(this.email.getText().toString());
-            if(bitmap != null) this.usuario.setFoto(imageToBase64());
-                if (TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())) {
+            if (bitmap != null) this.usuario.setFoto(imageToBase64());
+            if (TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario())) {
                 this.usuario.setDescricao(this.descricao.getText().toString());
                 this.usuario.setCpfCnpj(this.cpfCnpj.getText().toString());
             }
