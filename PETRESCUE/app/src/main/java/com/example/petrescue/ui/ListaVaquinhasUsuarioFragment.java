@@ -73,8 +73,7 @@ public class ListaVaquinhasUsuarioFragment extends Fragment implements AdapterVa
                     } else {
                         listaVaquinha.clear();
                         listaVaquinha.addAll(response.body());
-                        vaquinhaAdapter.notifyDataSetChanged();
-                    }
+                        vaquinhaAdapter.notifyDataSetChanged();                    }
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();
                     Log.i("DEBUG", "RESPONSE ERROR: " + response.raw());
