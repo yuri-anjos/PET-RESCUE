@@ -213,6 +213,7 @@ public class UsuarioFragment extends Fragment {
             byte[] imgBytes = Base64.decode(this.usuario.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             foto.setImageBitmap(bitmap);
+            foto.setRotation(90);
         }
     }
 }

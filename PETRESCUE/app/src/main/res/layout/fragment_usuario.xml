@@ -145,7 +145,8 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="Listar vaquinhas" />
+            android:text="Listar vaquinhas"
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/bt_lista_animais_adocao_usuario"
@@ -154,7 +155,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Listar Animais" />
+            android:text="Listar Animais"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

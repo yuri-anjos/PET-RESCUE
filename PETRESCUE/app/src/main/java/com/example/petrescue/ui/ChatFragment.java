@@ -160,6 +160,7 @@ public class ChatFragment extends Fragment {
             byte[] imgBytes = Base64.decode(this.conversa.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             this.foto.setImageBitmap(bitmap);
+            foto.setRotation(90);
         }
     }
 }

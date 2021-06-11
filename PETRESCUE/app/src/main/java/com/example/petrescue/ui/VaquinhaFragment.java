@@ -163,6 +163,7 @@ public class VaquinhaFragment extends Fragment {
             byte[] imgBytes = Base64.decode(this.vaquinha.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             foto.setImageBitmap(bitmap);
+            foto.setRotation(90);
         }
 
         if (ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())) {

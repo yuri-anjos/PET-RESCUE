@@ -51,6 +51,7 @@ public class AdapterConversa extends RecyclerView.Adapter<AdapterConversa.ViewHo
             byte[] imgBytes = Base64.decode(conversa.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             holder.foto.setImageBitmap(bitmap);
+            holder.foto.setRotation(90);
         }
     }
 

@@ -44,6 +44,7 @@ public class AdapterInstituicoes extends RecyclerView.Adapter<AdapterInstituicoe
             byte[] imgBytes = Base64.decode(usuario.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             holder.foto.setImageBitmap(bitmap);
+            holder.foto.setRotation(90);
         }
     }
 

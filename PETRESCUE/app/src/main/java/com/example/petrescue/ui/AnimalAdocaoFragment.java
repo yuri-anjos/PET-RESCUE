@@ -166,6 +166,7 @@ public class AnimalAdocaoFragment extends Fragment {
             byte[] byteArray = Base64.decode(this.animal.getFoto(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             foto.setImageBitmap(bitmap);
+            foto.setRotation(90);
         }
     }
 }
