@@ -1,6 +1,9 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,14 +161,10 @@ public class ChatFragment extends Fragment {
 
     private void carregarCampos() {
         this.nome.setText(ControleActivity.USUARIO.getId().equals(this.conversa.getIdUsuarioUm()) ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
-        if (this.conversa.getFoto() != null && this.conversa.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(this.conversa.getFoto()).transform(new CircleImageTransform())
-                    .placeholder(R.drawable.perfil_icon)
-                    .error(R.drawable.perfil_icon)
-                    .resize(64, 64)
-                    .centerCrop()
-                    .into(this.foto);
+        if (this.conversa.getFoto() != null ) {
+            byte[] imgBytes = Base64.decode(this.conversa.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            this.foto.setImageBitmap(bitmap);
         }
     }
 }

@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             this.localizacao = new Localizacao();
             this.localizacao.setLatitude(location.getLatitude());
             this.localizacao.setLongitude(location.getLongitude());
-
+//            ControleActivity.USUARIO.setLocalizacao(localizacao);
             this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
                 @Override
                 public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
