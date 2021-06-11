@@ -40,13 +40,8 @@ public class ListaAnimalPin extends Fragment implements AdapterPin.OnPinListener
     private RecyclerView recyclerView;
     private AdapterPin adapterPin;
     private List<AnimalPIN> animalPINList;
-    private int pagina;
     private Retrofit retrofit;
     private AnimalPinService animalPinService;
-
-    private Button btMinusPage;
-    private Button btPlusPage;
-    private TextView tvActualPage;
     private View view;
     private Localizacao localizacao;
 
@@ -64,15 +59,11 @@ public class ListaAnimalPin extends Fragment implements AdapterPin.OnPinListener
     @Override
     public void onResume() {
         super.onResume();
-        buscarPins(pagina);
+        buscarPins();
     }
 
     private void inicializaComponentes(View v) {
         this.recyclerView = v.findViewById(R.id.rv_listapin);
-        this.btMinusPage = v.findViewById(R.id.bt_minuspage_listapins);
-        this.btPlusPage = v.findViewById(R.id.bt_pluspage_listapins);
-        this.tvActualPage = v.findViewById(R.id.tv_actualpage_listapins);
-        this.pagina = 0;
 
         this.retrofit = RetrofitConfig.generateRetrofit();
         this.animalPinService = retrofit.create(AnimalPinService.class);
@@ -83,7 +74,7 @@ public class ListaAnimalPin extends Fragment implements AdapterPin.OnPinListener
         this.recyclerView.setAdapter(this.adapterPin);
     }
 
-    private void buscarPins(int pg) {
+    private void buscarPins() {
         this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
             @Override
             public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
@@ -94,15 +85,6 @@ public class ListaAnimalPin extends Fragment implements AdapterPin.OnPinListener
                         animalPINList.clear();
                         animalPINList.addAll(response.body());
                         adapterPin.notifyDataSetChanged();
-                        pagina = pg;
-
-                        btPlusPage.setEnabled(animalPINList.size() == 10);
-
-                        btMinusPage.setEnabled(pg != 0);
-
-                        btPlusPage.setText(Integer.toString(pg + 2));
-                        btMinusPage.setText(Integer.toString(pg));
-                        tvActualPage.setText(Integer.toString(pg + 1));
                     }
                 } else {
                     Toast.makeText(getActivity(), ErrorResponse.formatErrorResponse(response), Toast.LENGTH_LONG).show();

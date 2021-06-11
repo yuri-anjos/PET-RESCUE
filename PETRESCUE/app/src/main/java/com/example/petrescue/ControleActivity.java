@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.navigation.NavigationView;
@@ -36,6 +37,7 @@ public class ControleActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private UsuarioService usuarioService;
     public static Usuario USUARIO;
+    public static Localizacao USER_LOCATION;
     private Integer idusuario;
 
     @Override

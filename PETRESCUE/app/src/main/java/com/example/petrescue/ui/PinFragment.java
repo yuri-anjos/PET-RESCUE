@@ -74,13 +74,12 @@ public class PinFragment extends Fragment implements OnMapReadyCallback {
         this.editar.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("pin", this.pin);
-
             Navigation.findNavController(v).navigate(R.id.action_nav_pin_to_nav_form_pin, bundle);
         });
 
         this.btAcessarUsuario.setOnClickListener(v1 -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("idusuario", this.pin.getIdUsuario());
+            bundle.putInt("idusuario", this.pin.getIdUsuario());
             Navigation.findNavController(v).navigate(R.id.action_nav_pin_to_nav_usuario, bundle);
         });
 
@@ -110,6 +109,9 @@ public class PinFragment extends Fragment implements OnMapReadyCallback {
                 if (response.isSuccessful()) {
                     pin = response.body();
                     atualizaCampos();
+                    if (mMap != null) {
+                        mMap.clear();
+                    }
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(pin.getLocalizacao().getLatitude(), pin.getLocalizacao().getLongitude()), 16.0f));
                     switch (pin.getTipoAnimal()) {
                         case CACHORRO:

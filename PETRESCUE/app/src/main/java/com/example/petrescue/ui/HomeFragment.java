@@ -83,8 +83,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        newSpottedAnimalButton = view.findViewById(R.id.newSpottedAnimalButtom);
-        newMissingAnimalButton = view.findViewById(R.id.newMissingAnimalButtom);
+        newSpottedAnimalButton = view.findViewById(R.id.newSpottedAnimalButton);
+        newMissingAnimalButton = view.findViewById(R.id.newMissingAnimalButton);
         btnListPins = view.findViewById(R.id.listAnimalPinsButton);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         btnListPins.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("location", (Serializable) localizacao);
+            bundle.putSerializable("location", localizacao);
             Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_lista_pin, bundle);
         });
 
@@ -111,21 +111,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void buscarLocalizacaoETrocarTela(AnimalPIN animalPIN, View v) {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat
-                .checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        client.getLastLocation().addOnSuccessListener(location -> {
-            if (location == null) {
-                Log.e("ERROR", "Location not found");
-            }
-            animalPIN.setLocalizacao(new Localizacao(location.getLatitude(), location.getLongitude()));
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("pin", animalPIN);
-            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_form_pin, bundle);
-        });
+        animalPIN.setLocalizacao(ControleActivity.USER_LOCATION);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("pin", animalPIN);
+        Navigation.findNavController(v).navigate(R.id.action_nav_home_to_nav_form_pin, bundle);
     }
 
     @Override
@@ -151,7 +140,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 Localizacao location = pin.getLocalizacao();
                 if (location.getLatitude() == latitude && location.getLongitude() == longitude) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("idpin", pin.getId());
+                    bundle.putInt("idpin", pin.getId());
                     Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_pin, bundle);
                 }
             }
@@ -198,11 +187,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             } else {
                 Log.e("Error", "Location not found");
             }
-            this.localizacao = new Localizacao();
-            this.localizacao.setLatitude(location.getLatitude());
-            this.localizacao.setLongitude(location.getLongitude());
-//            ControleActivity.USUARIO.setLocalizacao(localizacao);
-            this.animalPinService.buscarAnimaisPin(localizacao).enqueue(new Callback<List<AnimalPIN>>() {
+            this.localizacao = new Localizacao(location.getLatitude(), location.getLongitude());
+            ControleActivity.USER_LOCATION = this.localizacao;
+            this.animalPinService.buscarAnimaisPin(this.localizacao).enqueue(new Callback<List<AnimalPIN>>() {
                 @Override
                 public void onResponse(Call<List<AnimalPIN>> call, Response<List<AnimalPIN>> response) {
                     if (response.isSuccessful()) {
@@ -212,7 +199,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             Location location = new Location("none");
                             location.setLatitude(pin.getLocalizacao().getLatitude());
                             location.setLongitude(pin.getLocalizacao().getLongitude());
-
                             switch (pin.getTipoAnimal()) {
                                 case CACHORRO:
                                     createMarker(location, TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
@@ -246,8 +232,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }).addOnFailureListener(e -> Log.e("Error", e.getMessage()));
 
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10 * 1000);
-        locationRequest.setFastestInterval(3 * 1000);
+        locationRequest.setInterval(15 * 1000);
+        locationRequest.setFastestInterval(5 * 1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
@@ -274,14 +260,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 } else {
                     for (Location location : locationResult.getLocations()) {
                         Log.i("DEBUG", "Localizacao atual: " + location.getLatitude() + " " + location.getLongitude());
+                        ControleActivity.USER_LOCATION = new Localizacao(location.getLatitude(), location.getLongitude());
                     }
                 }
-            }
-
-            @Override
-            public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
-                super.onLocationAvailability(locationAvailability);
-                Log.i("DEBUG", "Localizacao disponivel.");
             }
         };
         client.requestLocationUpdates(locationRequest, locationCallback, null);

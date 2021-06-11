@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.AnimalPIN;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,10 +38,10 @@ public class AdapterPin extends RecyclerView.Adapter<AdapterPin.ViewHolderPin> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolderPin holder, int position) {
         AnimalPIN animalPin = this.data.get(position);
-        LatLng userLatLng = new LatLng(-27.8339308, -50.1366267);
+        LatLng userLatLng = new LatLng(ControleActivity.USER_LOCATION.getLatitude(), ControleActivity.USER_LOCATION.getLongitude());
         LatLng pinLatLng = new LatLng(animalPin.getLocalizacao().getLatitude(), animalPin.getLocalizacao().getLongitude());
 
-        holder.distancia.setText(new DecimalFormat("##.#").format(distanceBetween(pinLatLng, userLatLng)));
+        holder.distancia.setText(new DecimalFormat("##.#").format(distanceBetween(pinLatLng, userLatLng)) + "km");
         holder.tipoPin.setText(String.valueOf(animalPin.getTipoPIN()));
         holder.tipoAnimal.setText(String.valueOf(animalPin.getTipoAnimal()));
     }

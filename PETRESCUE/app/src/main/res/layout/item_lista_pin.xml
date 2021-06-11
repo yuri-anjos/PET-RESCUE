@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:layout_margin="5dp"
     android:gravity="center_horizontal"
-    android:padding="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
 
-    <TextView
-        android:id="@+id/tv_distancia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:text="2,0km"
-        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_tipo_pin_lista"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_horizontal"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Avistado"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tv_tipo_animal_lista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|center_horizontal"
-        android:layout_weight="1"
-        android:gravity="center|center_horizontal"
-        android:text="Cachorro"
-        android:textSize="16sp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_tipo_animal_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text=":tipoanimal:"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_tipo_pin_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/tv_distancia"
+            android:layout_toRightOf="@id/tv_tipo_animal_lista"
+            android:gravity="center"
+            android:text=":tipopin:"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_distancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:text=":distancia:"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
