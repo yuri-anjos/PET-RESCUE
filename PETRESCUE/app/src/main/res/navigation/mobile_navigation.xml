@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_pin"
             app:destination="@id/nav_pin" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_lista_pin"
+            app:destination="@id/nav_lista_pin" />
     </fragment>
 
     <fragment
@@ -166,6 +169,15 @@
         android:id="@+id/nav_logout"
         android:name="com.example.petrescue.ui.LogoutFragment"
         android:label="Logout">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_lista_pin"
+        android:name="com.example.petrescue.ui.ListaAnimalPin"
+        android:label="Lista Animal PIN">
+        <action
+            android:id="@+id/action_nav_lista_pin_to_nav_pin"
+            app:destination="@id/nav_pin" />
     </fragment>
 
     <fragment

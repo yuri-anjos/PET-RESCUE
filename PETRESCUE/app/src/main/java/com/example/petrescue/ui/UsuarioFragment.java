@@ -1,6 +1,9 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,14 +211,10 @@ public class UsuarioFragment extends Fragment {
         }
         int img = TipoUsuario.INSTITUCIONAL.equals(this.usuario.getTipoUsuario()) ? R.drawable.instituicoes_icon : R.drawable.perfil_icon;
         this.foto.setImageResource(img);
-        if (this.usuario.getFoto() != null && this.usuario.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(this.usuario.getFoto()).transform(new CircleImageTransform())
-                    .placeholder(img)
-                    .error(img)
-                    .resize(130, 130)
-                    .centerCrop()
-                    .into(this.foto);
+        if (this.usuario.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(this.usuario.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            foto.setImageBitmap(bitmap);
         }
     }
 }

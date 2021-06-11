@@ -1,11 +1,8 @@
 package br.com.petrescue.api.domain;
 
-import br.com.petrescue.api.controller.dto.AnimalPINDTO;
-import br.com.petrescue.api.domain.enums.TipoAnimal;
-import br.com.petrescue.api.domain.enums.TipoPIN;
-import br.com.petrescue.api.domain.subClasses.Localizacao;
 import java.time.LocalDate;
 import java.time.ZoneId;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -17,8 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.com.petrescue.api.controller.dto.AnimalPINDTO;
+import br.com.petrescue.api.domain.enums.TipoAnimal;
+import br.com.petrescue.api.domain.enums.TipoPIN;
+import br.com.petrescue.api.domain.subClasses.Localizacao;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +40,7 @@ public class AnimalPIN {
     private Integer id;
 
     @Column
+    @Lob
     private String foto;
 
     @Column(nullable = false)

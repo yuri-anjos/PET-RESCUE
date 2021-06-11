@@ -71,20 +71,6 @@
         app:boxBackgroundMode="outline">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_foto_formadocao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Foto" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        app:boxBackgroundMode="outline">
-
-        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_nascimento_formadocao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,6 +113,29 @@
             android:layout_height="wrap_content"
             android:hint="Vacinas" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_foto_form_adocao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Carregar foto" />
+
+        <TextView
+            android:id="@+id/img_message_form_adocao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_salvar_formadocao"

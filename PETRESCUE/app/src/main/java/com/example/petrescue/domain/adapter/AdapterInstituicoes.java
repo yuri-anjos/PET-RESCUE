@@ -1,5 +1,8 @@
 package com.example.petrescue.domain.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +42,10 @@ public class AdapterInstituicoes extends RecyclerView.Adapter<AdapterInstituicoe
 
         holder.nome.setText(usuario.getNome());
         holder.descricao.setText(usuario.getDescricao());
-        if (usuario.getFoto() != null && usuario.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(usuario.getFoto()).transform(new RoundedCornersTransform())
-                    .placeholder(R.drawable.instituicoes_icon)
-                    .error(R.drawable.instituicoes_icon)
-                    .resize(150, 150)
-                    .centerCrop()
-                    .into(holder.foto);
+        if (usuario.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(usuario.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            holder.foto.setImageBitmap(bitmap);
         }
     }
 

@@ -1,6 +1,9 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,13 +152,18 @@ public class VaquinhaFragment extends Fragment {
     }
 
     private void atualizaCampos() {
-//        this.foto.setImageBitmap();
         this.inicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(this.vaquinha.getInicio()));
         this.titulo.setText(this.vaquinha.getTitulo());
         this.descricao.setText(this.vaquinha.getDescricao());
         this.arrecadado.setText(Double.toString(this.vaquinha.getValorArrecadado()));
         this.meta.setText(this.vaquinha.getMeta().equals(-1.0) ? "SEM LIMITE" : Double.toString(this.vaquinha.getMeta()));
         this.btAccessarUsuario.setText("Acesse o perfil de " + this.vaquinha.getNomeUsuario());
+
+        if(this.vaquinha.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(this.vaquinha.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            foto.setImageBitmap(bitmap);
+        }
 
         if (ControleActivity.USUARIO.getId().equals(this.vaquinha.getIdUsuario())) {
             this.editar.setVisibility(View.VISIBLE);

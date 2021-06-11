@@ -59,21 +59,30 @@
             android:hint="Descrição" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/container_foto_formpin"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
+        android:id="@+id/linear_layout_form_pin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/container_descricao_formpin"
-        android:layout_marginBottom="5dp"
-        app:boxBackgroundMode="outline">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_foto_formpin"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_foto_pin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Foto" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_weight="1"
+            android:text="carregar foto" />
+
+        <TextView
+            android:id="@+id/img_message_form_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="13sp" />
+    </LinearLayout>
 
     <fragment
         android:id="@+id/map_pin"

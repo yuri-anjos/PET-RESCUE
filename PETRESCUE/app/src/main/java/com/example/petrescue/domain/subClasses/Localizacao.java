@@ -1,6 +1,8 @@
 package com.example.petrescue.domain.subClasses;
 
-public class Localizacao {
+import java.io.Serializable;
+
+public class Localizacao implements Serializable {
     private Double latitude;
     private Double longitude;
 
