@@ -1,7 +1,11 @@
 package com.example.petrescue.ui;
 
-import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +22,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -29,8 +35,14 @@ import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalPinService;
 import com.example.petrescue.service.RetrofitConfig;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,12 +55,11 @@ import retrofit2.Retrofit;
 import static android.app.Activity.RESULT_OK;
 
 
-public class FormPinFragment extends Fragment {
+public class FormPinFragment extends Fragment implements OnMapReadyCallback {
 
     private TextView descricaoTela;
     private TextInputEditText descricao;
     private TextInputEditText raca;
-    private TextInputLayout containerRaca;
     private Spinner tipoAnimal;
     private Button salvar;
     private Button btnFoto;
@@ -58,6 +69,7 @@ public class FormPinFragment extends Fragment {
     private AnimalPinService animalPinService;
     private Retrofit retrofit;
 
+    private GoogleMap mMap;
     private final static int IMG_REQUEST_CODE = 21;
     private Bitmap bitmap;
 
@@ -67,6 +79,8 @@ public class FormPinFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_form_pin, container, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map_pin);
+        mapFragment.getMapAsync(this);
 
         this.pin = (AnimalPIN) getArguments().getSerializable("pin");
 
@@ -82,10 +96,11 @@ public class FormPinFragment extends Fragment {
         this.salvar.setOnClickListener(v -> {
             this.pin.setDescricao(this.descricao.getText().toString());
             this.pin.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
+
             if(bitmap != null) this.pin.setFoto(imageToBase64());
             if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
                 this.pin.setRaca(null);
-            }else{
+            } else {
                 this.pin.setRaca(this.raca.getText().toString());
             }
 
@@ -98,6 +113,87 @@ public class FormPinFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMinZoomPreference(8.0f);
+        mMap.setMaxZoomPreference(20.0f);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.pin.getLocalizacao().getLatitude(), this.pin.getLocalizacao().getLongitude()), 16.0f));
+
+        if(this.pin.getTipoAnimal()==null){
+            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+        }else{
+            switch (this.pin.getTipoAnimal()) {
+                case CACHORRO:
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
+                    break;
+                case GATO:
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_cat : R.drawable.missing_cat);
+                    break;
+                case ROEDOR:
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_rodent : R.drawable.missing_rodent);
+                    break;
+                case AVE:
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_bird : R.drawable.missing_bird);
+                    break;
+                case OUTROS:
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+                    break;
+            }
+        }
+
+        mMap.setOnMapClickListener(latLng -> {
+                if (mMap != null) {
+                    mMap.clear();
+                }
+                pin.setLocalizacao(new Localizacao(latLng.latitude, latLng.longitude));
+                if(this.pin.getTipoAnimal()==null){
+                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+                }else{
+                    switch (this.pin.getTipoAnimal()) {
+                        case CACHORRO:
+                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
+                            break;
+                        case GATO:
+                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_cat : R.drawable.missing_cat);
+                            break;
+                        case ROEDOR:
+                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_rodent : R.drawable.missing_rodent);
+                            break;
+                        case AVE:
+                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_bird : R.drawable.missing_bird);
+                            break;
+                        case OUTROS:
+                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+                            break;
+                    }
+                }
+        });
+    }
+
+    private void createMarker(@NonNull Localizacao location, int img) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), img);
+        int width = (int) (vectorDrawable.getIntrinsicWidth() * 0.5);
+        int height = (int) (vectorDrawable.getIntrinsicHeight() * 0.5);
+        vectorDrawable.setBounds(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                .anchor(0.5f, 1));
     }
 
     public String imageToBase64() {
@@ -122,7 +218,6 @@ public class FormPinFragment extends Fragment {
                 Log.e("Erro", "deu erro isso ae");
             }
         }
-
     }
 
     private void inicializaComponentes(View view) {
@@ -130,7 +225,6 @@ public class FormPinFragment extends Fragment {
         this.raca = view.findViewById(R.id.et_raca_formpin);
         this.tipoAnimal = view.findViewById(R.id.sp_tipoanimal_formpin);
         this.salvar = view.findViewById(R.id.bt_salvar_formpin);
-        this.containerRaca = view.findViewById(R.id.container_raca_formpin);
         this.descricaoTela = view.findViewById(R.id.tv_descricao_tela_formpin);
         this.btnFoto = view.findViewById(R.id.btn_foto_pin);
         this.imgMessage = view.findViewById(R.id.img_message_form_pin);
@@ -141,9 +235,8 @@ public class FormPinFragment extends Fragment {
         this.animalPinService = this.retrofit.create(AnimalPinService.class);
 
         if (TipoPIN.DESAPARECIDO.equals(this.pin.getTipoPIN())) {
-            this.containerRaca.setVisibility(View.VISIBLE);
             this.descricaoTela.setText("Animal Desaparecido");
-        }else{
+        } else {
             this.descricaoTela.setText("Animal Avistado");
         }
 

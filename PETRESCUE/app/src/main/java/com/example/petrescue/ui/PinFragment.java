@@ -27,6 +27,7 @@ import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class PinFragment extends Fragment {
     private TextInputEditText descricao;
     private TextView tipoPin;
     private TextView tipoAnimal;
-    private TextView raca;
+    private TextInputEditText raca;
     private ImageView foto;
 
     private Integer idPin;
@@ -116,11 +117,6 @@ public class PinFragment extends Fragment {
         this.tipoAnimal.setText(this.pin.getTipoAnimal().toString());
         this.raca.setText(this.pin.getRaca());
         this.btAcessarUsuario.setText("Acesse o perfil de " + this.pin.getNomeUsuario());
-        if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
-            this.raca.setVisibility(View.GONE);
-        }else{
-            this.raca.setVisibility(View.VISIBLE);
-        }
 
         if(ControleActivity.USUARIO.getId().equals(this.pin.getIdUsuario())){
             this.editar.setVisibility(View.VISIBLE);
