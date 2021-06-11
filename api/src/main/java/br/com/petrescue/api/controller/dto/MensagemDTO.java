@@ -23,7 +23,7 @@ public class MensagemDTO {
 
     public MensagemDTO(Mensagem mensagem) {
         this.id = mensagem.getId();
-        this.horario = Date.from(mensagem.getHorario().atZone(ZoneId.systemDefault()).toInstant());
+        this.horario = Date.from(mensagem.getHorario().atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
         this.texto = mensagem.getTexto();
         this.idAutor = mensagem.getAutor().getId();
         this.nomeAutor = mensagem.getAutor().getNome();

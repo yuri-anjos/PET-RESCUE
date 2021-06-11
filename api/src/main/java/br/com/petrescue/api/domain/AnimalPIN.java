@@ -83,6 +83,6 @@ public class AnimalPIN {
         this.tipoPIN = animalPINDTO.getTipoPIN();
         this.ativo = animalPINDTO.getAtivo();
         this.localizacao = animalPINDTO.getLocalizacao();
-        this.dataCadastro = animalPINDTO.getDataCadastro() == null ? null : animalPINDTO.getDataCadastro().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.dataCadastro = animalPINDTO.getDataCadastro() == null ? null : animalPINDTO.getDataCadastro().toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate();
     }
 }

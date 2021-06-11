@@ -33,6 +33,7 @@ import com.example.petrescue.domain.AnimalPIN;
 import com.example.petrescue.domain.enums.TipoAnimal;
 import com.example.petrescue.domain.enums.TipoPIN;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
+import com.example.petrescue.domain.subClasses.Localizacao;
 import com.example.petrescue.service.AnimalPinService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,7 +80,7 @@ public class FormPinFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_form_pin, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map_pin);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map_form_pin);
         mapFragment.getMapAsync(this);
 
         this.pin = (AnimalPIN) getArguments().getSerializable("pin");
@@ -97,8 +98,8 @@ public class FormPinFragment extends Fragment implements OnMapReadyCallback {
             this.pin.setDescricao(this.descricao.getText().toString());
             this.pin.setTipoAnimal(TipoAnimal.valueOf(this.tipoAnimal.getSelectedItem().toString()));
 
-            if(bitmap != null) this.pin.setFoto(imageToBase64());
-            if(TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())){
+            if (bitmap != null) this.pin.setFoto(imageToBase64());
+            if (TipoPIN.AVISTADO.equals(this.pin.getTipoPIN())) {
                 this.pin.setRaca(null);
             } else {
                 this.pin.setRaca(this.raca.getText().toString());
@@ -131,9 +132,9 @@ public class FormPinFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.pin.getLocalizacao().getLatitude(), this.pin.getLocalizacao().getLongitude()), 16.0f));
 
-        if(this.pin.getTipoAnimal()==null){
+        if (this.pin.getTipoAnimal() == null) {
             createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
-        }else{
+        } else {
             switch (this.pin.getTipoAnimal()) {
                 case CACHORRO:
                     createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
@@ -154,31 +155,31 @@ public class FormPinFragment extends Fragment implements OnMapReadyCallback {
         }
 
         mMap.setOnMapClickListener(latLng -> {
-                if (mMap != null) {
-                    mMap.clear();
+            if (mMap != null) {
+                mMap.clear();
+            }
+            pin.setLocalizacao(new Localizacao(latLng.latitude, latLng.longitude));
+            if (this.pin.getTipoAnimal() == null) {
+                createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+            } else {
+                switch (this.pin.getTipoAnimal()) {
+                    case CACHORRO:
+                        createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
+                        break;
+                    case GATO:
+                        createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_cat : R.drawable.missing_cat);
+                        break;
+                    case ROEDOR:
+                        createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_rodent : R.drawable.missing_rodent);
+                        break;
+                    case AVE:
+                        createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_bird : R.drawable.missing_bird);
+                        break;
+                    case OUTROS:
+                        createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
+                        break;
                 }
-                pin.setLocalizacao(new Localizacao(latLng.latitude, latLng.longitude));
-                if(this.pin.getTipoAnimal()==null){
-                    createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
-                }else{
-                    switch (this.pin.getTipoAnimal()) {
-                        case CACHORRO:
-                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_dog : R.drawable.missing_dog);
-                            break;
-                        case GATO:
-                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_cat : R.drawable.missing_cat);
-                            break;
-                        case ROEDOR:
-                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_rodent : R.drawable.missing_rodent);
-                            break;
-                        case AVE:
-                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_bird : R.drawable.missing_bird);
-                            break;
-                        case OUTROS:
-                            createMarker(this.pin.getLocalizacao(), TipoPIN.AVISTADO.equals(pin.getTipoPIN()) ? R.drawable.spotted_other : R.drawable.missing_other);
-                            break;
-                    }
-                }
+            }
         });
     }
 

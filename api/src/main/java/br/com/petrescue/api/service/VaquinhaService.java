@@ -9,6 +9,7 @@ import br.com.petrescue.api.exceptions.NegocioException;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.repository.VaquinhaRepository;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class VaquinhaService {
 
         vaquinha.setUsuario(usuario);
         vaquinha.setAtivo(true);
-        vaquinha.setInicio(LocalDate.now());
+        vaquinha.setInicio(LocalDate.now(ZoneId.of("America/Sao_Paulo")));
         vaquinha.setValorArrecadado(0.0);
         return new VaquinhaDTO(this.vaquinhaRepository.save(vaquinha));
     }

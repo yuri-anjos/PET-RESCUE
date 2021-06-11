@@ -24,7 +24,7 @@ public class DoacaoDTO {
     public DoacaoDTO(Doacao doacao) {
         this.id = doacao.getId();
         this.quantia = doacao.getQuantia();
-        this.quando = Date.from(doacao.getQuando().atZone(ZoneId.systemDefault()).toInstant());
+        this.quando = Date.from(doacao.getQuando().atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
         this.idDoador = doacao.getDoador().getId();
         this.nomeDoador = doacao.getDoador().getNome();
         this.idVaquinha = doacao.getVaquinha().getId();

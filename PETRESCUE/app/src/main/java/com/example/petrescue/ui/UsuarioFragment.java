@@ -24,12 +24,10 @@ import com.example.petrescue.domain.CarteiraDTO;
 import com.example.petrescue.domain.Usuario;
 import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
-import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.RetrofitConfig;
 import com.example.petrescue.service.UsuarioService;
 import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;

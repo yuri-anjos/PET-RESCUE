@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Animal;
-import com.example.petrescue.service.RoundedCornersTransform;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

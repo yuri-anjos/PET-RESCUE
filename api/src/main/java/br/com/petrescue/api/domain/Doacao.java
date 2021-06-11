@@ -45,6 +45,6 @@ public class Doacao {
     public Doacao(DoacaoDTO doacaoDTO) {
         this.id = doacaoDTO.getId();
         this.quantia = doacaoDTO.getQuantia();
-        this.quando = doacaoDTO.getQuando() == null ? null : doacaoDTO.getQuando().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.quando = doacaoDTO.getQuando() == null ? null : doacaoDTO.getQuando().toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
     }
 }

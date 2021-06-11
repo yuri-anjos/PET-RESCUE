@@ -9,6 +9,7 @@ import br.com.petrescue.api.repository.AnimalPinRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.utils.GeralValidator;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class AnimalPinService {
         this.geralValidator.localizacao(animalPinDTO.getLocalizacao());
         
         animalPIN.setAtivo(true);
-        animalPIN.setDataCadastro(LocalDate.now());
+        animalPIN.setDataCadastro(LocalDate.now(ZoneId.of("America/Sao_Paulo")));
         animalPIN.setUsuario(usuario);
         return new AnimalPINDTO(this.animalPinRepository.save(animalPIN));
     }

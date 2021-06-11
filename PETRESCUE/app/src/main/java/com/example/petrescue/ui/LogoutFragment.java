@@ -23,7 +23,7 @@ public class LogoutFragment extends Fragment {
         new AlertDialog.Builder(getActivity())
                 .setIcon(R.drawable.warning_icon)
                 .setTitle("Sair")
-                .setMessage("Tem certeza qeu deseja sair??")
+                .setMessage("Tem certeza que deseja sair??")
                 .setPositiveButton("Sim", (dialog, which) -> getActivity().finish())
                 .setNegativeButton("Não", null)
                 .show();

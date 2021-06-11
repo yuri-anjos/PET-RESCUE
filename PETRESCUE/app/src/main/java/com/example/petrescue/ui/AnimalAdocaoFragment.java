@@ -25,9 +25,7 @@ import com.example.petrescue.domain.enums.SituacaoAdocao;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
 import com.example.petrescue.service.AnimalService;
 import com.example.petrescue.service.RetrofitConfig;
-import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 

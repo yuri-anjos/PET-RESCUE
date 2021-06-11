@@ -38,7 +38,7 @@ public class AnimalPINDTO {
         this.tipoPIN = animalPIN.getTipoPIN();
         this.ativo = animalPIN.getAtivo();
         this.localizacao = animalPIN.getLocalizacao();
-        this.dataCadastro = Date.from(animalPIN.getDataCadastro().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.dataCadastro = Date.from(animalPIN.getDataCadastro().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
         this.idUsuario = animalPIN.getUsuario().getId();
         this.nomeUsuario = animalPIN.getUsuario().getNome();
     }

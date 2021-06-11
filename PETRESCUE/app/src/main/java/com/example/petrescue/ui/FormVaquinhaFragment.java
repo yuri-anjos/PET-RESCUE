@@ -60,14 +60,14 @@ public class FormVaquinhaFragment extends Fragment {
 
         this.vaquinha = (Vaquinha) getArguments().getSerializable("vaquinha");
 
+        this.inicializaComponentes(root);
+
         this.btnFoto.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, IMG_REQUEST_CODE);
         });
-
-        this.inicializaComponentes(root);
 
         this.salvar.setOnClickListener(v -> {
             this.vaquinha.setTitulo(this.titulo.getText().toString());

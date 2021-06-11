@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginBottom="80dp"
+    android:layout_height="match_parent"
     android:gravity="center"
     android:padding="10dp">
 
@@ -97,5 +95,14 @@
         android:layout_below="@id/bt_editar_pin"
         android:text="Acesse o perfil do criador"
         android:visibility="gone" />
+
+    <fragment
+        android:id="@+id/map_pin"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/bt_acessar_usuario_pin"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

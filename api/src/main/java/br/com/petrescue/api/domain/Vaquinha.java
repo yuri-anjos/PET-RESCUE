@@ -60,7 +60,7 @@ public class Vaquinha {
         this.meta = vaquinhaDTO.getMeta();
         this.valorArrecadado = vaquinhaDTO.getValorArrecadado();
         this.foto = vaquinhaDTO.getFoto();
-        this.inicio = vaquinhaDTO.getInicio() == null ? null : vaquinhaDTO.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.inicio = vaquinhaDTO.getInicio() == null ? null : vaquinhaDTO.getInicio().toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate();
         this.titulo = vaquinhaDTO.getTitulo();
         this.descricao = vaquinhaDTO.getDescricao();
         this.ativo = vaquinhaDTO.getAtivo();

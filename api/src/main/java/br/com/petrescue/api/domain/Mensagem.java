@@ -44,7 +44,7 @@ public class Mensagem {
 
     public Mensagem(MensagemDTO mensagemDTO) {
         this.id = mensagemDTO.getId();
-        this.horario = mensagemDTO.getHorario() == null ? null : mensagemDTO.getHorario().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.horario = mensagemDTO.getHorario() == null ? null : mensagemDTO.getHorario().toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
         this.texto = mensagemDTO.getTexto();
     }
 }

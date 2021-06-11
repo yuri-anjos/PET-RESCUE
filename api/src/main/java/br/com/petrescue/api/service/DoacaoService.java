@@ -10,6 +10,7 @@ import br.com.petrescue.api.repository.DoacaoRepository;
 import br.com.petrescue.api.repository.UsuarioRepository;
 import br.com.petrescue.api.repository.VaquinhaRepository;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class DoacaoService {
         }
 
         recebedor.setSaldo(recebedor.getSaldo() + doacao.getQuantia());
-        doacao.setQuando(LocalDateTime.now());
+        doacao.setQuando(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
         doacao.setDoador(doador);
         doacao.setVaquinha(vaquinha);
 

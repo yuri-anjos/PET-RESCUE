@@ -1,6 +1,9 @@
 package com.example.petrescue.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +22,11 @@ import com.example.petrescue.ControleActivity;
 import com.example.petrescue.R;
 import com.example.petrescue.domain.Conversa;
 import com.example.petrescue.domain.Mensagem;
-import com.example.petrescue.domain.adapter.AdapterConversa;
 import com.example.petrescue.domain.adapter.AdapterMensagem;
-import com.example.petrescue.domain.enums.TipoUsuario;
 import com.example.petrescue.domain.subClasses.ErrorResponse;
-import com.example.petrescue.service.CircleImageTransform;
 import com.example.petrescue.service.ConversaService;
 import com.example.petrescue.service.MensagemService;
 import com.example.petrescue.service.RetrofitConfig;
-import com.example.petrescue.service.RoundedCornersTransform;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
@@ -158,14 +157,10 @@ public class ChatFragment extends Fragment {
 
     private void carregarCampos() {
         this.nome.setText(ControleActivity.USUARIO.getId().equals(this.conversa.getIdUsuarioUm()) ? this.conversa.getNomeUsuarioDois() : this.conversa.getNomeUsuarioUm());
-        if (this.conversa.getFoto() != null && this.conversa.getFoto().length() > 0) {
-            Picasso.get()
-                    .load(this.conversa.getFoto()).transform(new CircleImageTransform())
-                    .placeholder(R.drawable.perfil_icon)
-                    .error(R.drawable.perfil_icon)
-                    .resize(64, 64)
-                    .centerCrop()
-                    .into(this.foto);
+        if(this.conversa.getFoto() != null) {
+            byte[] imgBytes = Base64.decode(this.conversa.getFoto(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+            this.foto.setImageBitmap(bitmap);
         }
     }
 }

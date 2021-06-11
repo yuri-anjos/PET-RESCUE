@@ -30,7 +30,7 @@ public class VaquinhaDTO {
         this.meta = vaquinha.getMeta();
         this.valorArrecadado = vaquinha.getValorArrecadado();
         this.foto = vaquinha.getFoto();
-        this.inicio = Date.from(vaquinha.getInicio().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.inicio = Date.from(vaquinha.getInicio().atStartOfDay(ZoneId.of("America/Sao_Paulo")).toInstant());
         this.titulo = vaquinha.getTitulo();
         this.descricao = vaquinha.getDescricao();
         this.ativo = vaquinha.getAtivo();
